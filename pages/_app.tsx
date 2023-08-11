@@ -3,13 +3,26 @@ import type { AppProps } from 'next/app'
 import { Footer } from '@/components/Footer/Footer'
 import { Header } from '@/components/Header/Header'
 import { Grid } from '@mui/material'
-import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import SideNav from '@/components/SideNav/SideNav'
-
-const inter = Inter({ subsets: ['latin'] })
+import { useEffect, useState } from 'react'
+import Disclaimer from '@/components/Disclaimer/Disclaimer'
 
 export default function App({ Component, pageProps }: AppProps) {
+	const [showDisclaimer, setShowDisclaimer] = useState(false)
+
+	useEffect(() => {
+		// Verifica se o disclaimer já foi aceito anteriormente
+		const disclaimerAccepted = localStorage.getItem('disclaimerAccepted')
+		setShowDisclaimer(disclaimerAccepted !== 'true')
+	}, [])
+
+	const handleAcceptDisclaimer = () => {
+		// Marca o disclaimer como aceito no armazenamento local
+		localStorage.setItem('disclaimerAccepted', 'true')
+		setShowDisclaimer(false)
+	}
+
 	return (
 		<>
 			<Head>
@@ -22,13 +35,20 @@ export default function App({ Component, pageProps }: AppProps) {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<main>
-				<Grid className='max-h-screen column'>
-					<Header />
-					<SideNav>
-						<Component {...pageProps} />
-					</SideNav>
-					<Footer />
-				</Grid>
+				{/* Exibir o Disclaimer antes de renderizar a página principal */}
+				{showDisclaimer ? (
+					<Disclaimer open={true} onAccept={handleAcceptDisclaimer} />
+				) : (
+					<>
+						<Grid className='max-h-screen column'>
+							<Header />
+							<SideNav>
+								<Component {...pageProps} />
+							</SideNav>
+							<Footer />
+						</Grid>
+					</>
+				)}
 			</main>
 		</>
 	)
