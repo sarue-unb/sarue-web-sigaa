@@ -77,12 +77,12 @@ const SideNavMenu = () => {
 				<List>
 					<CustomListItem
 						text='Sobre o projeto'
-						linkRoute='/dashboard'
+						linkRoute='/about'
 						icon={<Help fontSize='large' htmlColor='white' />}
 					></CustomListItem>
 					<CustomListItem
 						text='Sair'
-						linkRoute='/indicadores'
+						linkRoute='/dashboard'
 						icon={<ExitToApp fontSize='large' htmlColor='lightcoral' />}
 					></CustomListItem>
 				</List>

@@ -24,7 +24,6 @@ const CustomListItem = (props: CustomListItemProps) => {
 							{props.icon}
 						</Box>
 					)}{' '}
-					{/* Renderiza o ícone se fornecido */}
 					<ListItemText>
 						<Typography fontSize='large'>{props.text}</Typography>
 					</ListItemText>
