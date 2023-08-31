@@ -127,13 +127,11 @@ export default function Indicadores() {
 						onClick={handleButtonClick}
 					/>
 					<BotaoIndicadores
-						label='Total de pessoas diretamente atendidas pelos programas e projetos de
-						extensão'
+						label='Total de pessoas diretamente atendidas pelos programas e projetos de extensão'
 						onClick={handleButtonClick}
 					/>
 					<BotaoIndicadores
-						label='Número de pessoas externas à UnB que atuaram como membros da equipe
-						das ações de extensão'
+						label='Número de pessoas externas à UnB que atuaram como membros da equipe das ações de extensão'
 						onClick={handleButtonClick}
 					/>
 					<BotaoIndicadores
@@ -141,8 +139,7 @@ export default function Indicadores() {
 						onClick={handleButtonClick}
 					/>
 					<BotaoIndicadores
-						label='Quantitativo de ações cadastradas por categoria (programas,
-							projetos, cursos e eventos)'
+						label='Quantitativo de ações cadastradas por categoria (programas, projetos, cursos e eventos)'
 						onClick={handleButtonClick}
 					/>
 				</Box>
