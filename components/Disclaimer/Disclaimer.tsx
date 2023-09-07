@@ -57,6 +57,7 @@ const DisclaimerModal = () => {
 			aria-labelledby='Termo de consentimento'
 			aria-describedby='Termo de consentimento para uso do sistema Sarue'
 			hideBackdrop
+			sx={{ overflow: 'scroll' }}
 		>
 			<Box
 				sx={{
@@ -66,7 +67,7 @@ const DisclaimerModal = () => {
 					justifyContent: 'center',
 					alignItems: 'center',
 					zIndex: 9999,
-					maxWidth: '100%',
+					minHeight: '100%',
 				}}
 			>
 				<Box
@@ -75,27 +76,14 @@ const DisclaimerModal = () => {
 						padding: '1.5',
 						borderRadius: '36px', // Bordas mais arredondadas
 						boxShadow: 4,
-						maxWidth: '1200px',
+						maxWidth: '80%',
+
 						display: 'flex',
 						flexDirection: 'column',
 						alignItems: 'center',
 						position: 'relative',
 					}}
 				>
-					<Typography
-						textAlign='center'
-						fontSize='3rem'
-						fontWeight='bold'
-						gutterBottom
-						sx={{
-							position: 'absolute',
-							top: '-78px', // Ajuste essa propriedade conforme necessário
-							left: 0,
-							color: 'primary',
-						}}
-					>
-						Termo de consentimento
-					</Typography>
 					<Typography
 						gutterBottom
 						sx={{
