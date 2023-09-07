@@ -54,8 +54,8 @@ const DisclaimerModal = () => {
 	return (
 		<Modal
 			open={open}
-			aria-labelledby='disclaimer-modal-title'
-			aria-describedby='disclaimer-modal-title'
+			aria-labelledby='Termo de consentimento'
+			aria-describedby='Termo de consentimento para uso do sistema Sarue'
 			hideBackdrop
 		>
 			<Box
