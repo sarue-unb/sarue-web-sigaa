@@ -23,7 +23,7 @@ const DisclaimerItem = ({ index, title, description }: DisclaimerItemProps) => {
 					fontWeight='bold'
 					sx={{ marginTop: 0, color: 'black' }}
 					textTransform='uppercase'
-					fontSize='32px'
+					fontSize='2em'
 				>
 					{index != 0 ? index + '.' : ''} {title}
 				</Typography>
@@ -31,7 +31,7 @@ const DisclaimerItem = ({ index, title, description }: DisclaimerItemProps) => {
 					variant='body1'
 					textAlign='justify'
 					sx={{ marginTop: 0, color: 'black' }}
-					fontSize='20px'
+					fontSize='1.5em'
 				>
 					{description}
 				</Typography>

@@ -89,7 +89,7 @@ export default function Indicadores() {
 				marginBottom={10}
 				marginTop='10px'
 				textAlign='center'
-				fontSize='30px'
+				fontSize='1.5em'
 			>
 				Sistema de Apuração dos Registros Universitários de Extensão
 			</Typography>

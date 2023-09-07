@@ -73,14 +73,14 @@ const DisclaimerModal = () => {
 				<Box
 					sx={{
 						backgroundColor: 'white',
-						padding: '1.5',
+						padding: '3em',
 						borderRadius: '36px', // Bordas mais arredondadas
-						boxShadow: 4,
-						maxWidth: '80%',
+						maxWidth: '920px',
 						display: 'flex',
 						flexDirection: 'column',
 						alignItems: 'center',
 						position: 'relative',
+						margin: '2em',
 					}}
 				>
 					<Typography
@@ -98,7 +98,7 @@ const DisclaimerModal = () => {
 						<Typography
 							fontStyle='italic'
 							sx={{ marginTop: 0, color: 'black' }}
-							fontSize='1em'
+							fontSize='1.5em'
 							textAlign='center'
 						>
 							Ao clicar em "Avançar" você aceita cumprir as condições acima
@@ -119,7 +119,7 @@ const DisclaimerModal = () => {
 						<Typography
 							variant='body2'
 							sx={{ maxWidth: '800px', textAlign: 'left', color: 'black' }}
-							fontSize='20px'
+							fontSize='1.5em'
 						>
 							Concordo com este termo de consentimento
 						</Typography>
@@ -132,7 +132,7 @@ const DisclaimerModal = () => {
 						sx={{
 							mt: 2,
 							width: '300px',
-							fontSize: '1.5rem',
+							fontSize: '1em',
 							borderRadius: '32px',
 							marginBottom: '1em',
 						}}
