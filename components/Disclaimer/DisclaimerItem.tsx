@@ -25,7 +25,7 @@ const DisclaimerItem = ({ index, title, description }: DisclaimerItemProps) => {
 					textTransform='uppercase'
 					fontSize='32px'
 				>
-					{index}. {title}
+					{index != 0 ? index + '.' : ''} {title}
 				</Typography>
 				<Typography
 					variant='body1'
