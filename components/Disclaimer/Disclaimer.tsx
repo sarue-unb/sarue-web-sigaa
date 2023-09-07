@@ -77,7 +77,6 @@ const DisclaimerModal = () => {
 						borderRadius: '36px', // Bordas mais arredondadas
 						boxShadow: 4,
 						maxWidth: '80%',
-
 						display: 'flex',
 						flexDirection: 'column',
 						alignItems: 'center',

@@ -2,21 +2,13 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Footer } from '@/components/Footer/Footer'
 import { Header } from '@/components/Header/Header'
-import { Grid } from '@mui/material'
+import { Grid, Box } from '@mui/material'
 import Head from 'next/head'
 import SideNav from '@/components/SideNav/SideNav'
 import { useEffect, useState } from 'react'
 import DisclaimerModal from '@/components/Disclaimer/Disclaimer'
 
 export default function App({ Component, pageProps }: AppProps) {
-	const [showDisclaimer, setShowDisclaimer] = useState(false)
-
-	useEffect(() => {
-		// Verifica se o disclaimer já foi aceito anteriormente
-		const disclaimerAccepted = localStorage.getItem('disclaimerAccepted')
-		setShowDisclaimer(disclaimerAccepted !== 'true')
-	}, [])
-
 	return (
 		<>
 			<Head>
