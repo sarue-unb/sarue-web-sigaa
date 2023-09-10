@@ -45,7 +45,6 @@ const DisclaimerModal = () => {
 	}
 
 	useEffect(() => {
-		console.log('code ran')
 		if (!localStorage.getItem('disclaimerAccepted')) {
 			setOpen(true)
 		}
