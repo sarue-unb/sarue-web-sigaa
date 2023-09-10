@@ -1,50 +1,16 @@
-import { Container, List, Typography, Divider, Avatar } from '@mui/material'
+import { Container, List, Divider } from '@mui/material'
 import CustomListItem from '../CustomListItem/CustomListItem'
 import HomeIcon from '@mui/icons-material/Home'
 import BarChart from '@mui/icons-material/BarChart'
 import Description from '@mui/icons-material/Description'
 import Help from '@mui/icons-material/Help'
 import ExitToApp from '@mui/icons-material/ExitToApp'
-
+import SchoolIcon from '@mui/icons-material/School'
 const SideNavMenu = () => {
 	return (
-		<Container className='bg-darkGrey h-full p-0'>
-			<div className='flex items-center p-4  mt-4'>
-				<Avatar
-					alt='Avatar do Usuário'
-					src='/imagem-avatar.jpg'
-					sx={{
-						width: 96,
-						height: 96,
-						backgroundColor: 'white',
-					}}
-				/>
-				<div className='ml-4'>
-					<Typography variant='subtitle1' color='white' fontSize='large'>
-						DOCENTE
-					</Typography>
-					<Typography variant='body1' color='white' fontSize='large'>
-						Nome do Usuário
-					</Typography>
-				</div>
-			</div>
+		<Container className='bg-darkGrey p-0'>
 			<nav aria-label='Navegação principal'>
 				<List>
-					<Divider
-						sx={{
-							width: '80%',
-							opacity: 0.3,
-							margin: '16px auto',
-							borderColor: 'gray',
-						}}
-					/>
-					{/* <Typography
-						variant='subtitle1'
-						color='white'
-						sx={{ marginBottom: '10px', ml: '36px' }}
-					>
-						MENU
-					</Typography> */}
 					<CustomListItem
 						text='Dashboard'
 						linkRoute='/dashboard'
@@ -58,7 +24,7 @@ const SideNavMenu = () => {
 					<CustomListItem
 						text='Indicadores Acadêmicos'
 						linkRoute='/indicadores'
-						icon={<BarChart fontSize='large' htmlColor='white' />}
+						icon={<SchoolIcon fontSize='large' htmlColor='white' />}
 					></CustomListItem>
 					<CustomListItem
 						text='Exportar dados'
