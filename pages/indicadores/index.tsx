@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import { Typography } from '@mui/material'
 import Button from '@mui/material/Button'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
-import { useIsMobile } from '@/components/hooks/hooks'
+import { useIsMobile } from '@/components/hooks/useIsMobile'
 
 import {
 	LineChart,
