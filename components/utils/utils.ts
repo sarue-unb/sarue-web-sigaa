@@ -3,3 +3,9 @@ export const isDatabaseLoaded = () => {
 		return localStorage.getItem('database') !== null
 	}
 }
+
+export const getDatabase = () => {
+	if (typeof window != 'undefined') {
+		return JSON.parse(localStorage.getItem('database'))
+	}
+}

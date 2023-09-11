@@ -4,7 +4,7 @@ import { Typography } from '@mui/material'
 import Button from '@mui/material/Button'
 import { useIsMobile } from '@/components/hooks/useIsMobile'
 import { BotaoIndicadores } from '../../../components/Indicadores/BotaoIndicadores/BotaoIndicadores'
-import { IndicadoresTcu } from '../../../components/Indicadores/IndicadoresTcuList'
+import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresTcuList'
 import {
 	LineChart,
 	Line,
@@ -49,8 +49,8 @@ export default function Indicadores() {
 	}
 
 	const isMobile = useIsMobile(width, setWidth)
-	const buttons = Object.entries(IndicadoresTcu).map(([key, value]) => (
-		<BotaoIndicadores label={value} onClick={handleButtonClick} />
+	const buttons = Object.entries(IndicadoresTcuList).map(([key, value]) => (
+		<BotaoIndicadores indicadorValue={value} onClick={handleButtonClick} />
 	))
 
 	return (
