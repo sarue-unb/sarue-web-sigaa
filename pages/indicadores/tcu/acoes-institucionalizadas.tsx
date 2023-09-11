@@ -16,9 +16,6 @@ import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresT
 import { getDatabase } from '@/components/utils/utils'
 
 export const AcoesInstitucionalizadas = () => {
-	const [showData, setShowData] = useState(false)
-	const [xvalue, setXvalue] = useState([])
-	const [yvalue, setYvalue] = useState([])
 	const chartRef = useRef<any>(null)
 	const [graphData, setGraphData] = useState({})
 	const [finalData, setFinalData] = useState([])
@@ -36,7 +33,6 @@ export const AcoesInstitucionalizadas = () => {
 	}
 
 	useEffect(() => {
-		setGraphData(getDatabase())
 		calculateIndicador()
 	}, [graphData])
 
@@ -46,8 +42,8 @@ export const AcoesInstitucionalizadas = () => {
 		let months = []
 		let values: any[] = []
 		for (const [key, value] of Object.entries(graphData)) {
-			for (const [internalKey, internalValue] of Object.entries(value)) {
-				months.push(internalKey)
+			for (const [internalMonths, internalValue] of Object.entries(value)) {
+				months.push(internalMonths)
 				values.push(internalValue)
 			}
 		}

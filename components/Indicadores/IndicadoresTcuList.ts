@@ -1,8 +1,7 @@
 export const IndicadoresTcuList = {
 	acoes_institucionalizadas: {
 		path: 'tcu/acoes-institucionalizadas',
-		title:
-			'Índice de ações institucionalizadas no SIGAA em relação ao ano anterior',
+		title:'Índice de ações institucionalizadas no SIGAA em relação ao ano anterior',
 	},
 	acoes_mais_de_uma_unidade_academica: {
 		path: '',
@@ -12,7 +11,6 @@ export const IndicadoresTcuList = {
 		path: '',
 		title: 'Número de estudantes extensionistas por projeto',
 	},
-
 	pessoas_atendidas: {
 		path: '',
 		title:'Total de pessoas diretamente atendidas pelos programas e projetos de extensão',
