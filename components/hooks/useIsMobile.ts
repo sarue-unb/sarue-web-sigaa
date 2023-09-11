@@ -8,5 +8,5 @@ export const useIsMobile = (width: number, setWidth: any) => {
 		}
 	}, [])
 
-	return width <= 1024
+	return width <= 764
 }
