@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 export const useIsMobile = (width: number, setWidth: any) => {
 	useEffect(() => {
@@ -8,5 +8,5 @@ export const useIsMobile = (width: number, setWidth: any) => {
 		}
 	}, [])
 
-	return width <= 1024
+	return width <= 764
 }

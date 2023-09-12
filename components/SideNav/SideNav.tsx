@@ -10,10 +10,10 @@ const SideNav = ({ children }: SideNavProps) => {
 	return (
 		<Container className='max-h-min w-screen p-0 max-w-full'>
 			<Grid container>
-				<Grid container item xs={2}>
+				<Grid container item xs={3}>
 					<SideNavMenu />
 				</Grid>
-				<Grid item xs={10} className='bg-lightGrey'>
+				<Grid item xs={9} className='bg-lightGrey'>
 					{children}
 				</Grid>
 			</Grid>

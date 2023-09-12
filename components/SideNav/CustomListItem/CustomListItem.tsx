@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 import Link from 'next/link'
 
-import { useIsMobile } from '@/components/hooks/hooks'
+import { useIsMobile } from '@/components/hooks/useIsMobile'
 interface CustomListItemProps {
 	text: string
 	linkRoute: string

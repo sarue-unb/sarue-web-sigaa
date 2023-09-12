@@ -18,12 +18,12 @@ const SideNavMenu = () => {
 					></CustomListItem>
 					<CustomListItem
 						text='Indicadores TCU'
-						linkRoute='/indicadores'
+						linkRoute='/indicadores/tcu'
 						icon={<BarChart fontSize='large' htmlColor='white' />}
 					></CustomListItem>
 					<CustomListItem
 						text='Indicadores Acadêmicos'
-						linkRoute='/indicadores'
+						linkRoute='/indicadores/academicos'
 						icon={<SchoolIcon fontSize='large' htmlColor='white' />}
 					></CustomListItem>
 					<CustomListItem

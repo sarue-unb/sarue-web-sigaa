@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Checkbox, List, Typography, Modal } from '@mui/material'
+import {
+	Box,
+	Button,
+	Checkbox,
+	List,
+	Typography,
+	Modal,
+	FormControlLabel,
+} from '@mui/material'
 import { useRouter } from 'next/router'
 import DisclaimerItem from './DisclaimerItem'
 
@@ -45,7 +53,6 @@ const DisclaimerModal = () => {
 	}
 
 	useEffect(() => {
-		console.log('code ran')
 		if (!localStorage.getItem('disclaimerAccepted')) {
 			setOpen(true)
 		}
@@ -108,21 +115,20 @@ const DisclaimerModal = () => {
 
 					{/* Checkbox */}
 					<Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
-						<Checkbox
-							sx={{
-								stroke: 'black',
-								'&:hover': { stroke: 'black' },
-							}}
-							checked={accepted}
-							onChange={e => setAccepted(e.target.checked)}
+						<FormControlLabel
+							sx={{ color: 'black' }}
+							label='Concordo com este termo de uso'
+							control={
+								<Checkbox
+									sx={{
+										stroke: 'black',
+										'&:hover': { stroke: 'black' },
+									}}
+									checked={accepted}
+									onChange={e => setAccepted(e.target.checked)}
+								/>
+							}
 						/>
-						<Typography
-							variant='body2'
-							sx={{ maxWidth: '800px', textAlign: 'left', color: 'black' }}
-							fontSize='1.5em'
-						>
-							Concordo com este termo de consentimento
-						</Typography>
 					</Box>
 
 					<Button

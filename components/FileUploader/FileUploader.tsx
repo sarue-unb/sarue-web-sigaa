@@ -3,6 +3,7 @@ import { Container } from '@mui/system'
 import { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { uploadFilesMessage, fileLoadedMessage } from './messages'
+import { isDatabaseLoaded } from '../utils/utils'
 
 export const FileUploader = () => {
 	const [uploadMessage, setUploadMessage] = useState(uploadFilesMessage)
@@ -10,6 +11,11 @@ export const FileUploader = () => {
 	const changeUploadMessage = () => {
 		setUploadMessage(fileLoadedMessage)
 	}
+	useEffect(() => {
+		if (isDatabaseLoaded()) {
+			changeUploadMessage()
+		}
+	}, [])
 
 	const onDrop = useCallback((acceptedFiles: any[]) => {
 		acceptedFiles.forEach((file: Blob) => {
@@ -18,6 +24,7 @@ export const FileUploader = () => {
 			reader.onabort = () => console.log('file reading was aborted')
 			reader.onerror = () => console.log('file reading has failed')
 			reader.onload = () => {
+				localStorage.setItem('database', reader.result as string)
 				changeUploadMessage()
 			}
 			reader.readAsText(file)

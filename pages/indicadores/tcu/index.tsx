@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import { Typography } from '@mui/material'
 import Button from '@mui/material/Button'
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
-import { useIsMobile } from '@/components/hooks/hooks'
-
+import { useIsMobile } from '@/components/hooks/useIsMobile'
+import { BotaoIndicadores } from '../../../components/Indicadores/BotaoIndicadores/BotaoIndicadores'
+import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresTcuList'
 import {
 	LineChart,
 	Line,
@@ -40,36 +40,6 @@ const data = [
 	},
 ]
 
-interface BotaoIndicadoresProps {
-	label: string
-	onClick: () => void
-}
-
-const BotaoIndicadores: React.FC<BotaoIndicadoresProps> = ({
-	label,
-	onClick,
-}) => (
-	<Button
-		variant='contained'
-		onClick={onClick}
-		sx={{
-			maxWidth: '30rem',
-			my: 1,
-			whiteSpace: 'break-spaces',
-			justifyContent: 'space-between',
-			backgroundColor: 'green !important',
-			borderRadius: '24px',
-			display: 'flex',
-			alignItems: 'center',
-			paddingLeft: '24px',
-			paddingRight: '24px',
-		}}
-	>
-		{label}
-		<KeyboardArrowRightIcon />
-	</Button>
-)
-
 export default function Indicadores() {
 	const [showData, setShowData] = useState(false)
 	const [width, setWidth] = React.useState(0)
@@ -79,6 +49,10 @@ export default function Indicadores() {
 	}
 
 	const isMobile = useIsMobile(width, setWidth)
+	const buttons = Object.entries(IndicadoresTcuList).map(([key, value]) => (
+		<BotaoIndicadores indicadorValue={value} onClick={handleButtonClick} />
+	))
+
 	return (
 		<Box
 			display='flex'
@@ -105,34 +79,7 @@ export default function Indicadores() {
 					justifyContent='flex-start'
 					alignItems='flex-start'
 				>
-					<BotaoIndicadores
-						label='Índice de ações institucionalizadas no SIGAA em relação ao ano anterior'
-						onClick={handleButtonClick}
-					/>
-					<BotaoIndicadores
-						label='Índice Quantitativo de ações de extensão que possuem mais de uma unidade acadêmica vinculada'
-						onClick={handleButtonClick}
-					/>
-					<BotaoIndicadores
-						label='Número de estudantes extensionistas por projeto'
-						onClick={handleButtonClick}
-					/>
-					<BotaoIndicadores
-						label='Total de pessoas diretamente atendidas pelos programas e projetos de extensão'
-						onClick={handleButtonClick}
-					/>
-					<BotaoIndicadores
-						label='Número de pessoas externas à UnB que atuaram como membros da equipe das ações de extensão'
-						onClick={handleButtonClick}
-					/>
-					<BotaoIndicadores
-						label='Quantitativo de ações cadastradas por cada um dos 17 ODS'
-						onClick={handleButtonClick}
-					/>
-					<BotaoIndicadores
-						label='Quantitativo de ações cadastradas por categoria (programas, projetos, cursos e eventos)'
-						onClick={handleButtonClick}
-					/>
+					{buttons}
 				</Box>
 				{/* Render only if screen Width : 720 */}
 				{!isMobile && (

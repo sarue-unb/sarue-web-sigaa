@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
 	LineChart,
 	Line,
@@ -12,33 +12,13 @@ import {
 } from 'recharts'
 import Link from 'next/link'
 import { saveAs } from 'file-saver'
+import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresTcuList'
+import { getDatabase } from '@/components/utils/utils'
 
-const data = [
-	{
-		ano: '2020',
-		total_acoes: 400,
-	},
-	{
-		ano: '2021',
-		total_acoes: 300,
-	},
-	{
-		ano: '2022',
-		total_acoes: 200,
-	},
-	{
-		ano: '2023',
-		total_acoes: 278,
-	},
-	{
-		ano: '2024',
-		total_acoes: 189,
-	},
-]
-
-export default function DetailsPage() {
-	const [showData, setShowData] = useState(false)
+export const AcoesInstitucionalizadas = () => {
 	const chartRef = useRef<any>(null)
+	const [graphData, setGraphData] = useState({})
+	const [finalData, setFinalData] = useState([])
 
 	const handleButtonClick = () => {
 		if (chartRef.current === null) {
@@ -52,23 +32,47 @@ export default function DetailsPage() {
 		saveAs(svgBlob, 'grafico.svg')
 	}
 
+	useEffect(() => {
+		calculateIndicador()
+	}, [graphData])
+
+	const calculateIndicador = () => {
+		const database = getDatabase()
+		setGraphData(database['quantidade_mensal'])
+		let months = []
+		let values: any[] = []
+		for (const [key, value] of Object.entries(graphData)) {
+			for (const [internalMonths, internalValue] of Object.entries(value)) {
+				months.push(internalMonths)
+				values.push(internalValue)
+			}
+		}
+		let tempFinalData: { month: string; value: any }[] = []
+
+		months.forEach((month, index) => {
+			tempFinalData.push({ month: month, value: values[index] })
+		})
+
+		setFinalData(tempFinalData)
+	}
+
 	return (
 		<Box display='flex' alignItems={'center'} flexDirection='column'>
 			<Typography margin={8} alignSelf='start' fontSize='32px'>
-				Indicadores &gt; Mais detalhes
+				Indicadores &gt; {IndicadoresTcuList['acoes_institucionalizadas'].title}
 			</Typography>
 			<Box
 				alignSelf={'center'}
 				bgcolor='white'
-				minHeight='10rem'
-				minWidth='40rem'
+				minHeight='15rem'
+				minWidth='60rem'
 				borderRadius='48px'
 				padding={4}
 			>
 				{/* Gráfico */}
-				<ResponsiveContainer width='100%' height={400}>
+				<ResponsiveContainer width={'100%'} height={400}>
 					<LineChart
-						data={data}
+						data={finalData}
 						ref={chartRef}
 						margin={{
 							top: -10,
@@ -78,11 +82,11 @@ export default function DetailsPage() {
 						}}
 					>
 						<CartesianGrid strokeDasharray='10 10' />
-						<XAxis dataKey='ano' />
-						<YAxis />
+						<XAxis dataKey='month' />
+						<YAxis dataKey='value' />
 						<Tooltip />
 						<Legend />
-						<Line type='monotone' dataKey='total_acoes' stroke='#8884d8' />
+						<Line type='monotone' dataKey='value' stroke='#8884d8' />
 					</LineChart>
 				</ResponsiveContainer>
 			</Box>
@@ -111,7 +115,7 @@ export default function DetailsPage() {
 					padding: '42px',
 				}}
 			>
-				<Link href='/indicadores'>
+				<Link href='/indicadores/tcu'>
 					<Button
 						variant='contained'
 						color='primary'
@@ -144,3 +148,5 @@ export default function DetailsPage() {
 		</Box>
 	)
 }
+
+export default AcoesInstitucionalizadas
