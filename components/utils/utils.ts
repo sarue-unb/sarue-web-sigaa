@@ -5,7 +5,10 @@ export const isDatabaseLoaded = () => {
 }
 
 export const getDatabase = () => {
-	if (typeof window != 'undefined') {
-		return JSON.parse(localStorage.getItem('database'))
+	if (typeof window !== 'undefined') {
+		const database = localStorage.getItem('database') as string
+		return database
 	}
+
+	return ''
 }
