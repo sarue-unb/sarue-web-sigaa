@@ -31,7 +31,7 @@ export const FileUploader = () => {
 				Para reutilizar a busca realizada no SIGAA:
 			</Typography>
 			<Container
-				className='p-24 flex items-center bg-darkGrey w-120 h-96'
+				className='px-8 flex items-center bg-darkGrey max-w-xs h-56'
 				{...getRootProps()}
 				style={{
 					borderRadius: '8px',
