@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import { Typography } from '@mui/material'
 import Button from '@mui/material/Button'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+import { useIsMobile } from '@/components/hooks/hooks'
+
 import {
 	LineChart,
 	Line,
@@ -51,14 +53,12 @@ const BotaoIndicadores: React.FC<BotaoIndicadoresProps> = ({
 		variant='contained'
 		onClick={onClick}
 		sx={{
-			width: '542px',
-			height: '84px',
+			maxWidth: '30rem',
 			my: 1,
 			whiteSpace: 'break-spaces',
 			justifyContent: 'space-between',
 			backgroundColor: 'green !important',
 			borderRadius: '24px',
-			marginLeft: '350px',
 			display: 'flex',
 			alignItems: 'center',
 			paddingLeft: '24px',
@@ -72,29 +72,21 @@ const BotaoIndicadores: React.FC<BotaoIndicadoresProps> = ({
 
 export default function Indicadores() {
 	const [showData, setShowData] = useState(false)
+	const [width, setWidth] = React.useState(0)
 
 	const handleButtonClick = () => {
 		setShowData(!showData)
 	}
 
+	const isMobile = useIsMobile(width, setWidth)
 	return (
 		<Box
 			display='flex'
 			flexDirection='column'
-			height='100vh'
 			alignItems='center'
 			justifyContent='center'
 		>
-			<Typography
-				marginBottom={10}
-				marginTop='10px'
-				textAlign='center'
-				fontSize='30px'
-			>
-				Sistema de Apuração dos Registros Universitários de Extensão
-			</Typography>
-
-			<Typography marginTop='10px' textAlign='center' fontSize='40px'>
+			<Typography marginTop='10px' textAlign='center' fontSize='2em'>
 				Indicadores TCU
 			</Typography>
 			<hr
@@ -105,15 +97,14 @@ export default function Indicadores() {
 				}}
 			/>
 
-			<Box
-				display='flex'
-				flexDirection='row'
-				alignItems='flex-start'
-				width='100%'
-				my={2}
-			>
+			<Box display='flex' maxWidth='80%' flexDirection='row' my={2}>
 				{/* Botões*/}
-				<Box display='flex' flexDirection='column' alignItems='flex-start'>
+				<Box
+					display='flex'
+					flexDirection='column'
+					justifyContent='flex-start'
+					alignItems='flex-start'
+				>
 					<BotaoIndicadores
 						label='Índice de ações institucionalizadas no SIGAA em relação ao ano anterior'
 						onClick={handleButtonClick}
@@ -143,64 +134,67 @@ export default function Indicadores() {
 						onClick={handleButtonClick}
 					/>
 				</Box>
+				{/* Render only if screen Width : 720 */}
+				{!isMobile && (
+					<Box
+						bgcolor='white'
+						minHeight='10rem'
+						minWidth='30rem'
+						maxHeight='30rem'
+						maxWidth='45rem'
+						marginLeft='2rem'
+						borderRadius='48px'
+						padding={4}
+					>
+						{showData}
 
-				<Box
-					bgcolor='white'
-					height='600px'
-					width='852px'
-					mx={2}
-					marginRight={40}
-					flexShrink={0}
-					borderRadius='48px'
-					padding={10}
-				>
-					{showData}
-
-					{/* Gráfico */}
-					<ResponsiveContainer width='92%' height={400}>
-						<LineChart
-							data={data}
-							margin={{
-								top: -10,
-								right: -10,
-								left: -20,
-								bottom: -20,
-							}}
-						>
-							<CartesianGrid strokeDasharray='10 10' />
-							<XAxis dataKey='ano' />
-							<YAxis />
-							<Tooltip />
-							<Legend />
-							<Line type='monotone' dataKey='total_acoes' stroke='#8884d8' />
-						</LineChart>
-					</ResponsiveContainer>
-				</Box>
+						{/* Gráfico */}
+						<ResponsiveContainer width='100%'>
+							<LineChart
+								data={data}
+								margin={{
+									top: -10,
+									right: -10,
+									left: -20,
+									bottom: -20,
+								}}
+							>
+								<CartesianGrid strokeDasharray='10 10' />
+								<XAxis dataKey='ano' />
+								<YAxis />
+								<Tooltip />
+								<Legend />
+								<Line type='monotone' dataKey='total_acoes' stroke='#8884d8' />
+							</LineChart>
+						</ResponsiveContainer>
+					</Box>
+				)}
 			</Box>
 
 			{/* Box Informações do Indicador */}
 			<Box
 				display='flex'
 				flexDirection='column'
-				justifyContent='flex-end'
+				alignItems={'center'}
 				border='1px solid white'
-				width='38%'
 				borderRadius='48px'
-				my={2}
-				marginLeft='690px'
-				marginRight='320px'
-				padding='12px'
-				marginTop='-90px'
+				mb={10}
+				mx={4}
+				p={4}
 			>
-				<Typography variant='h5' align='center' style={{ marginBottom: '2px' }}>
+				<Typography variant='h5' align='center'>
 					Informações do Indicador
 				</Typography>
-				<Box display='flex' flexDirection='column' padding='62px'>
+				<Box
+					width='80%'
+					display='flex'
+					flexDirection='column'
+					justifyContent={'center'}
+				>
 					<Typography
 						variant='subtitle1'
 						style={{
-							fontSize: '20px',
-							marginBottom: '12px',
+							fontSize: '1em',
 							fontWeight: 'bold',
 							textAlign: 'justify',
 							marginLeft: '-52px',
@@ -214,8 +208,7 @@ export default function Indicadores() {
 					<Typography
 						variant='subtitle1'
 						style={{
-							fontSize: '20px',
-							marginBottom: '12px',
+							fontSize: '1em',
 							fontWeight: 'bold',
 							textAlign: 'justify',
 							marginLeft: '-52px',
@@ -229,8 +222,7 @@ export default function Indicadores() {
 					<Typography
 						variant='subtitle1'
 						style={{
-							fontSize: '20px',
-							marginBottom: '0px',
+							fontSize: '1em',
 							fontWeight: 'bold',
 							textAlign: 'justify',
 							marginLeft: '-52px',
