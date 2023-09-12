@@ -25,7 +25,7 @@ export const AcoesInstitucionalizadas = () => {
 			return
 		}
 
-		const svgComponent = chartRef.current.container.children[0] as Node
+		const svgComponent = chartRef.current.container.children[0]
 
 		const svgURL = new XMLSerializer().serializeToString(svgComponent)
 		const svgBlob = new Blob([svgURL], { type: 'image/svg+xml;charset=utf-8' })
