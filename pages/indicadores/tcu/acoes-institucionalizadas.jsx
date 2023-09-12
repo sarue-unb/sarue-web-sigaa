@@ -40,14 +40,14 @@ export const AcoesInstitucionalizadas = () => {
 		const database = getDatabase()
 		setGraphData(database['quantidade_mensal'])
 		let months = []
-		let values: any[] = []
+		let values = []
 		for (const [key, value] of Object.entries(graphData)) {
 			for (const [internalMonths, internalValue] of Object.entries(value)) {
 				months.push(internalMonths)
 				values.push(internalValue)
 			}
 		}
-		let tempFinalData: { month: string; value: any }[] = []
+		let tempFinalData = []
 
 		months.forEach((month, index) => {
 			tempFinalData.push({ month: month, value: values[index] })
