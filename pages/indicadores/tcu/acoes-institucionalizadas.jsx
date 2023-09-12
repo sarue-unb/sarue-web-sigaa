@@ -16,7 +16,7 @@ import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresT
 import { getDatabase } from '@/components/utils/utils'
 
 export const AcoesInstitucionalizadas = () => {
-	const chartRef = useRef<any>(null)
+	const chartRef = useRef(null)
 	const [graphData, setGraphData] = useState({})
 	const [finalData, setFinalData] = useState([])
 
