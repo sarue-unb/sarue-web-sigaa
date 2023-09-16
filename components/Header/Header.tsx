@@ -3,7 +3,7 @@ import LeaderboardOutlinedIcon from '@mui/icons-material/LeaderboardOutlined'
 
 export const Header = () => {
 	return (
-		<Container className='w-screen p-0 m-0 mr-0 max-w-full'>
+		<Container className='occupyWholeScreen w-screen p-0 m-0 mr-0 max-w-full'>
 			<Typography
 				variant='h4'
 				className='bg-darkBlue'

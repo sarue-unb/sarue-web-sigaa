@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box'
-import MainView from '@/components/MainView/MainView'
 import { CircularProgress, Typography } from '@mui/material'
 import { FileUploader } from '@/components/FileUploader/FileUploader'
 export default function Dashboard() {
@@ -10,6 +9,7 @@ export default function Dashboard() {
 			alignItems='center'
 			justifyContent='center'
 			height='100vh'
+			maxWidth={'100%'}
 		>
 			<Typography
 				marginBottom={10}

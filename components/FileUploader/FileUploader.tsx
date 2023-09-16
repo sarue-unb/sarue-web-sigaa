@@ -50,6 +50,8 @@ export const FileUploader = () => {
 				<Container
 					className='p-3 text-justify justify-center hover:cursor-pointer items-center border-dashed border-2 border-darkGreen hover:bg-lightGrey'
 					style={{
+					maxWidth: '60%',
+						
 						borderRadius: '4px',
 					}}
 				>
