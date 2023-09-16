@@ -48,10 +48,9 @@ export const FileUploader = () => {
 			>
 				<input {...getInputProps()} />
 				<Container
-					className='p-3 text-justify justify-center hover:cursor-pointer items-center border-dashed border-2 border-darkGreen hover:bg-lightGrey'
+					className='p-3 text-justify justify-center hover:cursor-pointer items-center border-dashed border-2 border-darkGreen hover:bg-gray-500'
 					style={{
-					maxWidth: '60%',
-						
+						maxWidth: '70%',
 						borderRadius: '4px',
 					}}
 				>
