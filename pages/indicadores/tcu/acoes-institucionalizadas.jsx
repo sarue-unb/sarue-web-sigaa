@@ -13,11 +13,10 @@ import {
 import Link from 'next/link'
 import { saveAs } from 'file-saver'
 import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresTcuList'
-import { getDatabase } from '@/components/utils/utils'
+import { getDatabase, monthsPortuguese } from '@/components/utils/utils'
 
 export const AcoesInstitucionalizadas = () => {
 	const chartRef = useRef(null)
-	const [graphData, setGraphData] = useState({})
 	const [finalData, setFinalData] = useState([])
 
 	const handleButtonClick = () => {
@@ -32,29 +31,36 @@ export const AcoesInstitucionalizadas = () => {
 		saveAs(svgBlob, 'grafico.svg')
 	}
 
-	useEffect(() => {
-		calculateIndicador()
-	}, [graphData])
+	const calculateIndicador = data => {
+		const tempGraphData = data['quantidade_mensal']
+		const tempFinalData = []
 
-	const calculateIndicador = () => {
-		const database = getDatabase()
-		setGraphData(database['quantidade_mensal'])
-		let months = []
-		let values = []
-		for (const [key, value] of Object.entries(graphData)) {
+		for (const [key, value] of Object.entries(tempGraphData)) {
 			for (const [internalMonths, internalValue] of Object.entries(value)) {
-				months.push(internalMonths)
-				values.push(internalValue)
+				if (
+					monthsPortuguese[internalMonths] == 1 ||
+					monthsPortuguese[internalMonths] == 12
+				) {
+					tempFinalData.push({
+						month: monthsPortuguese[internalMonths] + '/' + key.slice(-2),
+						acoes: internalValue,
+					})
+				} else {
+					tempFinalData.push({
+						month: monthsPortuguese[internalMonths],
+						acoes: internalValue,
+					})
+				}
 			}
 		}
-		let tempFinalData = []
 
-		months.forEach((month, index) => {
-			tempFinalData.push({ month: month, value: values[index] })
-		})
-
-		setFinalData(tempFinalData)
+		return { finalData: tempFinalData }
 	}
+
+	useEffect(() => {
+		const result = calculateIndicador(getDatabase())
+		setFinalData(result.finalData)
+	}, [])
 
 	return (
 		<Box display='flex' alignItems={'center'} flexDirection='column'>
@@ -70,23 +76,17 @@ export const AcoesInstitucionalizadas = () => {
 				padding={4}
 			>
 				{/* Gráfico */}
-				<ResponsiveContainer width={'100%'} height={400}>
-					<LineChart
-						data={finalData}
-						ref={chartRef}
-						margin={{
-							top: -10,
-							right: -10,
-							left: -20,
-							bottom: -20,
-						}}
-					>
-						<CartesianGrid strokeDasharray='10 10' />
-						<XAxis dataKey='month' />
-						<YAxis dataKey='value' />
+				<ResponsiveContainer width={'100%'} height={600}>
+					<LineChart data={finalData} ref={chartRef} margin={{}}>
+						<XAxis
+							dataKey='month'
+							padding={{ left: 30, right: 10 }}
+							tickMargin={15}
+						/>
+						<YAxis dataKey='acoes' label='Ações' padding={{ top: 30 }} />
 						<Tooltip />
 						<Legend />
-						<Line type='monotone' dataKey='value' stroke='#8884d8' />
+						<Line type='monotone' dataKey='acoes' stroke='#8884d8' />
 					</LineChart>
 				</ResponsiveContainer>
 			</Box>

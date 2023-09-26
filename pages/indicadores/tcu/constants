@@ -1,0 +1,1 @@
+export const INDICADORES_TCU_PATH = 'indicadores/tcu'

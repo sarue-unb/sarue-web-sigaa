@@ -32,7 +32,7 @@ const CustomListItem = (props: CustomListItemProps) => {
 
 	return (
 		<Link href={props.linkRoute}>
-			<ListItem className='py-2'>
+			<ListItem className='py-2 rounded-lg hover:bg-gray-500'>
 				<ListItemButton className='rounded-lg hover:bg-gray-500  p-0'>
 					{props.icon && (
 						<Box fontSize='large' mr={2}>
