@@ -25,6 +25,16 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
+const addsYearToMonthIfNeeded = (internalMonths, key) => {
+	if (
+		monthsPortuguese[internalMonths] == 1 ||
+		monthsPortuguese[internalMonths] == 12
+	) {
+		return monthsPortuguese[internalMonths] + '/' + key.slice(-2)
+	}
+	return monthsPortuguese[internalMonths]
+}
+
 export const AcoesInstitucionalizadas = () => {
 	const chartRef = useRef(null)
 	const [graphData, setGraphData] = useState([])
@@ -47,20 +57,10 @@ export const AcoesInstitucionalizadas = () => {
 		const tempDataForGraph = []
 		for (const [key, value] of Object.entries(rawData)) {
 			for (const [internalMonths, internalValue] of Object.entries(value)) {
-				if (
-					monthsPortuguese[internalMonths] == 1 ||
-					monthsPortuguese[internalMonths] == 12
-				) {
-					tempDataForGraph.push({
-						month: monthsPortuguese[internalMonths] + '/' + key.slice(-2),
-						acoes: internalValue,
-					})
-				} else {
-					tempDataForGraph.push({
-						month: monthsPortuguese[internalMonths],
-						acoes: internalValue,
-					})
-				}
+				tempDataForGraph.push({
+					month: addsYearToMonthIfNeeded(internalMonths, key),
+					acoes: internalValue,
+				})
 			}
 		}
 
