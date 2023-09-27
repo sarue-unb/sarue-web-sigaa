@@ -5,7 +5,6 @@ import {
 	Line,
 	XAxis,
 	YAxis,
-	CartesianGrid,
 	Tooltip,
 	Legend,
 	ResponsiveContainer,
@@ -13,11 +12,23 @@ import {
 import Link from 'next/link'
 import { saveAs } from 'file-saver'
 import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresTcuList'
-import { getDatabase, monthsPortuguese } from '@/components/utils/utils'
+import {
+	getDatabase,
+	monthsPortuguese,
+	transformPortugueseMonthsToNumbers,
+	transformObjectToTableRow,
+	sanitizeUnavailableData,
+} from '@/components/utils/utils'
+import { TableIndicadores } from '../../../components/Indicadores/TableIndicadores/TableIndicadores'
+import Accordion from '@mui/material/Accordion'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 export const AcoesInstitucionalizadas = () => {
 	const chartRef = useRef(null)
-	const [finalData, setFinalData] = useState([])
+	const [graphData, setGraphData] = useState([])
+	const [tableData, setTableData] = useState([])
 
 	const handleButtonClick = () => {
 		if (chartRef.current === null) {
@@ -32,21 +43,20 @@ export const AcoesInstitucionalizadas = () => {
 	}
 
 	const calculateIndicador = data => {
-		const tempGraphData = data['quantidade_mensal']
-		const tempFinalData = []
-
-		for (const [key, value] of Object.entries(tempGraphData)) {
+		const rawData = data['quantidade_mensal']
+		const tempDataForGraph = []
+		for (const [key, value] of Object.entries(rawData)) {
 			for (const [internalMonths, internalValue] of Object.entries(value)) {
 				if (
 					monthsPortuguese[internalMonths] == 1 ||
 					monthsPortuguese[internalMonths] == 12
 				) {
-					tempFinalData.push({
+					tempDataForGraph.push({
 						month: monthsPortuguese[internalMonths] + '/' + key.slice(-2),
 						acoes: internalValue,
 					})
 				} else {
-					tempFinalData.push({
+					tempDataForGraph.push({
 						month: monthsPortuguese[internalMonths],
 						acoes: internalValue,
 					})
@@ -54,12 +64,17 @@ export const AcoesInstitucionalizadas = () => {
 			}
 		}
 
-		return { finalData: tempFinalData }
+		const tempDataForTable = transformObjectToTableRow(
+			sanitizeUnavailableData(transformPortugueseMonthsToNumbers(rawData)),
+		)
+
+		return { graphData: tempDataForGraph, tableData: tempDataForTable }
 	}
 
 	useEffect(() => {
 		const result = calculateIndicador(getDatabase())
-		setFinalData(result.finalData)
+		setGraphData(result.graphData)
+		setTableData(result.tableData)
 	}, [])
 
 	return (
@@ -76,8 +91,8 @@ export const AcoesInstitucionalizadas = () => {
 				padding={4}
 			>
 				{/* Gráfico */}
-				<ResponsiveContainer width={'100%'} height={600}>
-					<LineChart data={finalData} ref={chartRef} margin={{}}>
+				<ResponsiveContainer width={'100%'} height={400}>
+					<LineChart data={graphData} ref={chartRef} margin={{}}>
 						<XAxis
 							dataKey='month'
 							padding={{ left: 30, right: 10 }}
@@ -90,7 +105,23 @@ export const AcoesInstitucionalizadas = () => {
 					</LineChart>
 				</ResponsiveContainer>
 			</Box>
-
+			<Box marginTop='4rem' bgcolor='black'>
+				<Accordion sx={{ borderRadius: '30px', background: '#161a23' }}>
+					<AccordionSummary
+						expandIcon={
+							<ExpandMoreIcon
+								sx={{ borderRadius: '30px', background: 'white' }}
+								color='white'
+							/>
+						}
+					>
+						<Typography>Mais informações</Typography>
+					</AccordionSummary>
+					<AccordionDetails>
+						<TableIndicadores tableData={tableData} />
+					</AccordionDetails>
+				</Accordion>
+			</Box>
 			<Box
 				display='flex'
 				flexDirection='column'
@@ -106,7 +137,6 @@ export const AcoesInstitucionalizadas = () => {
 					Gráfico obtido a partir de levantamento do SIGAA..
 				</Typography>
 			</Box>
-
 			<Box
 				sx={{
 					display: 'flex',
