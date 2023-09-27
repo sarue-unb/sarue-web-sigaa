@@ -8,7 +8,8 @@ export const BotaoIndicadores = ({ indicadorValue, onClick }: any) => (
 			variant='contained'
 			onClick={onClick}
 			sx={{
-				maxWidth: '30rem',
+				maxWidth: '50rem',
+				minWidth: '35rem',
 				my: 1,
 				whiteSpace: 'break-spaces',
 				justifyContent: 'space-between',
@@ -20,7 +21,7 @@ export const BotaoIndicadores = ({ indicadorValue, onClick }: any) => (
 				paddingRight: '24px',
 			}}
 		>
-			{indicadorValue.title}
+			{indicadorValue.shortTitle}
 			<KeyboardArrowRightIcon />
 		</Button>
 	</Link>
