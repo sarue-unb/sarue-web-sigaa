@@ -7,20 +7,28 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 
-
 export const TableIndicadores = ({ tableData }) => {
 	console.log(tableData)
-	const rows = Object.entries(tableData).map(([key, value]) => (
-		<TableRow
-			key={key}
-			sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-		>
-			<TableCell>{key}</TableCell>
-			{value.map((acaoValue) => (
-				<TableCell>{acaoValue}</TableCell>
-			))}
-		</TableRow>
-	))
+	const rows = Object.entries(tableData).map(([key, value]) => {
+		let sumByyear = 0
+		value.map(acaoValue => {
+			if (!isNaN(acaoValue)) {
+				sumByyear += acaoValue
+			}
+		})
+		return (
+			<TableRow
+				key={key}
+				sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+			>
+				<TableCell>{key}</TableCell>
+				{value.map(acaoValue => (
+					<TableCell>{acaoValue}</TableCell>
+				))}
+				<TableCell>{sumByyear}</TableCell>
+			</TableRow>
+		)
+	})
 	return (
 		<TableContainer component={Paper}>
 			<Table sx={{ minWidth: 650 }} aria-label='simple table'>
@@ -39,6 +47,7 @@ export const TableIndicadores = ({ tableData }) => {
 						<TableCell align='right'>10</TableCell>
 						<TableCell align='right'>11</TableCell>
 						<TableCell align='right'>12</TableCell>
+						<TableCell align='right'>Total por ano</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>{rows}</TableBody>
