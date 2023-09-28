@@ -8,7 +8,7 @@ export const IndicadoresTcuList = {
 		shortTitle: 'Ações cadastradas por categoria',
 		path: 'tcu/acoes-categoria',
 		title:
-			'Quantitativo de ações cadastradas por categoria (programas, projetos, cursos e eventos)',
+			'Quantitativo de ações cadastradas por categoria (produto, programas, projetos, cursos e eventos)',
 	},
 	acoes_mais_de_uma_unidade_academica: {
 		shortTitle: 'Ações com mais de uma unidade acadêmica',
