@@ -1,8 +1,14 @@
 export const IndicadoresTcuList = {
 	acoes_institucionalizadas: {
 		shortTitle: 'Ações Institucionalizadas por ano',
-		path: 'tcu/acoes-institucionalizadas	',
+		path: 'tcu/acoes-ano',
 		title: 'Índice de ações institucionalizadas no SIGAA por ano',
+	},
+	acoes_cadastradas_por_categoria: {
+		shortTitle: 'Ações cadastradas por categoria',
+		path: 'tcu/acoes-categoria',
+		title:
+			'Quantitativo de ações cadastradas por categoria (programas, projetos, cursos e eventos)',
 	},
 	acoes_mais_de_uma_unidade_academica: {
 		shortTitle: 'Ações com mais de uma unidade acadêmica',
@@ -15,12 +21,7 @@ export const IndicadoresTcuList = {
 		path: '',
 		title: 'Quantitativo de ações cadastradas por cada um dos 17 ODS',
 	},
-	acoes_cadastradas_por_categoria: {
-		shortTitle: 'Ações cadastras por categoria',
-		path: '',
-		title:
-			'Quantitativo de ações cadastradas por categoria (programas, projetos, cursos e eventos)',
-	},
+
 	estudantes_extensionistas_por_projeto: {
 		shortTitle: 'Estudantes extensionistas por projeto',
 		path: '',

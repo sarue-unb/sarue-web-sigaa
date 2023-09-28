@@ -35,7 +35,7 @@ const addsYearToMonthIfNeeded = (internalMonths, key) => {
 	return monthsPortuguese[internalMonths]
 }
 
-export const AcoesInstitucionalizadas = () => {
+export const AcoesAno = () => {
 	const chartRef = useRef(null)
 	const [graphData, setGraphData] = useState([])
 	const [tableData, setTableData] = useState([])
@@ -106,37 +106,12 @@ export const AcoesInstitucionalizadas = () => {
 				</ResponsiveContainer>
 			</Box>
 			<Box marginTop='4rem' bgcolor='black'>
-				<Accordion sx={{ borderRadius: '30px', background: '#161a23' }}>
-					<AccordionSummary
-						expandIcon={
-							<ExpandMoreIcon
-								sx={{ borderRadius: '30px', background: 'white' }}
-								color='white'
-							/>
-						}
-					>
-						<Typography>Mais informações</Typography>
-					</AccordionSummary>
-					<AccordionDetails>
-						<TableIndicadores tableData={tableData} />
-					</AccordionDetails>
-				</Accordion>
-			</Box>
-			<Box
-				display='flex'
-				flexDirection='column'
-				alignItems='center'
-				justifyContent='center'
-				width='52%'
-				bgcolor='rgba(22, 26, 35, 1)'
-				borderRadius='20px'
-				padding={10}
-				marginTop={8}
-			>
-				<Typography variant='h5'>
-					Gráfico obtido a partir de levantamento do SIGAA..
+				<Typography fontSize={'1.5rem'}>
+					Tabela com as ações institucionalizadas por ano
 				</Typography>
+				<TableIndicadores tableData={tableData} />
 			</Box>
+
 			<Box
 				sx={{
 					display: 'flex',
@@ -179,4 +154,4 @@ export const AcoesInstitucionalizadas = () => {
 	)
 }
 
-export default AcoesInstitucionalizadas
+export default AcoesAno
