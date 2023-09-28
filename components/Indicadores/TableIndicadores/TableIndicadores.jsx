@@ -8,7 +8,6 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 
 export const TableIndicadores = ({ tableData }) => {
-	console.log(tableData)
 	const rows = Object.entries(tableData).map(([key, value]) => {
 		let sumByyear = 0
 		value.map(acaoValue => {
