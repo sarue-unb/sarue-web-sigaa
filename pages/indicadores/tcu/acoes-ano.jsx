@@ -19,7 +19,7 @@ import {
 	transformObjectToTableRow,
 	sanitizeUnavailableData,
 } from '@/components/utils/utils'
-import { TableIndicadores } from '../../../components/Indicadores/TableIndicadores/TableIndicadores'
+import { TableAcoesAno } from '../../../components/Indicadores/Tables/TableAcoesAno/TableIndicadores'
 
 const addsYearToMonthIfNeeded = (internalMonths, key) => {
 	if (
@@ -105,7 +105,7 @@ export const AcoesAno = () => {
 				<Typography fontSize={'1.5rem'}>
 					Tabela com as ações institucionalizadas por ano
 				</Typography>
-				<TableIndicadores tableData={tableData} />
+				<TableAcoesAno tableData={tableData} />
 			</Box>
 
 			<Box
