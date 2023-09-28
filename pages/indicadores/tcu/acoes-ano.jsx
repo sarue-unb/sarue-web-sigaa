@@ -20,10 +20,6 @@ import {
 	sanitizeUnavailableData,
 } from '@/components/utils/utils'
 import { TableIndicadores } from '../../../components/Indicadores/TableIndicadores/TableIndicadores'
-import Accordion from '@mui/material/Accordion'
-import AccordionSummary from '@mui/material/AccordionSummary'
-import AccordionDetails from '@mui/material/AccordionDetails'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 const addsYearToMonthIfNeeded = (internalMonths, key) => {
 	if (
