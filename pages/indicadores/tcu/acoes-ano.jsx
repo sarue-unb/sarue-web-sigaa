@@ -19,7 +19,7 @@ import {
 	transformObjectToTableRow,
 	sanitizeUnavailableData,
 } from '@/components/utils/utils'
-import { TableAcoesAno } from '../../../components/Indicadores/Tables/TableAcoesAno/TableIndicadores'
+import { TableAcoesAno } from '../../../components/Indicadores/Tables/TableAcoesAno/TableAcoesAno'
 
 const addsYearToMonthIfNeeded = (internalMonths, key) => {
 	if (
