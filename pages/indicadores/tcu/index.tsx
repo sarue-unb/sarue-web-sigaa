@@ -24,12 +24,7 @@ export default function Indicadores() {
 			justifyContent='start'
 			height='100vh'
 		>
-			<Typography
-				marginTop='10px'
-				borderBottom={2}
-				textAlign='center'
-				fontSize='2em'
-			>
+			<Typography marginTop='10px' textAlign='center' fontSize='2em'>
 				Indicadores TCU
 			</Typography>
 			<hr
