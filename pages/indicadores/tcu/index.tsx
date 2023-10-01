@@ -12,7 +12,7 @@ export default function Indicadores() {
 		setShowData(!showData)
 	}
 
-	const buttons = Object.entries(IndicadoresTcuList).map(([key, value]) => (
+	const tcuIndicadoresList = Object.entries(IndicadoresTcuList).map(([key, value]) => (
 		<BotaoIndicadores indicadorValue={value} onClick={handleButtonClick} />
 	))
 
@@ -41,7 +41,7 @@ export default function Indicadores() {
 				justifyContent='flex-start'
 				alignItems='flex-start'
 			>
-				{buttons}
+				{tcuIndicadoresList}
 			</Box>
 		</Box>
 	)
