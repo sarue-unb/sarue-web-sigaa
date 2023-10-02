@@ -56,7 +56,6 @@ const DisclaimerModal = () => {
 		if (!localStorage.getItem('disclaimerAccepted')) {
 			setOpen(true)
 		}
-		router.push('/dashboard')
 	}, [open])
 
 	return (
