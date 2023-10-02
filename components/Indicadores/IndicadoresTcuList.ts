@@ -15,27 +15,34 @@ export const IndicadoresTcuList = {
 		path: 'tcu/acoes-ods',
 		title: 'Quantitativo de ações cadastradas por cada um dos 17 ODS',
 	},
-	acoes_mais_de_uma_unidade_academica: {
-		shortTitle: 'Ações com mais de uma unidade acadêmica',
-		path: '',
+	envolvidos_por_ano: {
+		shortTitle: 'Pessoas envolvidas por ano',
+		path: 'tcu/envolvidos-ano',
 		title:
-			'Índice Quantitativo de ações de extensão que possuem mais de uma unidade acadêmica vinculada',
+			'Quantitativo de cada perfil (discentes, docente, externo, servidor) envolvido por ano ',
 	},
-	estudantes_extensionistas_por_projeto: {
-		shortTitle: 'Estudantes extensionistas por projeto',
-		path: '',
-		title: 'Número de estudantes extensionistas por projeto',
-	},
-	pessoas_atendidas: {
-		shortTitle: 'Pessoas atendidas por projeto',
-		path: '',
-		title:
-			'Total de pessoas diretamente atendidas pelos programas e projetos de extensão',
-	},
-	pessoas_externas_unb: {
-		shortTitle: 'Pessoas externas participantes das equipes das ações',
-		path: '',
-		title:
-			'Número de pessoas externas à UnB que atuaram como membros da equipe das ações de extensão',
-	},
+
+	// acoes_mais_de_uma_unidade_academica: {
+	// 	shortTitle: 'Ações com mais de uma unidade acadêmica',
+	// 	path: '',
+	// 	title:
+	// 		'Índice Quantitativo de ações de extensão que possuem mais de uma unidade acadêmica vinculada',
+	// },
+	// estudantes_extensionistas_por_projeto: {
+	// 	shortTitle: 'Estudantes extensionistas por projeto',
+	// 	path: '',
+	// 	title: 'Número de estudantes extensionistas por projeto',
+	// },
+	// pessoas_atendidas: {
+	// 	shortTitle: 'Pessoas atendidas por projeto',
+	// 	path: '',
+	// 	title:
+	// 		'Total de pessoas diretamente atendidas pelos programas e projetos de extensão',
+	// },
+	// pessoas_externas_unb: {
+	// 	shortTitle: 'Pessoas externas participantes das equipes das ações',
+	// 	path: '',
+	// 	title:
+	// 		'Número de pessoas externas à UnB que atuaram como membros da equipe das ações de extensão',
+	// },
 }
