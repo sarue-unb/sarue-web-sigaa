@@ -1,20 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
-import { Typography } from '@mui/material'
+import { Button, Modal, Typography } from '@mui/material'
 
 import { BotaoIndicadores } from '../../../components/Indicadores/BotaoIndicadores/BotaoIndicadores'
 import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresTcuList'
+import { isDatabaseLoaded } from '@/components/utils/utils'
+import ReturnToHomePage from '@/components/ReturnToHomepage/ReturnToHomepage'
 
 export default function Indicadores() {
 	const [showData, setShowData] = useState(false)
+	const [returnToHomepage, setReturnToHomepage] = useState(true)
 
 	const handleButtonClick = () => {
 		setShowData(!showData)
 	}
 
-	const tcuIndicadoresList = Object.entries(IndicadoresTcuList).map(([key, value]) => (
-		<BotaoIndicadores indicadorValue={value} onClick={handleButtonClick} />
-	))
+	const tcuIndicadoresList = Object.entries(IndicadoresTcuList).map(
+		([key, value]) => (
+			<BotaoIndicadores indicadorValue={value} onClick={handleButtonClick} />
+		),
+	)
+
+	useEffect(() => {
+		if (isDatabaseLoaded()) {
+			setReturnToHomepage(false)
+		}
+	}, [returnToHomepage])
+
+	if (returnToHomepage) {
+		return <ReturnToHomePage />
+	}
 
 	return (
 		<Box
