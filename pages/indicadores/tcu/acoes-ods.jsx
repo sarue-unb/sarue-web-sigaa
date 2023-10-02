@@ -23,7 +23,7 @@ import { saveAs } from 'file-saver'
 import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresTcuList'
 import { getDatabase } from '@/components/utils/utils'
 import { TableAcoesOds } from '../../../components/Indicadores/Tables/TableAcoesOds/TableAcoesOds'
-import { odsList } from '../../../components/Indicadores/OdsList'
+import { odsList } from '@/components/Indicadores/odsList'
 
 function transformDataTochart(inputData) {
 	const transformedData = Object.keys(inputData).map(year => ({
