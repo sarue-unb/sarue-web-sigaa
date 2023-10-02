@@ -6,11 +6,11 @@ import { BotaoIndicadores } from '../../../components/Indicadores/BotaoIndicador
 import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresTcuList'
 import { isDatabaseLoaded } from '@/components/utils/utils'
 import ReturnToHomePage from '@/components/ReturnToHomepage/ReturnToHomepage'
+import { useShowReturnToHomePage } from '@/components/hooks/useShowReturnToHomePage'
 
 export default function Indicadores() {
 	const [showData, setShowData] = useState(false)
-	const [returnToHomepage, setReturnToHomepage] = useState(true)
-
+	const shouldShowReturnToHomePage = useShowReturnToHomePage()
 	const handleButtonClick = () => {
 		setShowData(!showData)
 	}
@@ -21,13 +21,7 @@ export default function Indicadores() {
 		),
 	)
 
-	useEffect(() => {
-		if (isDatabaseLoaded()) {
-			setReturnToHomepage(false)
-		}
-	}, [returnToHomepage])
-
-	if (returnToHomepage) {
+	if (shouldShowReturnToHomePage) {
 		return <ReturnToHomePage />
 	}
 
