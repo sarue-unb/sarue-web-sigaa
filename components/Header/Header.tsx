@@ -10,7 +10,7 @@ export const Header = () => {
 				sx={{ flexGrow: 1, textAlign: 'center' }}
 			>
 				<LeaderboardOutlinedIcon
-					sx={{ marginBottom: '-7px' }}
+					sx={{ marginBottom: '-7px', marginRight: '8px' }}
 					fontSize='large'
 				/>
 				SARUÊ - SIGAA
