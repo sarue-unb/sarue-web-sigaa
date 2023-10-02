@@ -1,11 +1,10 @@
 import { Box, Button, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import {
-	LineChart,
-	Line,
+	BarChart,
+	Bar,
 	XAxis,
 	YAxis,
-	CartesianGrid,
 	Tooltip,
 	Legend,
 	ResponsiveContainer,
@@ -13,12 +12,21 @@ import {
 import Link from 'next/link'
 import { saveAs } from 'file-saver'
 import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresTcuList'
-import { getDatabase } from '@/components/utils/utils'
+import { getDatabase, monthsPortuguese } from '@/components/utils/utils'
+import { TableAcoesCategoria } from '../../../components/Indicadores/Tables/TableAcoesCategoria/TableAcoesCategoria'
 
-export const AcoesInstitucionalizadas = () => {
+function transformDataTochart(inputData) {
+	const transformedData = Object.keys(inputData).map(year => ({
+		year: parseInt(year, 10),
+		...inputData[year],
+	}))
+
+	return transformedData
+}
+export const AcoesAno = () => {
 	const chartRef = useRef(null)
-	const [graphData, setGraphData] = useState({})
-	const [finalData, setFinalData] = useState([])
+	const [graphData, setGraphData] = useState([])
+	const [tableData, setTableData] = useState([])
 
 	const handleButtonClick = () => {
 		if (chartRef.current === null) {
@@ -32,34 +40,24 @@ export const AcoesInstitucionalizadas = () => {
 		saveAs(svgBlob, 'grafico.svg')
 	}
 
-	useEffect(() => {
-		calculateIndicador()
-	}, [graphData])
+	const calculateIndicador = data => {
+		const rawData = data['quantidade_anual_tipo']
+		const graphData = transformDataTochart(rawData)
 
-	const calculateIndicador = () => {
-		const database = getDatabase()
-		setGraphData(database['quantidade_mensal'])
-		let months = []
-		let values = []
-		for (const [key, value] of Object.entries(graphData)) {
-			for (const [internalMonths, internalValue] of Object.entries(value)) {
-				months.push(internalMonths)
-				values.push(internalValue)
-			}
-		}
-		let tempFinalData = []
-
-		months.forEach((month, index) => {
-			tempFinalData.push({ month: month, value: values[index] })
-		})
-
-		setFinalData(tempFinalData)
+		return { graphData: graphData }
 	}
+
+	useEffect(() => {
+		const result = calculateIndicador(getDatabase())
+		setGraphData(result.graphData)
+		setTableData(result.graphData)
+	}, [])
 
 	return (
 		<Box display='flex' alignItems={'center'} flexDirection='column'>
 			<Typography margin={8} alignSelf='start' fontSize='32px'>
-				Indicadores &gt; {IndicadoresTcuList['acoes_institucionalizadas'].title}
+				Indicadores &gt;{' '}
+				{IndicadoresTcuList['acoes_cadastradas_por_categoria'].title}
 			</Typography>
 			<Box
 				alignSelf={'center'}
@@ -71,40 +69,24 @@ export const AcoesInstitucionalizadas = () => {
 			>
 				{/* Gráfico */}
 				<ResponsiveContainer width={'100%'} height={400}>
-					<LineChart
-						data={finalData}
-						ref={chartRef}
-						margin={{
-							top: -10,
-							right: -10,
-							left: -20,
-							bottom: -20,
-						}}
-					>
-						<CartesianGrid strokeDasharray='10 10' />
-						<XAxis dataKey='month' />
-						<YAxis dataKey='value' />
+					<BarChart data={graphData} ref={chartRef}>
+						<XAxis dataKey='year' padding={{ left: 30, right: 10 }} />
+						<YAxis label='Ações' padding={{ top: 30 }} />
 						<Tooltip />
 						<Legend />
-						<Line type='monotone' dataKey='value' stroke='#8884d8' />
-					</LineChart>
+						<Bar dataKey='PRODUTO' fill='#8884d8' />
+						<Bar dataKey='EVENTO' fill='#82ca9d' />
+						<Bar dataKey='CURSO' fill='#37392E' />
+						<Bar dataKey='PROJETO' fill='#DDCECD' />
+						<Bar dataKey='PROGRAMA' fill='#EC9A29' />
+					</BarChart>
 				</ResponsiveContainer>
 			</Box>
-
-			<Box
-				display='flex'
-				flexDirection='column'
-				alignItems='center'
-				justifyContent='center'
-				width='52%'
-				bgcolor='rgba(22, 26, 35, 1)'
-				borderRadius='20px'
-				padding={10}
-				marginTop={8}
-			>
-				<Typography variant='h5'>
-					Gráfico obtido a partir de levantamento do SIGAA..
+			<Box marginTop='4rem' bgcolor='black'>
+				<Typography fontSize={'1.5rem'}>
+					Tabela com as ações institucionalizadas por ano e por categoria
 				</Typography>
+				<TableAcoesCategoria tableData={tableData} />
 			</Box>
 
 			<Box
@@ -149,4 +131,4 @@ export const AcoesInstitucionalizadas = () => {
 	)
 }
 
-export default AcoesInstitucionalizadas
+export default AcoesAno

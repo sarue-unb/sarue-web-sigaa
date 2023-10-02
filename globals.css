@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 :root {
 	--border-radius: 12px;
@@ -115,6 +115,7 @@ a {
 
 div.MuiContainer-root.MuiContainer-maxWidthLg.occupyWholeScreen {
 	max-width: 100% !important;
+	max-height: 100% !important;
 	padding: 0;
 }
 

@@ -28,7 +28,7 @@ const SideNavMenu = () => {
 					></CustomListItem>
 					<CustomListItem
 						text='Exportar dados'
-						linkRoute='/indicadores'
+						linkRoute='/exportar-dados'
 						icon={<Description fontSize='large' htmlColor='white' />}
 					></CustomListItem>
 				</List>
@@ -43,7 +43,7 @@ const SideNavMenu = () => {
 				<List>
 					<CustomListItem
 						text='Sobre o projeto'
-						linkRoute='/about'
+						linkRoute='/sobre'
 						icon={<Help fontSize='large' htmlColor='white' />}
 					></CustomListItem>
 					<CustomListItem
