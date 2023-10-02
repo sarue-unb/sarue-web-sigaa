@@ -36,7 +36,7 @@ export const TableAcoesOds = ({ tableData }) => {
 
 	return (
 		<TableContainer component={Paper}>
-			<Table sx={{ minWidth: 650 }} aria-label='Ods Table'>
+			<Table sx={{ minWidth: 300 }} aria-label='Ods Table'>
 				<TableHead>
 					<TableRow>
 						<TableCell align='right'>Ano</TableCell>

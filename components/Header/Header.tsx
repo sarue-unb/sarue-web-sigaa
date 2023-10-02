@@ -1,4 +1,4 @@
-import { Container, Typography } from '@mui/material'
+import { Container, Typography, Box } from '@mui/material'
 import LeaderboardOutlinedIcon from '@mui/icons-material/LeaderboardOutlined'
 
 export const Header = () => {
@@ -9,7 +9,10 @@ export const Header = () => {
 				className='bg-darkBlue'
 				sx={{ flexGrow: 1, textAlign: 'center' }}
 			>
-				<LeaderboardOutlinedIcon fontSize='large' />
+				<LeaderboardOutlinedIcon
+					sx={{ marginBottom: '-7px' }}
+					fontSize='large'
+				/>
 				SARUÊ - SIGAA
 			</Typography>
 		</Container>

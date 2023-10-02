@@ -103,7 +103,7 @@ export const AcoesAno = () => {
 			</Box>
 			<Box marginTop='4rem' bgcolor='black'>
 				<Typography fontSize={'1.5rem'}>
-					Tabela com as ações institucionalizadas por ano
+					Tabela com as ações institucionalizadas por ano e por mês
 				</Typography>
 				<TableAcoesAno tableData={tableData} />
 			</Box>

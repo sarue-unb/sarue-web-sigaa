@@ -95,8 +95,7 @@ export const AcoesAno = () => {
 	return (
 		<Box display='flex' alignItems={'center'} flexDirection='column'>
 			<Typography margin={8} alignSelf='start' fontSize='32px'>
-				Indicadores &gt;{' '}
-				{IndicadoresTcuList['acoes_cadastradas_por_categoria'].title}
+				Indicadores &gt; {IndicadoresTcuList['acoes_por_ods'].title}
 			</Typography>
 			<Box
 				alignSelf={'center'}
@@ -147,7 +146,8 @@ export const AcoesAno = () => {
 			</Box>
 			<Box marginTop='4rem' bgcolor='black'>
 				<Typography fontSize={'1.5rem'}>
-					Tabela com as ações institucionalizadas por ano
+					Tabela com a quantidade de ações que continham cada tipo de Ods por
+					ano
 				</Typography>
 				<TableAcoesOds tableData={tableData} />
 			</Box>

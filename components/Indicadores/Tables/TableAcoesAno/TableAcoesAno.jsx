@@ -30,7 +30,7 @@ export const TableAcoesAno = ({ tableData }) => {
 	})
 	return (
 		<TableContainer component={Paper}>
-			<Table sx={{ minWidth: 650 }} aria-label='simple table'>
+			<Table sx={{ minWidth: 300 }} aria-label='Tabela com os 17 ODS'>
 				<TableHead>
 					<TableRow>
 						<TableCell align='left'>Ano/Mes</TableCell>

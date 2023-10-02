@@ -13,7 +13,7 @@ import Link from 'next/link'
 import { saveAs } from 'file-saver'
 import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresTcuList'
 import { getDatabase, monthsPortuguese } from '@/components/utils/utils'
-import { TableAcoesCategoria } from '../../../components/Indicadores/Tables/TableAcoesCategoria/TableAcoesCategoria'
+import { TableEnvolvidos } from '../../../components/Indicadores/Tables/TableEnvolvidos/TableEnvolvidos'
 
 function transformDataTochart(inputData) {
 	const transformedData = Object.keys(inputData).map(year => ({
@@ -41,7 +41,7 @@ export const AcoesAno = () => {
 	}
 
 	const calculateIndicador = data => {
-		const rawData = data['quantidade_anual_tipo']
+		const rawData = data['quantidade_envolvidos_anual']
 		const graphData = transformDataTochart(rawData)
 
 		return { graphData: graphData }
@@ -56,8 +56,7 @@ export const AcoesAno = () => {
 	return (
 		<Box display='flex' alignItems={'center'} flexDirection='column'>
 			<Typography margin={8} alignSelf='start' fontSize='32px'>
-				Indicadores &gt;{' '}
-				{IndicadoresTcuList['acoes_cadastradas_por_categoria'].title}
+				Indicadores &gt; {IndicadoresTcuList['envolvidos_por_ano'].title}
 			</Typography>
 			<Box
 				alignSelf={'center'}
@@ -71,22 +70,22 @@ export const AcoesAno = () => {
 				<ResponsiveContainer width={'100%'} height={400}>
 					<BarChart data={graphData} ref={chartRef}>
 						<XAxis dataKey='year' padding={{ left: 30, right: 10 }} />
-						<YAxis label='Ações' padding={{ top: 30 }} />
+						<YAxis label='Pessoas' padding={{ top: 30 }} />
 						<Tooltip />
 						<Legend />
-						<Bar dataKey='PRODUTO' fill='#8884d8' />
-						<Bar dataKey='EVENTO' fill='#82ca9d' />
-						<Bar dataKey='CURSO' fill='#37392E' />
-						<Bar dataKey='PROJETO' fill='#DDCECD' />
-						<Bar dataKey='PROGRAMA' fill='#EC9A29' />
+						<Bar dataKey='Discente' fill='#8884d8' />
+						<Bar dataKey='Docente' fill='#82ca9d' />
+						<Bar dataKey='Externo' fill='#37392E' />
+						<Bar dataKey='Servidor' fill='#DDCECD' />
 					</BarChart>
 				</ResponsiveContainer>
 			</Box>
 			<Box marginTop='4rem' bgcolor='black'>
 				<Typography fontSize={'1.5rem'}>
-					Tabela com as ações institucionalizadas por ano e por categoria
+					Tabela com a quantidade de cada perfil participante de todas as
+					atividades de extensão por ano
 				</Typography>
-				<TableAcoesCategoria tableData={tableData} />
+				<TableEnvolvidos tableData={tableData} />
 			</Box>
 
 			<Box
