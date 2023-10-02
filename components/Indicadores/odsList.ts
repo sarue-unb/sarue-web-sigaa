@@ -1,4 +1,4 @@
-const ods = {
+export const odsList = {
 	1: 'Erradicação da pobreza',
 	2: 'Fome zero e agricultura sustentável',
 	3: 'Saúde e bem-estar',

@@ -10,18 +10,17 @@ export const IndicadoresTcuList = {
 		title:
 			'Quantitativo de ações cadastradas por categoria (produto, programas, projetos, cursos e eventos)',
 	},
+	acoes_por_ods: {
+		shortTitle: 'Ações por ODS',
+		path: 'tcu/acoes-ods',
+		title: 'Quantitativo de ações cadastradas por cada um dos 17 ODS',
+	},
 	acoes_mais_de_uma_unidade_academica: {
 		shortTitle: 'Ações com mais de uma unidade acadêmica',
 		path: '',
 		title:
 			'Índice Quantitativo de ações de extensão que possuem mais de uma unidade acadêmica vinculada',
 	},
-	acoes_por_ods: {
-		shortTitle: 'Ações por ODS',
-		path: '',
-		title: 'Quantitativo de ações cadastradas por cada um dos 17 ODS',
-	},
-
 	estudantes_extensionistas_por_projeto: {
 		shortTitle: 'Estudantes extensionistas por projeto',
 		path: '',
