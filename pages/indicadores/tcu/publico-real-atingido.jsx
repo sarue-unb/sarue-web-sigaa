@@ -63,7 +63,7 @@ export const PublicoRealAtingido = () => {
 
 		const tempDataForTable = transformObjectToTableRow(
 			sanitizeUnavailableData(transformPortugueseMonthsToNumbers(rawData)),
-		)(tempDataForGraph)
+		)
 		return { graphData: tempDataForGraph, tableData: tempDataForTable }
 	}
 
