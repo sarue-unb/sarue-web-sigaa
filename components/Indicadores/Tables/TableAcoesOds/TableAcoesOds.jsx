@@ -8,7 +8,6 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 
 export const TableAcoesOds = ({ tableData }) => {
-	console.log(tableData)
 	const rows = tableData.map(item => {
 		return (
 			<TableRow key={item.year}>

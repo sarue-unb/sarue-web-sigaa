@@ -8,6 +8,7 @@ import {
 	Tooltip,
 	Legend,
 	ResponsiveContainer,
+	Label,
 } from 'recharts'
 import Link from 'next/link'
 import { saveAs } from 'file-saver'
@@ -62,8 +63,7 @@ export const PublicoRealAtingido = () => {
 
 		const tempDataForTable = transformObjectToTableRow(
 			sanitizeUnavailableData(transformPortugueseMonthsToNumbers(rawData)),
-		)
-		console.log(tempDataForGraph)
+		)(tempDataForGraph)
 		return { graphData: tempDataForGraph, tableData: tempDataForTable }
 	}
 
@@ -83,7 +83,37 @@ export const PublicoRealAtingido = () => {
 			<Typography margin={8} alignSelf='start' fontSize='32px'>
 				Indicadores &gt; {IndicadoresTcuList['publico_real_atingido'].title}
 			</Typography>
-
+			<Box
+				alignSelf={'center'}
+				bgcolor='white'
+				minHeight='15rem'
+				minWidth='60rem'
+				borderRadius='48px'
+				padding={4}
+			>
+				{/* Gráfico */}
+				<ResponsiveContainer width={'100%'} height={400}>
+					<LineChart data={graphData} ref={chartRef} margin={{}}>
+						<XAxis
+							dataKey='month'
+							padding={{ left: 30, right: 10 }}
+							tickMargin={15}
+						/>
+						<YAxis
+							dataKey='pessoas_atingidas'
+							padding={{ top: 30 }}
+							tickSize={0.1}
+						/>
+						<Tooltip />
+						<Legend />
+						<Line
+							type='monotone'
+							dataKey='pessoas_atingidas'
+							stroke='#8884d8'
+						/>
+					</LineChart>
+				</ResponsiveContainer>
+			</Box>
 			<Box marginTop='4rem' bgcolor='black'>
 				<Typography fontSize={'1.5rem'}>
 					Tabela com o publico real atingido
