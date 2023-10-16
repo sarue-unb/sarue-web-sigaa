@@ -33,7 +33,7 @@ export default function Indicadores() {
 			height='100vh'
 		>
 			<Typography marginTop='10px' textAlign='center' fontSize='2em'>
-				Indicadores TCU
+				Indicadores Acadêmicos
 			</Typography>
 			<hr
 				style={{

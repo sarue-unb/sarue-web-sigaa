@@ -12,32 +12,31 @@ import {
 import Link from 'next/link'
 import { saveAs } from 'file-saver'
 import { IndicadoresAcademicList } from '../../../components/Indicadores/IndicadoresAcademicList'
-import { getDatabase } from '@/components/utils/utils'
 import {
-	TableAcoesAnoAnterior,
+	TableFinanciamentoExterno,
 	TableData,
-} from '../../../components/Indicadores/Tables/TableAcoesAno/TableAcoesAnoAnterior'
+} from '../../../components/Indicadores/Tables/TableFinanciamentoExterno/TableFinanciamentoExt'
+import { getDatabase } from '@/components/utils/utils'
 
 type GraphData = {
 	year: string
-	indice: null | number
+	indice: number
 }[]
 
 type Database = {
-	status_acao_anual: {
+	info_anual: {
 		[year: string]: {
-			CONCLUÍDA: number
-			'NÃO APROVADA': number
-			'PENDENTE DE RELATÓRIO': number
-			'PROJETO CANCELADO': number
+			fonte_financiamento: {
+				'AÇÃO AUTO-FINANCIADA': number
+				'FINANCIAMENTO EXTERNO': number
+			}
 		}
 	}
 }
 
-export const AcoesAnoAnterior = () => {
+export const AcoesFinanciamentoExterno = () => {
 	const chartRef = useRef<any>(null)
 	const [graphData, setGraphData] = useState<GraphData>([])
-	const [tableData, setTableData] = useState<TableData>([])
 
 	const handleButtonClick = () => {
 		if (chartRef.current === null) {
@@ -52,39 +51,29 @@ export const AcoesAnoAnterior = () => {
 	}
 
 	const calculateIndicador = (data: Database) => {
-		const rawData = Object.entries(data['status_acao_anual'])
-		const graphData = rawData.map(([year, data], index) => {
-			if (index === 0) {
-				return { year, indice: null }
-			}
-			const previousData = rawData[index - 1][1]
+		const rawData = Object.entries(data['info_anual'])
+		const graphData = rawData.map(([year, yearlyData]) => {
+			const indice =
+				(yearlyData.fonte_financiamento['FINANCIAMENTO EXTERNO'] /
+					yearlyData.fonte_financiamento['AÇÃO AUTO-FINANCIADA']) *
+				100
 
-			return {
-				year,
-				indice: data['CONCLUÍDA'] / previousData['CONCLUÍDA'],
-			}
+			return { year, indice }
 		})
-		const tableData: TableData = graphData.map(({ year, indice }) => ({
-			year,
-			indice: indice === null ? 'n/d' : indice,
-		}))
 
-		return {
-			graphData: graphData.filter(data => data.indice) as GraphData,
-			tableData,
-		}
+		return graphData
 	}
 
 	useEffect(() => {
 		const result = calculateIndicador(getDatabase())
-		setGraphData(result.graphData)
-		setTableData(result.tableData)
+		setGraphData(result)
 	}, [])
 
 	return (
 		<Box display='flex' alignItems={'center'} flexDirection='column'>
 			<Typography margin={8} alignSelf='start' fontSize='32px'>
-				Indicadores &gt; {IndicadoresAcademicList['envolvidos_ano'].title}
+				Indicadores &gt;{' '}
+				{IndicadoresAcademicList['envolvidos_financiamento_externo'].title}
 			</Typography>
 			<Box
 				alignSelf={'center'}
@@ -114,12 +103,12 @@ export const AcoesAnoAnterior = () => {
 					</LineChart>
 				</ResponsiveContainer>
 			</Box>
-			<Box marginTop='4rem' bgcolor='black'>
-				<Typography fontSize={'1.5rem'}>
-					Tabela com as ações institucionalizadas no SIGAA em relação ao ano
-					anterior
+			<Box marginTop='4rem'>
+				<Typography fontSize={'1.5rem'} bgcolor='black'>
+					Percentual anual de ações com financiamento externo em relação às
+					autofinanciadas
 				</Typography>
-				<TableAcoesAnoAnterior tableData={tableData} />
+				<TableFinanciamentoExterno tableData={graphData} />
 			</Box>
 
 			<Box
@@ -164,4 +153,4 @@ export const AcoesAnoAnterior = () => {
 	)
 }
 
-export default AcoesAnoAnterior
+export default AcoesFinanciamentoExterno

@@ -12,13 +12,14 @@ export type TableData = {
 	indice: string | number
 }[]
 
-type TableAcoesAnoAnteriorProps = {
+type TableFinanciamentoExternoProps = {
 	tableData: TableData
 }
 
-export const TableAcoesAnoAnterior = ({
+export const TableFinanciamentoExterno = ({
 	tableData,
-}: TableAcoesAnoAnteriorProps) => {
+}: TableFinanciamentoExternoProps) => {
+	console.log({ tableData })
 	const rows = tableData.map(({ year, indice }) => {
 		return (
 			<TableRow
@@ -34,7 +35,8 @@ export const TableAcoesAnoAnterior = ({
 		<TableContainer component={Paper}>
 			<Table
 				sx={{ minWidth: 300 }}
-				aria-label='Tabela com as ações institucionalizadas no SIGAA em relação ao ano anterior'
+				aria-label='Tabela com o percentual anual de ações de extensão com financiamento externo em relação às ações
+                autofinanciadas'
 			>
 				<TableHead>
 					<TableRow>
