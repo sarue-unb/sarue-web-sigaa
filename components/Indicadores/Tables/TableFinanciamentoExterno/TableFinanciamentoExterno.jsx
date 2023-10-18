@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 
-export const TableAcoesAno = ({ tableData }) => {
+export const TableFinanciamentoExterno = ({ tableData }) => {
 	const rows = Object.entries(tableData).map(([key, value]) => {
 		let sumByyear = 0
 		value.map(acaoValue => {
@@ -30,10 +30,10 @@ export const TableAcoesAno = ({ tableData }) => {
 	})
 	return (
 		<TableContainer component={Paper}>
-			<Table sx={{ minWidth: 300 }} aria-label='Tabela Ações institucionalizadas'>
+			<Table sx={{ minWidth: 300 }} aria-label='Tabela com os 17 ODS'>
 				<TableHead>
 					<TableRow>
-						<TableCell align='left'>Ano/Mes</TableCell>
+						<TableCell align='left'>Ano</TableCell>
 						<TableCell align='right'>1</TableCell>
 						<TableCell align='right'>2</TableCell>
 						<TableCell align='right'>3</TableCell>
