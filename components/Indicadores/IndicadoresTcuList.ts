@@ -21,6 +21,11 @@ export const IndicadoresTcuList = {
 		title:
 			'Quantitativo de cada perfil (discentes, docente, externo, servidor) envolvido por ano ',
 	},
+	publico_real_atingido: {
+		shortTitle: 'Publico real atingido por ano',
+		path: 'tcu/publico-real-atingido',
+		title: 'Publico real atingido por ano',
+	},
 
 	// acoes_mais_de_uma_unidade_academica: {
 	// 	shortTitle: 'Ações com mais de uma unidade acadêmica',
