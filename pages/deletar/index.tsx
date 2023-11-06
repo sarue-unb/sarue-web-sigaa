@@ -19,7 +19,7 @@ const RestartPage = () => {
 			maxWidth={'100%'}
 			padding={'2em'}
 		>
-			<TextHeader text='Reiniciar Sessão' />
+			<TextHeader text='Deletar dados' />
 			<Typography maxWidth={'50%'} textAlign='start' fontSize='1rem'>
 				Ao clicar no botão abaixo os arquivos carregados e dados salvos serão
 				deletados. Em seguida você será redirecionado para a página inicial.
