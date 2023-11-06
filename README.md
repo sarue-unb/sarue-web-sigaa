@@ -1,6 +1,6 @@
 Projeto SARUE - UnB
 
-Sistema disponível em:  https://sarue-unb.github.io/sarue-web-sigaa/
+Sistema disponível em:  https://sarue-unb.github.io/sarue-web-sigaa/dashboard
 
 ## Primeiros passos
 
