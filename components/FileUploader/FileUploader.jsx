@@ -49,6 +49,27 @@ export const FileUploader = () => {
 
 	return (
 		<Box maxWidth={'80%'} justifyContent={'center'} alignContent={'center'}>
+			<Typography variant='h6' style={{ marginBottom: '0' }}>
+				Carregar dados do servidor
+			</Typography>
+			<Typography style={{ marginBottom: '10px' }}>
+				Você pode baixar os dados dos indicadores mais recentes do servidor:
+			</Typography>
+
+			<Button
+				variant='contained'
+				color='primary'
+				onClick={downloadFileFromServer}
+				sx={{
+					mt: 2,
+					width: '300px',
+					fontSize: '1em',
+					borderRadius: '32px',
+					marginBottom: '1em',
+				}}
+			>
+				Baixar arquivo do servidor
+			</Button>
 			<Typography variant='h6' style={{ marginBottom: '10px' }}>
 				Carregar dados através do envio de arquivo
 			</Typography>
@@ -97,28 +118,6 @@ export const FileUploader = () => {
 					Versão dos dados carregados: {dateTime}
 				</Typography>
 			)}
-
-			<Typography variant='h6' style={{ marginBottom: '0', marginTop: '20px' }}>
-				Carregar dados do servidor
-			</Typography>
-			<Typography style={{ marginBottom: '10px' }}>
-				Você também pode baixar os dados mais recente do servidor:
-			</Typography>
-
-			<Button
-				variant='contained'
-				color='primary'
-				onClick={downloadFileFromServer}
-				sx={{
-					mt: 2,
-					width: '300px',
-					fontSize: '1em',
-					borderRadius: '32px',
-					marginBottom: '1em',
-				}}
-			>
-				Baixar arquivo do servidor
-			</Button>
 		</Box>
 	)
 }
