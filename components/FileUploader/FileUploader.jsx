@@ -3,19 +3,28 @@ import { Container } from '@mui/system'
 import { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { uploadFilesMessage, fileLoadedMessage } from './messages'
-import { isDatabaseLoaded } from '../utils/utils'
+import {
+	isDatabaseLoaded,
+	getDatabase,
+	parseCustomDateString,
+} from '../utils/utils'
 import { database } from '@/database'
+import UploadIcon from '@mui/icons-material/Upload'
 
 export const FileUploader = () => {
 	const [uploadMessage, setUploadMessage] = useState(uploadFilesMessage)
+	const [dateTime, setDateTime] = useState('')
 	const [status, setStatus] = useState(false)
 	const downloadFileFromServer = () => {
 		setStatus(!status)
 		localStorage.setItem('database', JSON.stringify(database))
+		changeUploadMessage()
 	}
 
 	const changeUploadMessage = () => {
 		setUploadMessage(fileLoadedMessage)
+		const tmpDatabase = getDatabase()
+		setDateTime(parseCustomDateString(tmpDatabase['date_time']))
 	}
 	useEffect(() => {
 		if (isDatabaseLoaded()) {
@@ -39,16 +48,21 @@ export const FileUploader = () => {
 	const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
 	return (
-		<Box display="flex" flexDirection="column" gap="16px" alignItems="center">
+		<Box maxWidth={'80%'} justifyContent={'center'} alignContent={'center'}>
 			<Typography variant='h6' style={{ marginBottom: '10px' }}>
-				Para utilizar o sistema é necessário carregar a base de dados do SIGAA.
-				Carregue o arquivo ou clique no botão.
+				Carregar dados através do envio de arquivo
+			</Typography>
+			<Typography style={{ marginBottom: '10px' }}>
+				Caso você já possua algum arquivo com os dos indicadores em seu
+				computador e deseja visualiza-los aqui no sistema SARUE, basta
+				arrastá-lo na caixa abaixo:
 			</Typography>
 			<Box>
 				<Container
-					className='px-8 flex items-center bg-darkGrey h-56'
+					className='px-5 flex items-center bg-darkGrey h-24'
 					{...getRootProps()}
 					style={{
+						maxWidth: '800px',
 						borderRadius: '8px',
 						boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
 						transition: 'background-color 0.3s',
@@ -56,17 +70,32 @@ export const FileUploader = () => {
 				>
 					<input {...getInputProps()} />
 					<Container
-						className='p-3 text-justify justify-center hover:cursor-pointer items-center border-dashed border-2 border-darkGreen hover:bg-gray-500'
+						className='flex  p-3 text-justify justify-center hover:cursor-pointer items-center border-dashed border-2 border-darkGreen hover:bg-gray-500'
 						style={{
+							maxWidth: '85%',
 							borderRadius: '4px',
 							paddingLeft: '108px',
-							paddingRight: '108px'
+							paddingRight: '108px',
 						}}
 					>
-						<Typography variant='body1' textAlign="center">{uploadMessage}</Typography>
+						<Typography variant='body1'>{uploadMessage}</Typography>
+
+						<UploadIcon />
 					</Container>
 				</Container>
 			</Box>
+			{dateTime != '' && (
+				<Typography variant='body1' style={{ marginTop: '5px' }}>
+					Versão dos dados carregados: {dateTime}
+				</Typography>
+			)}
+
+			<Typography variant='h6' style={{ marginBottom: '0', marginTop: '20px' }}>
+				Carregar dados do servidor
+			</Typography>
+			<Typography style={{ marginBottom: '10px' }}>
+				Você também pode baixar os dados mais recente do servidor:
+			</Typography>
 
 			<Button
 				variant='contained'

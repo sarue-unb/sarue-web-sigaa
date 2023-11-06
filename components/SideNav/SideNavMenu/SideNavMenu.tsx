@@ -27,7 +27,7 @@ const SideNavMenu = () => {
 						icon={<SchoolIcon fontSize='large' htmlColor='white' />}
 					></CustomListItem>
 					<CustomListItem
-						text='Exportar dados'
+						text='Exportar dados para o excel'
 						linkRoute='/exportar-dados'
 						icon={<Description fontSize='large' htmlColor='white' />}
 					></CustomListItem>
