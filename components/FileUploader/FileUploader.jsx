@@ -85,7 +85,10 @@ export const FileUploader = () => {
 				</Container>
 			</Box>
 			{dateTime != '' && (
-				<Typography variant='body1' style={{ marginTop: '5px' }}>
+				<Typography
+					variant='body1'
+					style={{ marginTop: '5px', fontStyle: 'italic' }}
+				>
 					Versão dos dados carregados: {dateTime}
 				</Typography>
 			)}

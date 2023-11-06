@@ -1,4 +1,5 @@
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
+import { TextHeader } from '@/components/TextHeader/TextHeader'
 
 const AboutPage = () => {
 	return (
@@ -8,39 +9,18 @@ const AboutPage = () => {
 			alignItems='center'
 			justifyContent='start'
 			height='100vh'
+			maxWidth={'100%'}
+			padding={'2em'}
 		>
-			<Box display='flex' flexDirection='column' width='70%'>
-				<Typography textAlign='center' fontSize='2em' alignSelf='start'>
-					Sobre o projeto
-				</Typography>
-				<hr
-					style={{
-						alignSelf: 'center',
-						borderTop: '1px solid white',
-						width: '100%',
-						margin: '0 0 0 50px 0',
-					}}
-				/>
-			</Box>
-			<Container
-				style={{
-					maxWidth: '70%',
-					borderRadius: '8px',
-					marginTop: '16px',
-					paddingTop: '8px',
-					paddingBottom: '8px',
-					textAlign: 'justify',
-				}}
-				className='bg-darkGrey'
-			>
-				<Typography variant='body1' fontSize={'22px'}>
-					Este é o Sistema SARUE, desenvolvido por alunos e professores da
-					Universidade de Brasília (UnB) em conjunto com o Decanato de Extensão.
-					O objetivo do sistema é apresentar dados de maneira visual e de fácil
-					compreensão, de diversas atividades realizadas sob a responsabilidade
-					do Decanato de Extensão da Universidade de Brasília.
-				</Typography>
-			</Container>
+			<TextHeader text='Sobre o projeto' />
+			<Typography maxWidth={'50%'} textAlign='start' fontSize='1rem'>
+				Este é o Sistema de Apuração dos Registros Universitários de Extensão
+				(SARUE), desenvolvido por alunos e professores da Universidade de
+				Brasília (UnB) em conjunto com o Decanato de Extensão. O objetivo do
+				sistema é apresentar dados de maneira visual e de fácil compreensão, de
+				diversas atividades realizadas sob a responsabilidade do Decanato de
+				Extensão da Universidade de Brasília.
+			</Typography>
 		</Box>
 	)
 }
