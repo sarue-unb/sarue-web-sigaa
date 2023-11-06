@@ -13,7 +13,7 @@ const MainView = ({ children }: SideNavProps) => {
 				<Grid container item xs={3}>
 					<SideNavMenu />
 				</Grid>
-				<Grid item xs={9} className='bg-lightGrey'>
+				<Grid item xs={9} className='bg-lightGrey pt-8'>
 					{children}
 				</Grid>
 			</Grid>

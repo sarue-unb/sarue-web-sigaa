@@ -132,7 +132,7 @@ export const AcoesUnidade = () => {
 			>
 				{/* Gráfico */}
 				<ResponsiveContainer width={'100%'} height={400}>
-					<PieChart width={730} height={250}>
+					<PieChart width={730} height={250} ref={chartRef}>
 						<Pie
 							data={pieChartData}
 							dataKey='qtd'

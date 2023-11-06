@@ -2,27 +2,27 @@ import Box from '@mui/material/Box'
 import { CircularProgress, Typography } from '@mui/material'
 import { FileUploader } from '@/components/FileUploader/FileUploader'
 export default function Dashboard() {
-
 	return (
 		<Box
 			display='flex'
 			flexDirection='column'
-			alignItems='start'
+			alignItems='center'
 			justifyContent='start'
 			height='100vh'
-			maxWidth={'100%'}
-			padding={'5rem'}
 		>
-			<Typography
-				textAlign='start'
-				fontSize='2em'
-				marginBottom={'3rem'}
-				maxWidth={800}
-			>
-				Sistema de Apuração dos Registros Universitários de Extensão
-			</Typography>
-			<FileUploader />
-			
+			<Box display='flex' flexDirection='column' width='70%' gap='16px'>
+				<Typography textAlign='center' fontSize='2em' alignSelf='start'>
+					Sistema de Apuração dos Registros Universitários de Extensão
+				</Typography>
+				<hr
+					style={{
+						alignSelf: 'center',
+						borderTop: '1px solid white',
+						width: '100%',
+					}}
+				/>
+				<FileUploader />
+			</Box>
 		</Box>
 	)
 }

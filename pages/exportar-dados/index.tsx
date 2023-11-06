@@ -11,7 +11,7 @@ const ExportarDados = () => {
 
 	return (
 		<Box height='100vh'>
-			<Typography marginTop='2em' textAlign='center' fontSize='2rem'>
+			<Typography textAlign='center' fontSize='2rem'>
 				Esta pagina vai ser responsável por conter a interface de exportar dados
 			</Typography>
 		</Box>

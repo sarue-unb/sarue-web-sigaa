@@ -32,23 +32,28 @@ export default function Indicadores() {
 			alignItems='center'
 			justifyContent='start'
 			height='100vh'
+			gap='16px'
 		>
-			<Typography marginTop='10px' textAlign='center' fontSize='2em'>
-				Indicadores TCU
-			</Typography>
-			<hr
-				style={{
-					borderTop: '1px solid white',
-					width: '70%',
-					margin: '0 0 0 50px 0',
-				}}
-			/>
+			<Box display='flex' flexDirection='column' width='70%'>
+				<Typography textAlign='center' fontSize='2em' alignSelf='start'>
+					Indicadores TCU
+				</Typography>
+				<hr
+					style={{
+						alignSelf: 'center',
+						borderTop: '1px solid white',
+						width: '100%',
+						margin: '0 0 0 50px 0',
+					}}
+				/>
+			</Box>
 
 			<Box
 				display='flex'
 				flexDirection='column'
 				justifyContent='flex-start'
 				alignItems='flex-start'
+				gap='16px'
 			>
 				{tcuIndicadoresList}
 			</Box>

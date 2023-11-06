@@ -10,12 +10,7 @@ const AboutPage = () => {
 			height='100vh'
 		>
 			<Box display='flex' flexDirection='column' width='70%'>
-				<Typography
-					marginTop='10px'
-					textAlign='center'
-					fontSize='2em'
-					alignSelf='start'
-				>
+				<Typography textAlign='center' fontSize='2em' alignSelf='start'>
 					Sobre o projeto
 				</Typography>
 				<hr
@@ -30,7 +25,7 @@ const AboutPage = () => {
 			<Container
 				style={{
 					maxWidth: '70%',
-					borderRadius: '4px',
+					borderRadius: '8px',
 					marginTop: '16px',
 					paddingTop: '8px',
 					paddingBottom: '8px',
@@ -38,7 +33,7 @@ const AboutPage = () => {
 				}}
 				className='bg-darkGrey'
 			>
-				<Typography variant='body1'>
+				<Typography variant='body1' fontSize={'22px'}>
 					Este é o Sistema SARUE, desenvolvido por alunos e professores da
 					Universidade de Brasília (UnB) em conjunto com o Decanato de Extensão.
 					O objetivo do sistema é apresentar dados de maneira visual e de fácil
