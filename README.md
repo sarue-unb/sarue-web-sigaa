@@ -1,5 +1,7 @@
 Projeto SARUE - UnB
 
+Sistema disponível em:  https://sarue-unb.github.io/sarue-web-sigaa/
+
 ## Primeiros passos
 
 ```bash

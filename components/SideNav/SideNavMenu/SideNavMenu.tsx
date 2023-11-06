@@ -12,7 +12,7 @@ const SideNavMenu = () => {
 			<nav aria-label='Navegação principal'>
 				<List>
 					<CustomListItem
-						text='Dashboard'
+						text='Página Inicial'
 						linkRoute='/dashboard'
 						icon={<HomeIcon fontSize='large' htmlColor='white' />}
 					></CustomListItem>
@@ -27,7 +27,7 @@ const SideNavMenu = () => {
 						icon={<SchoolIcon fontSize='large' htmlColor='white' />}
 					></CustomListItem>
 					<CustomListItem
-						text='Exportar dados'
+						text='Exportar dados para o excel'
 						linkRoute='/exportar-dados'
 						icon={<Description fontSize='large' htmlColor='white' />}
 					></CustomListItem>
@@ -47,8 +47,8 @@ const SideNavMenu = () => {
 						icon={<Help fontSize='large' htmlColor='white' />}
 					></CustomListItem>
 					<CustomListItem
-						text='Sair'
-						linkRoute='/dashboard'
+						text='Reiniciar Sessão'
+						linkRoute='/reiniciar'
 						icon={<ExitToApp fontSize='large' htmlColor='lightcoral' />}
 					></CustomListItem>
 				</List>

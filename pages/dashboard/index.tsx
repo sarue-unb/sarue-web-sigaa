@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box'
-import { CircularProgress, Typography } from '@mui/material'
 import { FileUploader } from '@/components/FileUploader/FileUploader'
+import { TextHeader } from '@/components/TextHeader/TextHeader'
+
 export default function Dashboard() {
 	return (
 		<Box
@@ -9,20 +10,12 @@ export default function Dashboard() {
 			alignItems='center'
 			justifyContent='start'
 			height='100vh'
+			maxWidth={'100%'}
+			padding={'2em'}
 		>
-			<Box display='flex' flexDirection='column' width='70%' gap='16px'>
-				<Typography textAlign='center' fontSize='2em' alignSelf='start'>
-					Sistema de Apuração dos Registros Universitários de Extensão
-				</Typography>
-				<hr
-					style={{
-						alignSelf: 'center',
-						borderTop: '1px solid white',
-						width: '100%',
-					}}
-				/>
-				<FileUploader />
-			</Box>
+			<TextHeader text='Página Inicial' />
+
+			<FileUploader />
 		</Box>
 	)
 }

@@ -78,3 +78,17 @@ export const sanitizeUnavailableData = (obj: any) => {
 
 	return obj
 }
+
+export const parseCustomDateString = (dateString: string) => {
+	if (dateString == undefined || dateString == '') {
+		return
+	}
+	const [datePart, timePart] = dateString.split('_')
+	const [day, month, year] = datePart.split('-').map(part => parseInt(part, 10))
+
+	const [hours, minutes] = timePart.split('-').map(part => parseInt(part, 10))
+
+	const date = new Date(year + 2000, month - 1, day, hours, minutes)
+
+	return date.toISOString()
+}
