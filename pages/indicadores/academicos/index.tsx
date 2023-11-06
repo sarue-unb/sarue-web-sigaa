@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box'
-import { Typography } from '@mui/material'
 
 import { BotaoIndicadores } from '../../../components/Indicadores/BotaoIndicadores/BotaoIndicadores'
 import { IndicadoresAcademicList } from '../../../components/Indicadores/IndicadoresAcademicList'
 import ReturnToHomePage from '@/components/ReturnToHomepage/ReturnToHomepage'
 import { useShowReturnToHomePage } from '@/components/hooks/useShowReturnToHomePage'
+import { TextHeader } from '@/components/TextHeader/TextHeader'
 
 export default function Indicadores() {
 	const [showData, setShowData] = useState(false)
@@ -23,7 +23,6 @@ export default function Indicadores() {
 	if (shouldShowReturnToHomePage) {
 		return <ReturnToHomePage />
 	}
-
 	return (
 		<Box
 			display='flex'
@@ -31,22 +30,10 @@ export default function Indicadores() {
 			alignItems='center'
 			justifyContent='start'
 			height='100vh'
-			gap='16px'
+			maxWidth={'100%'}
+			padding={'2em'}
 		>
-			<Box display='flex' flexDirection='column' width='70%'>
-				<Typography textAlign='center' fontSize='2em' alignSelf='start'>
-					Indicadores Acadêmicos
-				</Typography>
-				<hr
-					style={{
-						alignSelf: 'center',
-						borderTop: '1px solid white',
-						width: '100%',
-						margin: '0 0 0 50px 0',
-					}}
-				/>
-			</Box>
-
+			<TextHeader text='Indicadores Acadêmicos' />
 			<Box
 				display='flex'
 				flexDirection='column'

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
-import { Button, Modal, Typography } from '@mui/material'
 
 import { BotaoIndicadores } from '../../../components/Indicadores/BotaoIndicadores/BotaoIndicadores'
 import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresTcuList'
