@@ -39,14 +39,14 @@ export const FileUploader = () => {
 	const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
 	return (
-		<Box maxWidth={'30rem'} justifyContent={'center'} alignContent={'center'}>
+		<Box display="flex" flexDirection="column" gap="16px" alignItems="center">
 			<Typography variant='h6' style={{ marginBottom: '10px' }}>
 				Para utilizar o sistema é necessário carregar a base de dados do SIGAA.
 				Carregue o arquivo ou clique no botão.
 			</Typography>
 			<Box>
 				<Container
-					className='px-8 flex items-center bg-darkGrey max-w-xs h-56'
+					className='px-8 flex items-center bg-darkGrey h-56'
 					{...getRootProps()}
 					style={{
 						borderRadius: '8px',
@@ -58,11 +58,12 @@ export const FileUploader = () => {
 					<Container
 						className='p-3 text-justify justify-center hover:cursor-pointer items-center border-dashed border-2 border-darkGreen hover:bg-gray-500'
 						style={{
-							maxWidth: '70%',
 							borderRadius: '4px',
+							paddingLeft: '108px',
+							paddingRight: '108px'
 						}}
 					>
-						<Typography variant='body1'>{uploadMessage}</Typography>
+						<Typography variant='body1' textAlign="center">{uploadMessage}</Typography>
 					</Container>
 				</Container>
 			</Box>

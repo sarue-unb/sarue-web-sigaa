@@ -8,14 +8,15 @@ export const BotaoIndicadores = ({ indicadorValue, onClick }: any) => (
 			variant='contained'
 			onClick={onClick}
 			sx={{
-				maxWidth: '50rem',
-				minWidth: '35rem',
-				my: 1,
+				maxWidth: '80rem',
+				minWidth: '68rem',
+				height: '5rem',
 				whiteSpace: 'break-spaces',
 				justifyContent: 'space-between',
 				backgroundColor: 'green !important',
 				borderRadius: '24px',
 				display: 'flex',
+				fontSize: '18px',
 				alignItems: 'center',
 				paddingLeft: '24px',
 				paddingRight: '24px',

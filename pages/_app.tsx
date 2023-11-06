@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<Grid sx={{ width: '100%', maxHeight: '100vh' }}>
 					<Header />
 					<MainView>
-						<Component className='m-0' class='test123' {...pageProps} />
+						<Component {...pageProps} />
 					</MainView>
 					<Footer />
 				</Grid>

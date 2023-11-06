@@ -2,41 +2,42 @@ import { Box, Button, Popover, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import {
 	LineChart,
+	PieChart,
 	Line,
 	XAxis,
 	YAxis,
 	Tooltip,
 	Legend,
 	ResponsiveContainer,
+	Pie,
+	Cell,
 } from 'recharts'
 import Link from 'next/link'
 import { saveAs } from 'file-saver'
 import { IndicadoresAcademicList } from '../../../components/Indicadores/IndicadoresAcademicList'
-import {
-	TableFinanciamentoExterno,
-	TableData,
-} from '../../../components/Indicadores/Tables/TableFinanciamentoExterno/TableFinanciamentoExt'
 import { getDatabase } from '@/components/utils/utils'
+import {
+	TableUnidadeAcademica,
+	TableData,
+} from '@/components/Indicadores/Tables/TableUnidadeAcademica/TableUnidadeAcademica'
 
 type GraphData = {
-	year: string
-	indice: number | string
+	name: string
+	qtd: number
 }[]
 
 type Database = {
-	info_anual: {
-		[year: string]: {
-			fonte_financiamento: {
-				'AÇÃO AUTO-FINANCIADA': number
-				'FINANCIAMENTO EXTERNO': number
-			}
+	info: {
+		proponente: {
+			[name: string]: number
 		}
 	}
 }
 
-export const AcoesFinanciamentoExterno = () => {
+export const AcoesUnidade = () => {
 	const chartRef = useRef<any>(null)
-	const [graphData, setGraphData] = useState<GraphData>([])
+	const [tableData, setTableData] = useState<TableData>([])
+	const [pieChartData, setPieChartData] = useState<TableData>([])
 	const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
 
 	const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -62,30 +63,63 @@ export const AcoesFinanciamentoExterno = () => {
 	}
 
 	const calculateIndicador = (data: Database) => {
-		const rawData = Object.entries(data['info_anual'])
-		const graphData = rawData.map(([year, yearlyData]) => {
-			const indice = (
-				(yearlyData.fonte_financiamento['FINANCIAMENTO EXTERNO'] /
-					yearlyData.fonte_financiamento['AÇÃO AUTO-FINANCIADA']) *
-				100
-			).toFixed(2)
-
-			return { year, indice }
+		const rawData = Object.entries({
+			...data.info.proponente,
 		})
+		const tableData = rawData
+			.filter(([unidade]) => unidade! !== 'Nenhuma')
+			.map(([unidade, qtd], index) => {
+				return {
+					unidade,
+					qtd,
+				}
+			})
 
-		return graphData
+		const pieData = tableData.sort((a, b) => b.qtd - a.qtd).slice(0, 15)
+		const others = {
+			unidade: 'Outros',
+			qtd: tableData.slice(15).reduce((prev, curr) => prev + curr.qtd, 0),
+		}
+
+		return {
+			tableData: tableData.map((data, index) => ({
+				...data,
+				posicao: index + 1,
+			})),
+			pieData: [...pieData, others],
+		}
 	}
 
 	useEffect(() => {
 		const result = calculateIndicador(getDatabase())
-		setGraphData(result)
+		setTableData(result.tableData)
+		setPieChartData(result.pieData)
 	}, [])
 
+	const COLORS = [
+		'#8884d8',
+		'#82ca9d',
+		'#37392E',
+		'#DDCECD',
+		'#EC9A29',
+		'#F0E68C',
+		'#FF0000',
+		'#00FF00',
+		'#0000FF',
+		'#FF00FF',
+		'#00FFFF',
+		'#FFA500',
+		'#800080',
+		'#008000',
+		'#808000',
+		'#008080',
+		'#800000',
+	]
+
 	return (
-		<Box display='flex' alignItems={'center'} flexDirection='column'>
+		<Box display='flex' alignItems='center' flexDirection='column'>
 			<Typography margin={8} alignSelf='start' fontSize='32px'>
-				Indicadores &gt;{' '}
-				{IndicadoresAcademicList['envolvidos_financiamento_externo'].title}
+				Indicadores &gt; {IndicadoresAcademicList['acoes_por_unidade'].title}
 			</Typography>
 			<Box
 				display='flex'
@@ -98,23 +132,20 @@ export const AcoesFinanciamentoExterno = () => {
 			>
 				{/* Gráfico */}
 				<ResponsiveContainer width={'100%'} height={400}>
-					<LineChart data={graphData} ref={chartRef}>
-						<XAxis
-							dataKey='year'
-							label='Ano'
-							padding={{ left: 10, right: 10 }}
-							tickMargin={25}
-						/>
-						<YAxis dataKey='indice' padding={{ top: 30 }} />
-						<Legend
-							wrapperStyle={{
-								paddingLeft: '60px',
-								paddingTop: '20px',
-							}}
-						/>
-						<Line type='monotone' dataKey='indice' stroke='#8884d8' />
+					<PieChart width={730} height={250} ref={chartRef}>
+						<Pie
+							data={pieChartData}
+							dataKey='qtd'
+							nameKey='unidade'
+							outerRadius={200}
+							fill='#8884d8'
+						>
+							{pieChartData.map((entry, index) => (
+								<Cell fill={COLORS[index % COLORS.length]} />
+							))}
+						</Pie>
 						<Tooltip />
-					</LineChart>
+					</PieChart>
 				</ResponsiveContainer>
 				<img
 					height='34px'
@@ -154,27 +185,27 @@ export const AcoesFinanciamentoExterno = () => {
 							maxWidth: 100,
 						}}
 					>
-						Esse indicador é calculado a partir da divisão entre o Número de
-						ações com financiamento externo pelo Número de ações
-						autofinanciadas.
+						O cálculo desse indicador é feito a partir do somatório de todos os
+						anos da quantidade de ações por unidade proponente.
 						<br />
 						<br />
-						Além disso, por se tratar de um percentual, ao final esse cálculo
-						ainda é multiplicado por 100%.
+						Além disso, para uma melhor visualização é apresentado graficamente
+						apenas as primeiras 15 Unidades Acadêmicas com mais ações de
+						extensão.
 						<br />
 						<br />
-						Dessa forma, este indicador demonstra sua importância uma vez que
-						indica a capacidade da universidade em atrair recursos externos para
-						apoiar suas atividades de extensão.
+						Dessa forma, em "Outros", é apresentado o somatório dos 15 em
+						diante.
 					</Typography>
 				</Popover>
 			</Box>
-			<Box marginTop='4rem' bgcolor='#1976d2'>
-				<Typography paddingLeft={5} paddingRight={5} fontSize={'1.5rem'}>
-					Percentual anual de ações com financiamento externo em relação às
-					autofinanciadas
+			<Box marginTop='4rem' bgcolor='#1976d2' mx='200px' alignSelf='normal'>
+				<Typography paddingLeft={8} paddingRight={5} fontSize={'1.5rem'}>
+					{' '}
+					Tabela ordenada da quantidade de ações de extensão por Unidade
+					Acadêmica
 				</Typography>
-				<TableFinanciamentoExterno tableData={graphData} />
+				<TableUnidadeAcademica tableData={tableData} />
 			</Box>
 
 			<Box
@@ -219,4 +250,4 @@ export const AcoesFinanciamentoExterno = () => {
 	)
 }
 
-export default AcoesFinanciamentoExterno
+export default AcoesUnidade
