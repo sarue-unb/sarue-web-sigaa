@@ -47,8 +47,8 @@ const SideNavMenu = () => {
 						icon={<Help fontSize='large' htmlColor='white' />}
 					></CustomListItem>
 					<CustomListItem
-						text='Reiniciar Sessão'
-						linkRoute='/reiniciar'
+						text='Deletar dados'
+						linkRoute='/deletar'
 						icon={<ExitToApp fontSize='large' htmlColor='lightcoral' />}
 					></CustomListItem>
 				</List>
