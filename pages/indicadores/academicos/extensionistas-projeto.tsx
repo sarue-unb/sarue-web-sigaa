@@ -12,31 +12,35 @@ import {
 import Link from 'next/link'
 import { saveAs } from 'file-saver'
 import { IndicadoresAcademicList } from '../../../components/Indicadores/IndicadoresAcademicList'
-import {
-	TableFinanciamentoExterno,
-	TableData,
-} from '../../../components/Indicadores/Tables/TableFinanciamentoExterno/TableFinanciamentoExt'
 import { getDatabase } from '@/components/utils/utils'
+import {
+	TableAcoesAnoAnterior,
+	TableData,
+} from '../../../components/Indicadores/Tables/TableAcoesAno/TableAcoesAnoAnterior'
 
 type GraphData = {
 	year: string
-	indice: number | string
+	indice: null | number
 }[]
 
 type Database = {
 	info_anual: {
 		[year: string]: {
-			fonte_financiamento: {
-				'AÇÃO AUTO-FINANCIADA': number
-				'FINANCIAMENTO EXTERNO': number
+			qtd_discentes_envolvidos: number
+			situação: {
+				CONCLUÍDA: number
+				'NÃO APROVADA': number
+				'PENDENTE DE RELATÓRIO': number
+				'PROJETO CANCELADO': number
 			}
 		}
 	}
 }
 
-export const AcoesFinanciamentoExterno = () => {
+export const ExtensionistasProjeto = () => {
 	const chartRef = useRef<any>(null)
 	const [graphData, setGraphData] = useState<GraphData>([])
+	const [tableData, setTableData] = useState<TableData>([])
 	const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
 
 	const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -63,29 +67,35 @@ export const AcoesFinanciamentoExterno = () => {
 
 	const calculateIndicador = (data: Database) => {
 		const rawData = Object.entries(data['info_anual'])
-		const graphData = rawData.map(([year, yearlyData]) => {
-			const indice = (
-				(yearlyData.fonte_financiamento['FINANCIAMENTO EXTERNO'] /
-					yearlyData.fonte_financiamento['AÇÃO AUTO-FINANCIADA']) *
-				100
-			).toFixed(2)
-
-			return { year, indice }
+		const graphData = rawData.map(([year, data], index) => {
+			const soma = Object.values(data['situação']).reduce((a, b) => a + b, 0)
+			return {
+				year,
+				indice: (data['qtd_discentes_envolvidos'] / soma).toFixed(2),
+			}
 		})
+		const tableData: TableData = graphData.map(({ year, indice }) => ({
+			year,
+			indice: indice === null ? 'n/d' : indice,
+		}))
 
-		return graphData
+		return {
+			graphData: graphData.filter(data => data.indice) as unknown as GraphData,
+			tableData,
+		}
 	}
 
 	useEffect(() => {
 		const result = calculateIndicador(getDatabase())
-		setGraphData(result)
+		setGraphData(result.graphData)
+		setTableData(result.tableData)
 	}, [])
 
 	return (
 		<Box display='flex' alignItems={'center'} flexDirection='column'>
 			<Typography margin={8} alignSelf='start' fontSize='32px'>
 				Indicadores &gt;{' '}
-				{IndicadoresAcademicList['envolvidos_financiamento_externo'].title}
+				{IndicadoresAcademicList['extensionistas_por_projeto'].title}
 			</Typography>
 			<Box
 				display='flex'
@@ -147,34 +157,31 @@ export const AcoesFinanciamentoExterno = () => {
 						bgcolor='black'
 						sx={{
 							p: 1,
-							align: 'justify',
+							textAlign: 'justify',
 							minHeight: 100,
 							maxHeight: 380,
 							minWidth: 380,
 							maxWidth: 100,
 						}}
 					>
-						Esse indicador é calculado a partir da divisão entre o Número de
-						ações com financiamento externo pelo Número de ações
-						autofinanciadas.
+						Esse indicador é calculado a partir da divisão entre o Total de
+						estudantes extensionistas pelo Número de projetos de extensão.
 						<br />
 						<br />
-						Além disso, por se tratar de um percentual, ao final esse cálculo
-						ainda é multiplicado por 100%.
+						Isto é, utiliza-se o dado anual da quantidade de discentes
+						envolvidos nas ações que possuem como situação concluída.
 						<br />
-						<br />
-						Dessa forma, este indicador demonstra sua importância uma vez que
-						indica a capacidade da universidade em atrair recursos externos para
-						apoiar suas atividades de extensão.
+						<br />O indicador de número de estudantes extensionistas por projeto
+						é importante para avaliar o envolvimento dos estudantes nas
+						atividades de extensão.
 					</Typography>
 				</Popover>
 			</Box>
-			<Box marginTop='4rem' bgcolor='#1976d2'>
+			<Box bgcolor='#1976d2' marginTop='4rem'>
 				<Typography paddingLeft={5} paddingRight={5} fontSize={'1.5rem'}>
-					Percentual anual de ações com financiamento externo em relação às
-					autofinanciadas
+					Tabela com o Índice referente ao número de extensionistas por projeto
 				</Typography>
-				<TableFinanciamentoExterno tableData={graphData} />
+				<TableAcoesAnoAnterior tableData={tableData} />
 			</Box>
 
 			<Box
@@ -219,4 +226,4 @@ export const AcoesFinanciamentoExterno = () => {
 	)
 }
 
-export default AcoesFinanciamentoExterno
+export default ExtensionistasProjeto

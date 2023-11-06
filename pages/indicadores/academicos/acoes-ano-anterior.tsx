@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Popover, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import {
 	LineChart,
@@ -38,6 +38,17 @@ export const AcoesAnoAnterior = () => {
 	const chartRef = useRef<any>(null)
 	const [graphData, setGraphData] = useState<GraphData>([])
 	const [tableData, setTableData] = useState<TableData>([])
+	const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
+
+	const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget)
+	}
+
+	const handlePopoverClose = () => {
+		setAnchorEl(null)
+	}
+
+	const open = Boolean(anchorEl)
 
 	const handleButtonClick = () => {
 		if (chartRef.current === null) {
@@ -61,7 +72,7 @@ export const AcoesAnoAnterior = () => {
 
 			return {
 				year,
-				indice: data['CONCLUÍDA'] / previousData['CONCLUÍDA'],
+				indice: (data['CONCLUÍDA'] / previousData['CONCLUÍDA']).toFixed(2),
 			}
 		})
 		const tableData: TableData = graphData.map(({ year, indice }) => ({
@@ -87,6 +98,7 @@ export const AcoesAnoAnterior = () => {
 				Indicadores &gt; {IndicadoresAcademicList['envolvidos_ano'].title}
 			</Typography>
 			<Box
+				display='flex'
 				alignSelf={'center'}
 				bgcolor='white'
 				minHeight='15rem'
@@ -111,11 +123,60 @@ export const AcoesAnoAnterior = () => {
 							}}
 						/>
 						<Line type='monotone' dataKey='indice' stroke='#8884d8' />
+						<Tooltip />
 					</LineChart>
 				</ResponsiveContainer>
+				<img
+					height='34px'
+					width='34px'
+					src='https://sigaa.unb.br/sigaa/img/ajuda.gif'
+					aria-owns={open ? 'mouse-over-popover' : undefined}
+					aria-haspopup='true'
+					onMouseEnter={handlePopoverOpen}
+					onMouseLeave={handlePopoverClose}
+				/>
+				<Popover
+					id='mouse-over-popover'
+					sx={{
+						pointerEvents: 'none',
+					}}
+					open={open}
+					anchorEl={anchorEl}
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'left',
+					}}
+					transformOrigin={{
+						vertical: 'top',
+						horizontal: 'left',
+					}}
+					onClose={handlePopoverClose}
+					disableRestoreFocus
+				>
+					<Typography
+						bgcolor='black'
+						sx={{
+							p: 1,
+							align: 'justify',
+							minHeight: 100,
+							maxHeight: 380,
+							minWidth: 380,
+							maxWidth: 100,
+						}}
+					>
+						Esse indicador é calculado a partir da divisão entre o Número de
+						ações institucionalizadas no ano atual pelo Número de ações
+						institucionalizadas no ano anterior.
+						<br />
+						<br />
+						Podem haver casos em que os índices possuem como resultado "n/d",
+						tal problemática pode ser justificada pelo fato de que não há
+						informações suficientes disponibilizadas no SIGAA.
+					</Typography>
+				</Popover>
 			</Box>
-			<Box marginTop='4rem' bgcolor='black'>
-				<Typography fontSize={'1.5rem'}>
+			<Box marginTop='4rem' bgcolor='#1976d2'>
+				<Typography paddingLeft={5} paddingRight={5} fontSize={'1.5rem'}>
 					Tabela com as ações institucionalizadas no SIGAA em relação ao ano
 					anterior
 				</Typography>
