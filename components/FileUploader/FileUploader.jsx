@@ -59,9 +59,12 @@ export const FileUploader = () => {
 			</Typography>
 			<Box>
 				<Container
-					className='px-5 flex items-center bg-darkGrey h-24'
+					className=' bg-darkGrey h-24'
 					{...getRootProps()}
 					style={{
+						height: '100%',
+						display: 'flex',
+						padding: '1.5rem',
 						maxWidth: '800px',
 						borderRadius: '8px',
 						boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
@@ -70,7 +73,7 @@ export const FileUploader = () => {
 				>
 					<input {...getInputProps()} />
 					<Container
-						className='flex  p-3 text-justify justify-center hover:cursor-pointer items-center border-dashed border-2 border-darkGreen hover:bg-gray-500'
+						className='flex flex-column p-3 text-justify justify-center hover:cursor-pointer items-center border-dashed border-2 border-darkGreen hover:bg-gray-500'
 						style={{
 							maxWidth: '85%',
 							borderRadius: '4px',
@@ -78,9 +81,11 @@ export const FileUploader = () => {
 							paddingRight: '108px',
 						}}
 					>
-						<Typography variant='body1'>{uploadMessage}</Typography>
+						<Typography variant='body1'>
+							{uploadMessage}
 
-						<UploadIcon />
+							<UploadIcon />
+						</Typography>
 					</Container>
 				</Container>
 			</Box>

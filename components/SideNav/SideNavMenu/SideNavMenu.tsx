@@ -12,7 +12,7 @@ const SideNavMenu = () => {
 			<nav aria-label='Navegação principal'>
 				<List>
 					<CustomListItem
-						text='Dashboard'
+						text='Página Inicial'
 						linkRoute='/dashboard'
 						icon={<HomeIcon fontSize='large' htmlColor='white' />}
 					></CustomListItem>
