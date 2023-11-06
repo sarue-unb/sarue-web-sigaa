@@ -2,6 +2,7 @@ import ReturnToHomePage from '@/components/ReturnToHomepage/ReturnToHomepage'
 import { useShowReturnToHomePage } from '@/components/hooks/useShowReturnToHomePage'
 import { Box, Typography, Button } from '@mui/material'
 import { TextHeader } from '@/components/TextHeader/TextHeader'
+import Link from 'next/link'
 
 const ExportarDados = () => {
 	return (
@@ -30,7 +31,9 @@ const ExportarDados = () => {
 				}}
 			>
 				{/* Deve ser uma chamada para a API do servidor */}
-				<a href='/dados_brutos_acoes_extensao.xlsx'>Baixar dados brutos</a>
+				<Link href='/dados_brutos_acoes_extensao.xlsx'>
+					Baixar dados brutos
+				</Link>
 			</Button>
 		</Box>
 	)
