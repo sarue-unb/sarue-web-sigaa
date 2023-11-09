@@ -26,7 +26,7 @@ const ReturnToHomePage = () => {
 						variant='contained'
 						sx={{
 							maxWidth: '20rem',
-							backgroundColor: 'green !important',
+							backgroundColor: '#0172BE !important',
 							borderRadius: '24px',
 							marginTop: '2rem',
 						}}

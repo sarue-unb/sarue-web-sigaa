@@ -1,11 +1,11 @@
 export const IndicadoresAcademicList = {
 	extensionistas_por_projeto: {
-		shortTitle: 'Número de estudantes extensionistas por projeto',
+		shortTitle: 'Estudantes extensionistas por projeto',
 		path: 'academicos/extensionistas-projeto',
 		title: 'Número de estudantes extensionistas por projeto',
 	},
 	acoes_por_unidade: {
-		shortTitle: 'Quantidade de ações de extensão por unidade',
+		shortTitle: 'Ações de extensão por unidade',
 		path: 'academicos/acoes-por-unidade',
 		title: 'Quantidade de ações de extensão por unidade',
 	},
