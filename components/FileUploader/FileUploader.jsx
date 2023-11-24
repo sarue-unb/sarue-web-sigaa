@@ -10,6 +10,7 @@ import {
 } from '../utils/utils'
 import { database } from '@/database'
 import UploadIcon from '@mui/icons-material/Upload'
+import Link from 'next/link'
 
 export const FileUploader = () => {
 	const [uploadMessage, setUploadMessage] = useState(uploadFilesMessage)
@@ -25,6 +26,10 @@ export const FileUploader = () => {
 		setUploadMessage(fileLoadedMessage)
 		const tmpDatabase = getDatabase()
 		setDateTime(parseCustomDateString(tmpDatabase['date_time']))
+	}
+
+	const handleTutorialClick = () => {
+		router.push('/sobre')
 	}
 	useEffect(() => {
 		if (isDatabaseLoaded()) {
@@ -49,34 +54,61 @@ export const FileUploader = () => {
 
 	return (
 		<Box maxWidth={'80%'} justifyContent={'center'} alignContent={'center'}>
-			<Typography variant='h6' style={{ marginBottom: '0' }}>
-				Carregar dados do servidor
-			</Typography>
-			<Typography style={{ marginBottom: '10px' }}>
-				Você pode baixar os dados dos indicadores mais recentes do servidor:
-			</Typography>
+			<Box>
+				<Typography variant='h6' style={{ marginBottom: '0' }}>
+					Como o sistema funciona?
+				</Typography>
+				<Typography style={{ marginBottom: '10px' }}>
+					Clique no botão abaixo para acessar o tutorial
+				</Typography>
 
-			<Button
-				variant='contained'
-				color='primary'
-				onClick={downloadFileFromServer}
-				sx={{
-					mt: 2,
-					width: '300px',
-					fontSize: '1em',
-					borderRadius: '32px',
-					marginBottom: '1em',
-				}}
-			>
-				Baixar arquivo do servidor
-			</Button>
+				<Button
+					variant='contained'
+					color='primary'
+					sx={{
+						mt: 2,
+						width: '300px',
+						fontSize: '1em',
+						borderRadius: '32px',
+						marginBottom: '1em',
+					}}
+				>
+					<Link href='/sobre'>Tutorial</Link>
+				</Button>
+			</Box>
+
+			<Box>
+				<Typography variant='h6' style={{ marginBottom: '0' }}>
+					Carregar dados do servidor
+				</Typography>
+				<Typography style={{ marginBottom: '10px' }}>
+					Você pode carregar os dos indicadores mais recentes do servidor.
+				</Typography>
+
+				<Button
+					variant='contained'
+					color='primary'
+					onClick={downloadFileFromServer}
+					sx={{
+						mt: 2,
+						width: '300px',
+						fontSize: '1em',
+						borderRadius: '32px',
+						marginBottom: '1em',
+					}}
+				>
+					Carregar dados do servidor
+				</Button>
+			</Box>
+
 			<Typography variant='h6' style={{ marginBottom: '10px' }}>
 				Carregar dados através do envio de arquivo
 			</Typography>
 			<Typography style={{ marginBottom: '10px' }}>
-				Caso você já possua algum arquivo com os dos indicadores em seu
+				Caso você já possua algum arquivo com os dados dos indicadores em seu
 				computador e deseja visualiza-los aqui no sistema SARUE, basta
-				arrastá-lo na caixa abaixo:
+				arrastá-lo na caixa abaixo ou clicar para fazer selecionar eles de seu
+				computador:
 			</Typography>
 			<Box>
 				<Container

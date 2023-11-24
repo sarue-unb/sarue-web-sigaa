@@ -11,7 +11,7 @@ export const TextHeader = (props: any) => {
 				style={{
 					borderTop: '1px solid white',
 					width: '60vw',
-					marginBottom: '50px',
+					marginBottom: '20px',
 				}}
 			/>
 		</Box>
