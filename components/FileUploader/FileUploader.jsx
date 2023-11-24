@@ -61,20 +61,21 @@ export const FileUploader = () => {
 				<Typography style={{ marginBottom: '10px' }}>
 					Clique no botão abaixo para acessar o tutorial
 				</Typography>
-
-				<Button
-					variant='contained'
-					color='primary'
-					sx={{
-						mt: 2,
-						width: '300px',
-						fontSize: '1em',
-						borderRadius: '32px',
-						marginBottom: '1em',
-					}}
-				>
-					<Link href='/sobre'>Tutorial</Link>
-				</Button>
+				<Link href='/sobre'>
+					<Button
+						variant='contained'
+						color='primary'
+						sx={{
+							mt: 2,
+							width: '300px',
+							fontSize: '1em',
+							borderRadius: '32px',
+							marginBottom: '1em',
+						}}
+					>
+						Tutorial
+					</Button>
+				</Link>
 			</Box>
 
 			<Box>
