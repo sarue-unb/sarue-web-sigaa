@@ -47,7 +47,7 @@ const SideNavMenu = () => {
 						icon={<Help fontSize='large' htmlColor='white' />}
 					></CustomListItem>
 					<CustomListItem
-						text='Deletar dados'
+						text='Deletar dados do navegador'
 						linkRoute='/deletar'
 						icon={<ExitToApp fontSize='large' htmlColor='lightcoral' />}
 					></CustomListItem>

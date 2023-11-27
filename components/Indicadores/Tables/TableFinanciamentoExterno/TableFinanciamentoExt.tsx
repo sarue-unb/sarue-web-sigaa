@@ -19,7 +19,6 @@ type TableFinanciamentoExternoProps = {
 export const TableFinanciamentoExterno = ({
 	tableData,
 }: TableFinanciamentoExternoProps) => {
-	console.log({ tableData })
 	const rows = tableData.map(({ year, indice }) => {
 		return (
 			<TableRow
