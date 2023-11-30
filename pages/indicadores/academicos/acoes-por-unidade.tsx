@@ -59,7 +59,33 @@ export const AcoesUnidade = () => {
 		const svgComponent = chartRef.current.container.children[0]
 
 		const svgURL = new XMLSerializer().serializeToString(svgComponent)
-		const svgBlob = new Blob([svgURL], { type: 'image/svg+xml;charset=utf-8' })
+
+		const halfDataLength = Math.ceil(pieChartData.length / 2)
+		const legendSVG = `
+			<g transform="translate(20,440)"> <!-- Ajuste as coordenadas X e Y conforme necessário para a legenda -->
+				${pieChartData
+					.map((entry, index) => {
+						const column = index >= halfDataLength ? 360 : 0
+						const columnIndex =
+							index >= halfDataLength ? index - halfDataLength : index
+						return `<g transform="translate(${column},${
+							columnIndex * 20
+						})"> <!-- Ajuste o espaçamento vertical conforme necessário -->
+					<rect x="0" y="0" width="10" height="10" fill="${
+						COLORS[index % COLORS.length]
+					}" />
+					<text x="15" y="10" font-size="12" fill="#000000">${entry.unidade}</text>
+					</g>`
+					})
+					.join('')}
+			</g>
+		`
+
+		const finalSVG = svgURL.replace('</svg>', `${legendSVG}</svg>`)
+
+		const svgBlob = new Blob([finalSVG], {
+			type: 'image/svg+xml;charset=utf-8',
+		})
 		saveAs(svgBlob, 'grafico.svg')
 	}
 
@@ -78,7 +104,7 @@ export const AcoesUnidade = () => {
 
 		const pieData = tableData.sort((a, b) => b.qtd - a.qtd).slice(0, 15)
 		const others = {
-			unidade: 'Outros',
+			unidade: 'OUTROS',
 			qtd: tableData.slice(15).reduce((prev, curr) => prev + curr.qtd, 0),
 		}
 
@@ -101,21 +127,21 @@ export const AcoesUnidade = () => {
 	}, [])
 
 	const COLORS = [
+		'#7F823D',
 		'#2D3192',
-		'#BBB9DE',
 		'#FFCB09',
 		'#7EA6DA',
 		'#646368',
 		'#75B991',
-		'#2D3192',
+		'#204C6B',
 		'#00AFF0',
 		'#038C44',
-		'#FFCB09',
+		'#948CC1',
 		'#8DC73F',
 		'#0172BE',
 		'#01417E',
 		'#6F87B3',
-		'#DFEECD',
+		'#010000',
 		'#008080',
 		'#800000',
 	]
@@ -124,7 +150,6 @@ export const AcoesUnidade = () => {
 		(prev, curr) => `${prev}${curr.posicao}\t${curr.unidade}\t${curr.qtd}\n`,
 		`Posição\tUnidade Acadêmica\tQtd. de ações\n`,
 	)
-	console.log(textToCopy)
 
 	return (
 		<Box display='flex' alignItems='center' flexDirection='column'>
