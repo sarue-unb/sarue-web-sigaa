@@ -17,6 +17,7 @@ import {
 	TableAcoesAnoAnterior,
 	TableData,
 } from '../../../components/Indicadores/Tables/TableAcoesAno/TableAcoesAnoAnterior'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 type GraphData = {
 	year: string
@@ -61,7 +62,18 @@ export const ExtensionistasProjeto = () => {
 		const svgComponent = chartRef.current.container.children[0]
 
 		const svgURL = new XMLSerializer().serializeToString(svgComponent)
-		const svgBlob = new Blob([svgURL], { type: 'image/svg+xml;charset=utf-8' })
+		const legendSVG = `
+			<g transform="translate(390,380)"> <!-- Ajuste as coordenadas X e Y conforme necessário -->
+				<rect x="0" y="0" width="20" height="10" fill="#8884d8" />
+				<text x="30" y="10" fill="#000000">Índice</text>
+			</g>
+  `
+
+		const finalSVG = svgURL.replace('</svg>', `${legendSVG}</svg>`)
+
+		const svgBlob = new Blob([finalSVG], {
+			type: 'image/svg+xml;charset=utf-8',
+		})
 		saveAs(svgBlob, 'grafico.svg')
 	}
 
@@ -90,6 +102,11 @@ export const ExtensionistasProjeto = () => {
 		setGraphData(result.graphData)
 		setTableData(result.tableData)
 	}, [])
+
+	const textToCopy = tableData.reduce(
+		(prev, curr) => `${prev}${curr.year}\t${curr.indice}\n`,
+		`Ano\tÍndice\n`,
+	)
 
 	return (
 		<Box display='flex' alignItems={'center'} flexDirection='column'>
@@ -177,10 +194,36 @@ export const ExtensionistasProjeto = () => {
 					</Typography>
 				</Popover>
 			</Box>
-			<Box bgcolor='#1976d2' marginTop='4rem'>
-				<Typography paddingLeft={5} paddingRight={5} fontSize={'1.5rem'}>
-					Tabela com o Índice referente ao número de extensionistas por projeto
-				</Typography>
+			<Box marginTop='4rem' bgcolor='#1976d2' mx='200px' alignSelf='normal'>
+				<Box
+					display='flex'
+					paddingLeft={8}
+					paddingRight={5}
+					my='16px'
+					alignItems='start'
+					justifyContent='space-between'
+				>
+					<Typography paddingLeft={5} paddingRight={5} fontSize={'1.5rem'}>
+						Tabela com o Índice referente ao número de extensionistas por
+						projeto
+					</Typography>
+
+					<CopyToClipboard text={textToCopy} options={{ format: 'text/plain' }}>
+						<Button
+							variant='contained'
+							color='primary'
+							size='large'
+							style={{
+								borderRadius: '28px',
+								minWidth: '160px',
+								backgroundColor: '#038C44',
+							}}
+						>
+							Copiar dados
+						</Button>
+					</CopyToClipboard>
+				</Box>
+
 				<TableAcoesAnoAnterior tableData={tableData} />
 			</Box>
 
