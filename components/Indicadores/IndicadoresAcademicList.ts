@@ -10,8 +10,7 @@ export const IndicadoresAcademicList = {
 		title: 'Quantidade de ações de extensão por unidade',
 	},
 	envolvidos_financiamento_externo: {
-		shortTitle:
-			'Ações de extensão com financiamento externo em relação às ações autofinanciadas',
+		shortTitle: 'Ações com financiamento externo x autofinanciadas',
 		path: 'academicos/acoes-financiamento-externo',
 		title:
 			'Percentual anual de ações de extensão com financiamento externo em relação às ações autofinanciadas',
