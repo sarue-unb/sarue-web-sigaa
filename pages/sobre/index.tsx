@@ -50,7 +50,7 @@ const AboutPage = () => {
 				dados no excel, e deletar os dados salvos no navegador.
 			</Typography>
 			<Image
-				src='/sideMenu.png'
+				src='./side_menu.png'
 				width={200}
 				height={150}
 				alt='Side menu'
@@ -70,7 +70,7 @@ const AboutPage = () => {
 			</Typography>
 			<Image
 				unoptimized
-				src='/dashboardImg.png'
+				src='./dashboard_img.png'
 				width={450}
 				height={900}
 				alt='Dashboard'
@@ -83,7 +83,7 @@ const AboutPage = () => {
 				Basta selecionar um item da lista para ter acesso a um dos indicadores.
 			</Typography>
 			<Image
-				src='/lista_indicadores.png'
+				src='./lista_indicadores.png'
 				width={600}
 				height={450}
 				alt='Side menu'
