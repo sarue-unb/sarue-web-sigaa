@@ -10,7 +10,6 @@ const AboutPage = () => {
 				flexDirection='column'
 				alignItems='center'
 				justifyContent='start'
-				justifyContent='start'
 				padding={'2em'}
 			>
 				<TextHeader variant='h3' text='Sobre o projeto' />

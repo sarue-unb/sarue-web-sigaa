@@ -44,7 +44,7 @@ export default function DetailsPage() {
 		if (chartRef.current === null) {
 			return
 		}
-
+		// @ts-ignore
 		const svgComponent = chartRef.current.container.children[0]
 
 		const svgURL = new XMLSerializer().serializeToString(svgComponent)

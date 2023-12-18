@@ -30,7 +30,10 @@ export const TableFinanciamentoExterno = ({ tableData }) => {
 	})
 	return (
 		<TableContainer component={Paper}>
-			<Table sx={{ minWidth: 300 }} aria-label='Tabela com os 17 ODS'>
+			<Table
+				sx={{ minWidth: 300 }}
+				aria-label='Tabela com os 17 ODS (Objetivos de Desenvolvimento Sustentável)'
+			>
 				<TableHead>
 					<TableRow>
 						<TableCell align='left'>Ano</TableCell>

@@ -1,4 +1,4 @@
-import { Box, Button, Popover, Typography } from '@mui/material'
+import { Box, Button, Typography, Popover } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import {
 	LineChart,
@@ -8,40 +8,38 @@ import {
 	Tooltip,
 	Legend,
 	ResponsiveContainer,
+	Label,
 } from 'recharts'
 import Link from 'next/link'
 import { saveAs } from 'file-saver'
-import { IndicadoresAcademicList } from '../../../components/Indicadores/IndicadoresAcademicList'
-import { getDatabase } from '@/components/utils/utils'
+import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresTcuList'
 import {
-	TableAcoesAnoAnterior,
-	TableData,
-} from '../../../components/Indicadores/Tables/TableAcoesAno/TableAcoesAnoAnterior'
+	getDatabase,
+	monthsPortuguese,
+	transformPortugueseMonthsToNumbers,
+	transformObjectToTableRow,
+	sanitizeUnavailableData,
+} from '@/components/utils/utils'
+import { TablePublicoEnvolvido } from '../../../components/Indicadores/Tables/TablePublicoEnvolvido/TablePublicoEnvolvido'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-type GraphData = {
-	year: string
-	indice: null | number
-}[]
-
-type Database = {
-	status_acao_anual: {
-		[year: string]: {
-			CONCLUÍDA: number
-			'NÃO APROVADA': number
-			'PENDENTE DE RELATÓRIO': number
-			'PROJETO CANCELADO': number
-		}
+const addsYearToMonthIfNeeded = (internalMonths, key) => {
+	if (
+		monthsPortuguese[internalMonths] == 1 ||
+		monthsPortuguese[internalMonths] == 12
+	) {
+		return monthsPortuguese[internalMonths] + '/' + key.slice(-2)
 	}
+	return monthsPortuguese[internalMonths]
 }
 
-export const AcoesAnoAnterior = () => {
-	const chartRef = useRef<any>(null)
-	const [graphData, setGraphData] = useState<GraphData>([])
-	const [tableData, setTableData] = useState<TableData>([])
-	const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
+export const PublicoRealAtingido = () => {
+	const chartRef = useRef(null)
+	const [graphData, setGraphData] = useState([])
+	const [tableData, setTableData] = useState([])
+	const [anchorEl, setAnchorEl] = (React.useState < HTMLElement) | (null > null)
 
-	const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+	const handlePopoverOpen = event => {
 		setAnchorEl(event.currentTarget)
 	}
 
@@ -61,8 +59,8 @@ export const AcoesAnoAnterior = () => {
 		const svgURL = new XMLSerializer().serializeToString(svgComponent)
 		const legendSVG = `
 		<g transform="translate(420,380)"> <!-- Ajuste as coordenadas X e Y conforme necessário -->
-			<rect x="0" y="0" width="20" height="10" fill="#8884d8" />
-			<text x="30" y="10" fill="#000000">Índice</text>
+			<rect x="0" y="10" width="20" height="10" fill="#2D3192" />
+			<text x="30" y="18" fill="#000000">Pessoas atingidas</text>
 		</g>
 `
 		const finalSVG = svgURL.replace('</svg>', `${legendSVG}</svg>`)
@@ -73,28 +71,22 @@ export const AcoesAnoAnterior = () => {
 		saveAs(svgBlob, 'grafico.svg')
 	}
 
-	const calculateIndicador = (data: Database) => {
-		const rawData = Object.entries(data['status_acao_anual'])
-		const graphData = rawData.map(([year, data], index) => {
-			if (index === 0) {
-				return { year, indice: null }
+	const calculateIndicador = data => {
+		const rawData = data['info_mensal']
+		const tempDataForGraph = []
+		for (const [key, value] of Object.entries(rawData)) {
+			for (const [internalMonths, internalValue] of Object.entries(value)) {
+				tempDataForGraph.push({
+					month: addsYearToMonthIfNeeded(internalMonths, key),
+					pessoas_atingidas: internalValue['qtd_publico_real_atendido'],
+				})
 			}
-			const previousData = rawData[index - 1][1]
-
-			return {
-				year,
-				indice: (data['CONCLUÍDA'] / previousData['CONCLUÍDA']).toFixed(2),
-			}
-		})
-		const tableData: TableData = graphData.map(({ year, indice }) => ({
-			year,
-			indice: indice === null ? 'n/d' : indice,
-		}))
-
-		return {
-			graphData: graphData.filter(data => data.indice) as GraphData,
-			tableData,
 		}
+
+		const tempDataForTable = transformObjectToTableRow(
+			sanitizeUnavailableData(transformPortugueseMonthsToNumbers(rawData)),
+		)
+		return { graphData: tempDataForGraph, tableData: tempDataForTable }
 	}
 
 	useEffect(() => {
@@ -103,43 +95,57 @@ export const AcoesAnoAnterior = () => {
 		setTableData(result.tableData)
 	}, [])
 
-	const textToCopy = tableData.reduce(
-		(prev, curr) => `${prev}${curr.year}\t${curr.indice}\n`,
-		`Ano\tÍndice\n`,
-	)
+	const formatDataForClipboard = () => {
+		let formattedData = 'Ano/Mes\t1\t2\t3\t4\t5\t6\t7\t8\t9\t10\t11\t12\tTotal'
+
+		tableData.forEach(row => {
+			let rowData = Object.values(row).join('\t')
+			formattedData += `${rowData}\n`
+		})
+		navigator.clipboard.writeText(formattedData)
+	}
 
 	return (
-		<Box display='flex' alignItems={'center'} flexDirection='column'>
+		<Box
+			display='flex'
+			alignItems={'center'}
+			flexDirection='column'
+			minHeight='100vh'
+			overflow='auto'
+			padding={2}
+		>
 			<Typography margin={8} alignSelf='start' fontSize='32px'>
-				Indicadores &gt; {IndicadoresAcademicList['envolvidos_ano'].title}
+				Indicadores &gt; {IndicadoresTcuList['publico_real_atingido'].title}
 			</Typography>
 			<Box
-				display='flex'
 				alignSelf={'center'}
 				bgcolor='white'
-				minHeight='15rem'
+				minHeight='30rem'
 				minWidth='60rem'
 				borderRadius='48px'
 				padding={4}
+				display='flex'
 			>
 				{/* Gráfico */}
 				<ResponsiveContainer width={'100%'} height={400}>
-					<LineChart data={graphData} ref={chartRef}>
+					<LineChart data={graphData} ref={chartRef} margin={{}}>
 						<XAxis
-							dataKey='year'
-							label='Ano'
-							padding={{ left: 10, right: 10 }}
-							tickMargin={25}
+							dataKey='month'
+							padding={{ left: 30, right: 10 }}
+							tickMargin={15}
 						/>
-						<YAxis dataKey='indice' padding={{ top: 30 }} />
-						<Legend
-							wrapperStyle={{
-								paddingLeft: '60px',
-								paddingTop: '20px',
-							}}
+						<YAxis
+							dataKey='pessoas_atingidas'
+							padding={{ top: 30 }}
+							tickSize={0.1}
 						/>
-						<Line type='monotone' dataKey='indice' stroke='#8884d8' />
 						<Tooltip />
+						<Legend />
+						<Line
+							type='monotone'
+							dataKey='pessoas_atingidas'
+							stroke='#2D3192'
+						/>
 					</LineChart>
 				</ResponsiveContainer>
 				<img
@@ -179,18 +185,12 @@ export const AcoesAnoAnterior = () => {
 							maxWidth: 100,
 						}}
 					>
-						Esse indicador é calculado a partir da divisão entre o Número de
-						ações institucionalizadas no ano atual pelo Número de ações
-						institucionalizadas no ano anterior.
-						<br />
-						<br />
-						Podem haver casos em que os índices possuem como resultado "n/d",
-						tal problemática pode ser justificada pelo fato de que não há
-						informações suficientes disponibilizadas no SIGAA.
+						Esse indicador é calculado a partir da quantidade mensal do público
+						real atendido por projeto de extensão.
 					</Typography>
 				</Popover>
 			</Box>
-			<Box marginTop='4rem' bgcolor='#1976d2' mx='200px' alignSelf='normal'>
+			<Box marginTop='4rem' bgcolor='#1976d2' mx='200px' alignSelf='center'>
 				<Box
 					display='flex'
 					paddingLeft={8}
@@ -199,12 +199,14 @@ export const AcoesAnoAnterior = () => {
 					alignItems='start'
 					justifyContent='space-between'
 				>
-					<Typography paddingLeft={5} paddingRight={5} fontSize={'1.5rem'}>
-						Tabela com as ações institucionalizadas no SIGAA em relação ao ano
-						anterior
+					<Typography fontSize={'1.5rem'}>
+						Tabela com o público real atingido
 					</Typography>
 
-					<CopyToClipboard text={textToCopy} options={{ format: 'text/plain' }}>
+					<CopyToClipboard
+						text={formatDataForClipboard}
+						options={{ format: 'text/plain' }}
+					>
 						<Button
 							variant='contained'
 							color='primary'
@@ -220,9 +222,8 @@ export const AcoesAnoAnterior = () => {
 					</CopyToClipboard>
 				</Box>
 
-				<TableAcoesAnoAnterior tableData={tableData} />
+				<TablePublicoEnvolvido tableData={tableData} />
 			</Box>
-
 			<Box
 				sx={{
 					display: 'flex',
@@ -231,7 +232,7 @@ export const AcoesAnoAnterior = () => {
 					padding: '42px',
 				}}
 			>
-				<Link href='/indicadores/academicos'>
+				<Link href='/indicadores/tcu'>
 					<Button
 						variant='contained'
 						color='primary'
@@ -265,4 +266,4 @@ export const AcoesAnoAnterior = () => {
 	)
 }
 
-export default AcoesAnoAnterior
+export default PublicoRealAtingido
