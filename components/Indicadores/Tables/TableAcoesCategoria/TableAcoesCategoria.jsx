@@ -15,11 +15,11 @@ export const TableAcoesCategoria = ({ tableData }) => {
 				sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 			>
 				<TableCell>{item.year}</TableCell>
-				<TableCell>{item.PRODUTO}</TableCell>
-				<TableCell>{item.EVENTO}</TableCell>
-				<TableCell>{item.CURSO}</TableCell>
-				<TableCell>{item.PROJETO}</TableCell>
-				<TableCell>{item.PROGRAMA}</TableCell>
+				<TableCell align='center' >{item.PRODUTO}</TableCell>
+				<TableCell align='center'>{item.EVENTO}</TableCell>
+				<TableCell align='center'>{item.CURSO}</TableCell>
+				<TableCell align='center'>{item.PROJETO}</TableCell>
+				<TableCell align='center'>{item.PROGRAMA}</TableCell>
 			</TableRow>
 		)
 	})
@@ -30,11 +30,11 @@ export const TableAcoesCategoria = ({ tableData }) => {
 				<TableHead>
 					<TableRow>
 						<TableCell align='left'>Ano/Tipo</TableCell>
-						<TableCell align='left'>PRODUTO</TableCell>
-						<TableCell align='left'>EVENTO</TableCell>
-						<TableCell align='left'>CURSO</TableCell>
-						<TableCell align='left'>PROJETO</TableCell>
-						<TableCell align='left'>PROGRAMA</TableCell>
+						<TableCell align='center'>PRODUTO</TableCell>
+						<TableCell align='center'>EVENTO</TableCell>
+						<TableCell align='center'>CURSO</TableCell>
+						<TableCell align='center'>PROJETO</TableCell>
+						<TableCell align='center'>PROGRAMA</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>{rows}</TableBody>

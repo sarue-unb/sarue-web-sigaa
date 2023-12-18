@@ -1,8 +1,8 @@
-import { Box, Button, Popover, Typography } from '@mui/material'
+import { Box, Button, Typography, Popover } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import {
-	LineChart,
-	Line,
+	BarChart,
+	Bar,
 	XAxis,
 	YAxis,
 	Tooltip,
@@ -11,35 +11,25 @@ import {
 } from 'recharts'
 import Link from 'next/link'
 import { saveAs } from 'file-saver'
-import { IndicadoresAcademicList } from '../../../components/Indicadores/IndicadoresAcademicList'
-import { getDatabase } from '@/components/utils/utils'
-import {
-	TableAcoesAnoAnterior,
-	TableData,
-} from '../../../components/Indicadores/Tables/TableAcoesAno/TableAcoesAnoAnterior'
+import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresTcuList'
+import { getDatabase, monthsPortuguese } from '@/components/utils/utils'
+import { TableAcoesCategoria } from '../../../components/Indicadores/Tables/TableAcoesCategoria/TableAcoesCategoria'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-type GraphData = {
-	year: string
-	indice: null | number
-}[]
+function transformDataTochart(inputData) {
+	const transformedData = Object.keys(inputData).map(year => ({
+		year: parseInt(year, 10),
+		...inputData[year],
+	}))
 
-type Database = {
-	status_acao_anual: {
-		[year: string]: {
-			CONCLUÍDA: number
-			'NÃO APROVADA': number
-			'PENDENTE DE RELATÓRIO': number
-			'PROJETO CANCELADO': number
-		}
-	}
+	return transformedData
 }
-
-export const AcoesAnoAnterior = () => {
-	const chartRef = useRef<any>(null)
-	const [graphData, setGraphData] = useState<GraphData>([])
-	const [tableData, setTableData] = useState<TableData>([])
+export const AcoesAno = () => {
+	const chartRef = useRef(null)
+	const [graphData, setGraphData] = useState([])
+	const [tableData, setTableData] = useState([])
 	const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
+	const [copied, setCopied] = useState(false)
 
 	const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget)
@@ -59,88 +49,102 @@ export const AcoesAnoAnterior = () => {
 		const svgComponent = chartRef.current.container.children[0]
 
 		const svgURL = new XMLSerializer().serializeToString(svgComponent)
+
 		const legendSVG = `
 		<g transform="translate(420,380)"> <!-- Ajuste as coordenadas X e Y conforme necessário -->
-			<rect x="0" y="0" width="20" height="10" fill="#8884d8" />
-			<text x="30" y="10" fill="#000000">Índice</text>
+			<rect x="-204" y="10" width="20" height="10" fill="#2D3192" />
+			<text x="-180" y="20" fill="#2D3192">PRODUTO</text>
+			\t
+			<rect x="-50" y="10" width="20" height="10" fill="#038C44" />
+			<text x="-26" y="20" fill="#038C44">EVENTO</text>
+			\t
+			<rect x="80" y="10" width="20" height="10" fill="#7EA6DA" />
+			<text x="105" y="20" fill="#7EA6DA">CURSO</text>
+			\t
+			<rect x="208" y="10" width="20" height="10" fill="#800000" />
+			<text x="230" y="20" fill="#800000">PROJETO</text>
+			\t
+			<rect x="326" y="10" width="20" height="10" fill="#010000" />
+			<text x="350" y="20" fill="#010000">PROGRAMA</text>
 		</g>
 `
 		const finalSVG = svgURL.replace('</svg>', `${legendSVG}</svg>`)
-
 		const svgBlob = new Blob([finalSVG], {
 			type: 'image/svg+xml;charset=utf-8',
 		})
 		saveAs(svgBlob, 'grafico.svg')
 	}
 
-	const calculateIndicador = (data: Database) => {
-		const rawData = Object.entries(data['status_acao_anual'])
-		const graphData = rawData.map(([year, data], index) => {
-			if (index === 0) {
-				return { year, indice: null }
-			}
-			const previousData = rawData[index - 1][1]
+	const calculateIndicador = data => {
+		const rawData = data['quantidade_anual_tipo']
+		const graphData = transformDataTochart(rawData)
 
-			return {
-				year,
-				indice: (data['CONCLUÍDA'] / previousData['CONCLUÍDA']).toFixed(2),
-			}
-		})
-		const tableData: TableData = graphData.map(({ year, indice }) => ({
-			year,
-			indice: indice === null ? 'n/d' : indice,
-		}))
-
-		return {
-			graphData: graphData.filter(data => data.indice) as GraphData,
-			tableData,
-		}
+		return { graphData: graphData }
 	}
 
 	useEffect(() => {
 		const result = calculateIndicador(getDatabase())
 		setGraphData(result.graphData)
-		setTableData(result.tableData)
+		setTableData(result.graphData)
 	}, [])
 
-	const textToCopy = tableData.reduce(
-		(prev, curr) => `${prev}${curr.year}\t${curr.indice}\n`,
-		`Ano\tÍndice\n`,
-	)
+	function formatDataForTable(inputData) {
+		const actionTypes = ['PRODUTO', 'EVENTO', 'CURSO', 'PROJETO', 'PROGRAMA']
+		const years = Object.keys(inputData)
+
+		// Ordena os anos em ordem crescente
+		years.sort()
+
+		// Definir os anos em formato 'YYYY'
+		const formattedYears = years.map(year => `'202${year}`)
+
+		let formattedData = 'Ano/Tipo\t' + actionTypes.join('\t') + '\n'
+
+		formattedYears.forEach((year, index) => {
+			formattedData += year
+
+			actionTypes.forEach(type => {
+				if (inputData[years[index]][type] !== undefined) {
+					formattedData += '\t' + inputData[years[index]][type]
+				} else {
+					formattedData += '\t'
+				}
+			})
+
+			formattedData += '\n'
+		})
+
+		return formattedData
+	}
 
 	return (
 		<Box display='flex' alignItems={'center'} flexDirection='column'>
 			<Typography margin={8} alignSelf='start' fontSize='32px'>
-				Indicadores &gt; {IndicadoresAcademicList['envolvidos_ano'].title}
+				Indicadores &gt;{' '}
+				{IndicadoresTcuList['acoes_cadastradas_por_categoria'].title}
 			</Typography>
 			<Box
-				display='flex'
 				alignSelf={'center'}
 				bgcolor='white'
 				minHeight='15rem'
 				minWidth='60rem'
 				borderRadius='48px'
 				padding={4}
+				display='flex'
 			>
 				{/* Gráfico */}
 				<ResponsiveContainer width={'100%'} height={400}>
-					<LineChart data={graphData} ref={chartRef}>
-						<XAxis
-							dataKey='year'
-							label='Ano'
-							padding={{ left: 10, right: 10 }}
-							tickMargin={25}
-						/>
-						<YAxis dataKey='indice' padding={{ top: 30 }} />
-						<Legend
-							wrapperStyle={{
-								paddingLeft: '60px',
-								paddingTop: '20px',
-							}}
-						/>
-						<Line type='monotone' dataKey='indice' stroke='#8884d8' />
+					<BarChart data={graphData} ref={chartRef}>
+						<XAxis dataKey='year' padding={{ left: 30, right: 10 }} />
+						<YAxis label='Ações' padding={{ top: 30 }} />
 						<Tooltip />
-					</LineChart>
+						<Legend />
+						<Bar dataKey='PRODUTO' fill='#2D3192' />
+						<Bar dataKey='EVENTO' fill='#038C44' />
+						<Bar dataKey='CURSO' fill='#7EA6DA' />
+						<Bar dataKey='PROJETO' fill='#800000' />
+						<Bar dataKey='PROGRAMA' fill='#010000' />
+					</BarChart>
 				</ResponsiveContainer>
 				<img
 					height='34px'
@@ -179,14 +183,8 @@ export const AcoesAnoAnterior = () => {
 							maxWidth: 100,
 						}}
 					>
-						Esse indicador é calculado a partir da divisão entre o Número de
-						ações institucionalizadas no ano atual pelo Número de ações
-						institucionalizadas no ano anterior.
-						<br />
-						<br />
-						Podem haver casos em que os índices possuem como resultado "n/d",
-						tal problemática pode ser justificada pelo fato de que não há
-						informações suficientes disponibilizadas no SIGAA.
+						Esse indicador é calculado a partir da quantidade mensal de ações
+						por ano.
 					</Typography>
 				</Popover>
 			</Box>
@@ -199,12 +197,14 @@ export const AcoesAnoAnterior = () => {
 					alignItems='start'
 					justifyContent='space-between'
 				>
-					<Typography paddingLeft={5} paddingRight={5} fontSize={'1.5rem'}>
-						Tabela com as ações institucionalizadas no SIGAA em relação ao ano
-						anterior
+					<Typography fontSize={'1.5rem'} alignSelf='center'>
+						Tabela com as ações institucionalizadas por ano e categoria
 					</Typography>
 
-					<CopyToClipboard text={textToCopy} options={{ format: 'text/plain' }}>
+					<CopyToClipboard
+						text={formatDataForTable(tableData)}
+						options={{ format: 'text/plain' }}
+					>
 						<Button
 							variant='contained'
 							color='primary'
@@ -220,7 +220,7 @@ export const AcoesAnoAnterior = () => {
 					</CopyToClipboard>
 				</Box>
 
-				<TableAcoesAnoAnterior tableData={tableData} />
+				<TableAcoesCategoria tableData={tableData} />
 			</Box>
 
 			<Box
@@ -231,7 +231,7 @@ export const AcoesAnoAnterior = () => {
 					padding: '42px',
 				}}
 			>
-				<Link href='/indicadores/academicos'>
+				<Link href='/indicadores/tcu'>
 					<Button
 						variant='contained'
 						color='primary'
@@ -265,4 +265,4 @@ export const AcoesAnoAnterior = () => {
 	)
 }
 
-export default AcoesAnoAnterior
+export default AcoesAno

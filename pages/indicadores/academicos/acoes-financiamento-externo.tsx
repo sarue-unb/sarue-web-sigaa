@@ -167,7 +167,6 @@ export const AcoesFinanciamentoExterno = () => {
 							p: 1,
 							align: 'justify',
 							minHeight: 100,
-							maxHeight: 380,
 							minWidth: 380,
 							maxWidth: 100,
 						}}

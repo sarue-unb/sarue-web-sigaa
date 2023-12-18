@@ -1,4 +1,4 @@
-import { Box, Button, Popover, Typography } from '@mui/material'
+import { Box, Button, Typography, Popover } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import {
 	LineChart,
@@ -11,34 +11,37 @@ import {
 } from 'recharts'
 import Link from 'next/link'
 import { saveAs } from 'file-saver'
-import { IndicadoresAcademicList } from '../../../components/Indicadores/IndicadoresAcademicList'
-import { getDatabase } from '@/components/utils/utils'
+import { IndicadoresTcuList } from '../../../components/Indicadores/IndicadoresTcuList'
 import {
-	TableAcoesAnoAnterior,
-	TableData,
-} from '../../../components/Indicadores/Tables/TableAcoesAno/TableAcoesAnoAnterior'
+	getDatabase,
+	monthsPortuguese,
+	transformPortugueseMonthsToNumbers,
+	transformObjectToTableRow,
+	sanitizeUnavailableData,
+} from '@/components/utils/utils'
+import { TableAcoesAno } from '../../../components/Indicadores/Tables/TableAcoesAno/TableAcoesAno'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-type GraphData = {
-	year: string
-	indice: null | number
-}[]
-
-type Database = {
-	info_anual: {
-		[year: string]: {
-			qtd_discentes_envolvidos: number
-			situação: {
-				CONCLUÍDA: number
-				'NÃO APROVADA': number
-				'PENDENTE DE RELATÓRIO': number
-				'PROJETO CANCELADO': number
-			}
-		}
+const addsYearToMonthIfNeeded = (internalMonths: string, key: string) => {
+	if (
+		monthsPortuguese[internalMonths] == 1 ||
+		monthsPortuguese[internalMonths] == 12
+	) {
+		return monthsPortuguese[internalMonths] + '/' + key.slice(-2)
 	}
+	return monthsPortuguese[internalMonths]
 }
 
-export const ExtensionistasProjeto = () => {
+type TableData = {
+	[year: number]: (number | string)[]
+}
+
+type GraphData = {
+	month: string
+	acoes: number
+}[]
+
+export const AcoesAno = () => {
 	const chartRef = useRef<any>(null)
 	const [graphData, setGraphData] = useState<GraphData>([])
 	const [tableData, setTableData] = useState<TableData>([])
@@ -63,12 +66,11 @@ export const ExtensionistasProjeto = () => {
 
 		const svgURL = new XMLSerializer().serializeToString(svgComponent)
 		const legendSVG = `
-			<g transform="translate(390,380)"> <!-- Ajuste as coordenadas X e Y conforme necessário -->
-				<rect x="0" y="0" width="20" height="10" fill="#8884d8" />
-				<text x="30" y="10" fill="#000000">Índice</text>
-			</g>
-  `
-
+		<g transform="translate(420,380)"> <!-- Ajuste as coordenadas X e Y conforme necessário -->
+			<rect x="0" y="10" width="20" height="10" fill="#2D3192" />
+			<text x="30" y="18" fill="#000000">Ações</text>
+		</g>
+`
 		const finalSVG = svgURL.replace('</svg>', `${legendSVG}</svg>`)
 
 		const svgBlob = new Blob([finalSVG], {
@@ -77,24 +79,27 @@ export const ExtensionistasProjeto = () => {
 		saveAs(svgBlob, 'grafico.svg')
 	}
 
-	const calculateIndicador = (data: Database) => {
-		const rawData = Object.entries(data['info_anual'])
-		const graphData = rawData.map(([year, data], index) => {
-			const soma = Object.values(data['situação']).reduce((a, b) => a + b, 0)
-			return {
-				year,
-				indice: (data['qtd_discentes_envolvidos'] / soma).toFixed(2),
+	const calculateIndicador = (data: { [x: string]: any }) => {
+		const rawData = data['quantidade_mensal'] as Record<
+			string,
+			Record<string, number>
+		>
+		const tempDataForGraph = [] as GraphData
+		for (const [key, value] of Object.entries(rawData)) {
+			for (const [internalMonths, internalValue] of Object.entries(value)) {
+				tempDataForGraph.push({
+					month: addsYearToMonthIfNeeded(internalMonths, key),
+					acoes: internalValue,
+				})
 			}
-		})
-		const tableData: TableData = graphData.map(({ year, indice }) => ({
-			year,
-			indice: indice === null ? 'n/d' : indice,
-		}))
-
-		return {
-			graphData: graphData.filter(data => data.indice) as unknown as GraphData,
-			tableData,
 		}
+
+		const tempDataForTable = transformObjectToTableRow(
+			sanitizeUnavailableData(transformPortugueseMonthsToNumbers(rawData)),
+		)
+		console.log({ tempDataForGraph, tempDataForTable })
+
+		return { graphData: tempDataForGraph, tableData: tempDataForTable }
 	}
 
 	useEffect(() => {
@@ -103,46 +108,43 @@ export const ExtensionistasProjeto = () => {
 		setTableData(result.tableData)
 	}, [])
 
-	const textToCopy = tableData.reduce(
-		(prev, curr) => `${prev}${curr.year}\t${curr.indice}\n`,
-		`Ano\tÍndice\n`,
-	)
+	const textToCopy = Object.entries(tableData).reduce(
+		(prev, [year, acoes], index) => {
+			const total = acoes
+				.filter((acao): acao is number => typeof acao === 'number')
+				.reduce((prev, curr) => curr + prev, 0)
 
-	const log = () => console.log('saiu')
+			return `${prev}${year}\t${acoes.join('\t')}\t${total}\n`
+		},
+		`Ano/Mês\t1\t2\t3\t4\t5\t6\t7\t8\t9\t10\t11\t12\tTotal por ano\n`,
+	)
 
 	return (
 		<Box display='flex' alignItems={'center'} flexDirection='column'>
 			<Typography margin={8} alignSelf='start' fontSize='32px'>
-				Indicadores &gt;{' '}
-				{IndicadoresAcademicList['extensionistas_por_projeto'].title}
+				Indicadores &gt; {IndicadoresTcuList['acoes_institucionalizadas'].title}
 			</Typography>
 			<Box
-				display='flex'
 				alignSelf={'center'}
 				bgcolor='white'
 				minHeight='15rem'
 				minWidth='60rem'
 				borderRadius='48px'
 				padding={4}
+				display='flex'
 			>
 				{/* Gráfico */}
 				<ResponsiveContainer width={'100%'} height={400}>
-					<LineChart data={graphData} ref={chartRef}>
+					<LineChart data={graphData} ref={chartRef} margin={{}}>
 						<XAxis
-							dataKey='year'
-							label='Ano'
-							padding={{ left: 10, right: 10 }}
-							tickMargin={25}
+							dataKey='month'
+							padding={{ left: 30, right: 10 }}
+							tickMargin={15}
 						/>
-						<YAxis dataKey='indice' padding={{ top: 30 }} />
-						<Legend
-							wrapperStyle={{
-								paddingLeft: '60px',
-								paddingTop: '20px',
-							}}
-						/>
-						<Line type='monotone' dataKey='indice' stroke='#8884d8' />
+						<YAxis dataKey='acoes' label='Ações' padding={{ top: 30 }} />
 						<Tooltip />
+						<Legend />
+						<Line type='monotone' dataKey='acoes' stroke='#2D3192' />
 					</LineChart>
 				</ResponsiveContainer>
 				<img
@@ -169,33 +171,21 @@ export const ExtensionistasProjeto = () => {
 						vertical: 'top',
 						horizontal: 'left',
 					}}
+					onClose={handlePopoverClose}
 					disableRestoreFocus
 				>
 					<Typography
 						bgcolor='black'
 						sx={{
 							p: 1,
-							textAlign: 'justify',
+							align: 'justify',
 							minHeight: 100,
 							minWidth: 380,
 							maxWidth: 100,
 						}}
 					>
-						Esse indicador é calculado a partir da divisão entre o Total de
-						estudantes extensionistas pelo Número de projetos de extensão.
-						<br />
-						<br />
-						Isto é, utiliza-se o dado anual da quantidade de discentes
-						envolvidos nas ações que possuem como situação concluída.
-						<br />
-						<br />O indicador de número de estudantes extensionistas por projeto
-						é importante para avaliar o envolvimento dos estudantes nas
-						atividades de extensão.
-						<br />
-						<br />É importante frisar que este indicador é calculado
-						considerando apenas as ações concluídas, dessa forma, as ações com
-						status de 'Não Aprovada', 'Pendente de Relatório', e 'Projeto
-						Cancelado' não são inseridas para este cálculo.
+						Esse indicador é calculado a partir da quantidade mensal de ações
+						por ano.
 					</Typography>
 				</Popover>
 			</Box>
@@ -208,9 +198,8 @@ export const ExtensionistasProjeto = () => {
 					alignItems='start'
 					justifyContent='space-between'
 				>
-					<Typography paddingLeft={5} paddingRight={5} fontSize={'1.5rem'}>
-						Tabela com o Índice referente ao número de extensionistas por
-						projeto
+					<Typography fontSize={'1.5rem'}>
+						Tabela com as ações institucionalizadas por ano e por mês
 					</Typography>
 
 					<CopyToClipboard text={textToCopy} options={{ format: 'text/plain' }}>
@@ -229,7 +218,7 @@ export const ExtensionistasProjeto = () => {
 					</CopyToClipboard>
 				</Box>
 
-				<TableAcoesAnoAnterior tableData={tableData} />
+				<TableAcoesAno tableData={tableData} />
 			</Box>
 
 			<Box
@@ -240,7 +229,7 @@ export const ExtensionistasProjeto = () => {
 					padding: '42px',
 				}}
 			>
-				<Link href='/indicadores/academicos'>
+				<Link href='/indicadores/tcu'>
 					<Button
 						variant='contained'
 						color='primary'
@@ -274,4 +263,4 @@ export const ExtensionistasProjeto = () => {
 	)
 }
 
-export default ExtensionistasProjeto
+export default AcoesAno

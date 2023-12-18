@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Typography, Popover } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import {
 	LineChart,
@@ -21,6 +21,7 @@ import {
 	sanitizeUnavailableData,
 } from '@/components/utils/utils'
 import { TablePublicoEnvolvido } from '../../../components/Indicadores/Tables/TablePublicoEnvolvido/TablePublicoEnvolvido'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 const addsYearToMonthIfNeeded = (internalMonths, key) => {
 	if (
@@ -36,6 +37,17 @@ export const PublicoRealAtingido = () => {
 	const chartRef = useRef(null)
 	const [graphData, setGraphData] = useState([])
 	const [tableData, setTableData] = useState([])
+	const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
+
+	const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget)
+	}
+
+	const handlePopoverClose = () => {
+		setAnchorEl(null)
+	}
+
+	const open = Boolean(anchorEl)
 
 	const handleButtonClick = () => {
 		if (chartRef.current === null) {
@@ -45,7 +57,17 @@ export const PublicoRealAtingido = () => {
 		const svgComponent = chartRef.current.container.children[0]
 
 		const svgURL = new XMLSerializer().serializeToString(svgComponent)
-		const svgBlob = new Blob([svgURL], { type: 'image/svg+xml;charset=utf-8' })
+		const legendSVG = `
+		<g transform="translate(420,380)"> <!-- Ajuste as coordenadas X e Y conforme necessário -->
+			<rect x="0" y="10" width="20" height="10" fill="#2D3192" />
+			<text x="30" y="18" fill="#000000">Pessoas atingidas</text>
+		</g>
+`
+		const finalSVG = svgURL.replace('</svg>', `${legendSVG}</svg>`)
+
+		const svgBlob = new Blob([finalSVG], {
+			type: 'image/svg+xml;charset=utf-8',
+		})
 		saveAs(svgBlob, 'grafico.svg')
 	}
 
@@ -73,12 +95,24 @@ export const PublicoRealAtingido = () => {
 		setTableData(result.tableData)
 	}, [])
 
+	const formatDataForClipboard = () => {
+		let formattedData = 'Ano/Mes\t1\t2\t3\t4\t5\t6\t7\t8\t9\t10\t11\t12\tTotal'
+
+		tableData.forEach(row => {
+			let rowData = Object.values(row).join('\t')
+			formattedData += `${rowData}\n`
+		})
+		navigator.clipboard.writeText(formattedData)
+	}
+
 	return (
 		<Box
 			display='flex'
-			height='100vh'
 			alignItems={'center'}
 			flexDirection='column'
+			minHeight='100vh'
+			overflow='auto'
+			padding={2}
 		>
 			<Typography margin={8} alignSelf='start' fontSize='32px'>
 				Indicadores &gt; {IndicadoresTcuList['publico_real_atingido'].title}
@@ -86,10 +120,11 @@ export const PublicoRealAtingido = () => {
 			<Box
 				alignSelf={'center'}
 				bgcolor='white'
-				minHeight='15rem'
+				minHeight='30rem'
 				minWidth='60rem'
 				borderRadius='48px'
 				padding={4}
+				display='flex'
 			>
 				{/* Gráfico */}
 				<ResponsiveContainer width={'100%'} height={400}>
@@ -109,18 +144,86 @@ export const PublicoRealAtingido = () => {
 						<Line
 							type='monotone'
 							dataKey='pessoas_atingidas'
-							stroke='#8884d8'
+							stroke='#2D3192'
 						/>
 					</LineChart>
 				</ResponsiveContainer>
+				<img
+					height='34px'
+					width='34px'
+					src='https://sigaa.unb.br/sigaa/img/ajuda.gif'
+					aria-owns={open ? 'mouse-over-popover' : undefined}
+					aria-haspopup='true'
+					onMouseEnter={handlePopoverOpen}
+					onMouseLeave={handlePopoverClose}
+				/>
+				<Popover
+					id='mouse-over-popover'
+					sx={{
+						pointerEvents: 'none',
+					}}
+					open={open}
+					anchorEl={anchorEl}
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'left',
+					}}
+					transformOrigin={{
+						vertical: 'top',
+						horizontal: 'left',
+					}}
+					onClose={handlePopoverClose}
+					disableRestoreFocus
+				>
+					<Typography
+						bgcolor='black'
+						sx={{
+							p: 1,
+							align: 'justify',
+							minHeight: 100,
+							minWidth: 380,
+							maxWidth: 100,
+						}}
+					>
+						Esse indicador é calculado a partir da quantidade mensal do público
+						real atendido por projeto de extensão.
+					</Typography>
+				</Popover>
 			</Box>
-			<Box marginTop='4rem' bgcolor='black'>
-				<Typography fontSize={'1.5rem'}>
-					Tabela com o publico real atingido
-				</Typography>
+			<Box marginTop='4rem' bgcolor='#1976d2' mx='200px' alignSelf='center'>
+				<Box
+					display='flex'
+					paddingLeft={8}
+					paddingRight={5}
+					my='16px'
+					alignItems='start'
+					justifyContent='space-between'
+				>
+					<Typography fontSize={'1.5rem'}>
+						Tabela com o público real atingido
+					</Typography>
+
+					<CopyToClipboard
+						text={formatDataForClipboard}
+						options={{ format: 'text/plain' }}
+					>
+						<Button
+							variant='contained'
+							color='primary'
+							size='large'
+							style={{
+								borderRadius: '28px',
+								minWidth: '160px',
+								backgroundColor: '#038C44',
+							}}
+						>
+							Copiar dados
+						</Button>
+					</CopyToClipboard>
+				</Box>
+
 				<TablePublicoEnvolvido tableData={tableData} />
 			</Box>
-
 			<Box
 				sx={{
 					display: 'flex',

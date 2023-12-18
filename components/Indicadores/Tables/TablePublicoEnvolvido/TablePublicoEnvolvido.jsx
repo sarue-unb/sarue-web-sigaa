@@ -22,31 +22,31 @@ export const TablePublicoEnvolvido = ({ tableData }) => {
 			>
 				<TableCell>{key}</TableCell>
 				{value.map(acaoValue => (
-					<TableCell>{acaoValue['qtd_publico_real_atendido']}</TableCell>
+					<TableCell align='center' >{acaoValue['qtd_publico_real_atendido']}</TableCell>
 				))}
-				<TableCell>{sumByyear}</TableCell>
+				<TableCell align='center'>{sumByyear}</TableCell>
 			</TableRow>
 		)
 	})
 	return (
 		<TableContainer component={Paper}>
-			<Table sx={{ minWidth: 300 }} aria-label='Tabela com os 17 ODS'>
+			<Table sx={{ minWidth: 300 }} aria-label='Tabela Público real atingido'>
 				<TableHead>
 					<TableRow>
 						<TableCell align='left'>Ano/Mes</TableCell>
-						<TableCell align='left'>1</TableCell>
-						<TableCell align='left'>2</TableCell>
-						<TableCell align='left'>3</TableCell>
-						<TableCell align='left'>4</TableCell>
-						<TableCell align='left'>5</TableCell>
-						<TableCell align='left'>6</TableCell>
-						<TableCell align='left'>7</TableCell>
-						<TableCell align='left'>8</TableCell>
-						<TableCell align='left'>9</TableCell>
-						<TableCell align='left'>10</TableCell>
-						<TableCell align='left'>11</TableCell>
-						<TableCell align='left'>12</TableCell>
-						<TableCell align='left'>Total por ano</TableCell>
+						<TableCell align='center'>1</TableCell>
+						<TableCell align='center'>2</TableCell>
+						<TableCell align='center'>3</TableCell>
+						<TableCell align='center'>4</TableCell>
+						<TableCell align='center'>5</TableCell>
+						<TableCell align='center'>6</TableCell>
+						<TableCell align='center'>7</TableCell>
+						<TableCell align='center'>8</TableCell>
+						<TableCell align='center'>9</TableCell>
+						<TableCell align='center'>10</TableCell>
+						<TableCell align='center'>11</TableCell>
+						<TableCell align='center'>12</TableCell>
+						<TableCell align='center'>Total</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>{rows}</TableBody>

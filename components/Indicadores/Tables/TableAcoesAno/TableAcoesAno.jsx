@@ -22,9 +22,9 @@ export const TableAcoesAno = ({ tableData }) => {
 			>
 				<TableCell>{key}</TableCell>
 				{value.map(acaoValue => (
-					<TableCell>{acaoValue}</TableCell>
+					<TableCell align='center'>{acaoValue}</TableCell>
 				))}
-				<TableCell>{sumByyear}</TableCell>
+				<TableCell align='center'>{sumByyear}</TableCell>
 			</TableRow>
 		)
 	})
@@ -34,19 +34,19 @@ export const TableAcoesAno = ({ tableData }) => {
 				<TableHead>
 					<TableRow>
 						<TableCell align='left'>Ano/Mes</TableCell>
-						<TableCell align='right'>1</TableCell>
-						<TableCell align='right'>2</TableCell>
-						<TableCell align='right'>3</TableCell>
-						<TableCell align='right'>4</TableCell>
-						<TableCell align='right'>5</TableCell>
-						<TableCell align='right'>6</TableCell>
-						<TableCell align='right'>7</TableCell>
-						<TableCell align='right'>8</TableCell>
-						<TableCell align='right'>9</TableCell>
-						<TableCell align='right'>10</TableCell>
-						<TableCell align='right'>11</TableCell>
-						<TableCell align='right'>12</TableCell>
-						<TableCell align='right'>Total por ano</TableCell>
+						<TableCell align='center'>1</TableCell>
+						<TableCell align='center'>2</TableCell>
+						<TableCell align='center'>3</TableCell>
+						<TableCell align='center'>4</TableCell>
+						<TableCell align='center'>5</TableCell>
+						<TableCell align='center'>6</TableCell>
+						<TableCell align='center'>7</TableCell>
+						<TableCell align='center'>8</TableCell>
+						<TableCell align='center'>9</TableCell>
+						<TableCell align='center'>10</TableCell>
+						<TableCell align='center'>11</TableCell>
+						<TableCell align='center'>12</TableCell>
+						<TableCell align='center'>Total por ano</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>{rows}</TableBody>

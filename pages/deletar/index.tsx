@@ -19,10 +19,11 @@ const RestartPage = () => {
 			maxWidth={'100%'}
 			padding={'2em'}
 		>
-			<TextHeader text='Deletar dados' />
+			<TextHeader text='Deletar dados do navegador' />
 			<Typography maxWidth={'50%'} textAlign='start' fontSize='1rem'>
-				Ao clicar no botão abaixo os arquivos carregados e dados salvos serão
-				deletados. Em seguida você será redirecionado para a página inicial.
+				Ao clicar no botão abaixo os arquivos carregados e dados salvos no
+				navegador serão deletados. Em seguida você será redirecionado para a
+				página inicial.
 			</Typography>
 			<Button
 				variant='contained'
