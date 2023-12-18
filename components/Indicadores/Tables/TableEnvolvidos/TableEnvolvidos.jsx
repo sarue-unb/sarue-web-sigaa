@@ -15,10 +15,10 @@ export const TableEnvolvidos = ({ tableData }) => {
 				sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 			>
 				<TableCell>{item.year}</TableCell>
-				<TableCell>{item.Discente}</TableCell>
-				<TableCell>{item.Docente}</TableCell>
-				<TableCell>{item.Externo}</TableCell>
-				<TableCell>{item.Servidor}</TableCell>
+				<TableCell align='center'>{item.Discente}</TableCell>
+				<TableCell align='center'>{item.Docente}</TableCell>
+				<TableCell align='center'>{item.Externo}</TableCell>
+				<TableCell align='center'>{item.Servidor}</TableCell>
 			</TableRow>
 		)
 	})
@@ -29,10 +29,10 @@ export const TableEnvolvidos = ({ tableData }) => {
 				<TableHead>
 					<TableRow>
 						<TableCell> Ano/Tipo</TableCell>
-						<TableCell>Discente</TableCell>
-						<TableCell>Docente</TableCell>
-						<TableCell>Externo</TableCell>
-						<TableCell>Servidor</TableCell>
+						<TableCell align='center'>Discente</TableCell>
+						<TableCell align='center'>Docente</TableCell>
+						<TableCell align='center'>Externo</TableCell>
+						<TableCell align='center'>Servidor</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>{rows}</TableBody>

@@ -12,23 +12,23 @@ export const TableAcoesOds = ({ tableData }) => {
 		return (
 			<TableRow key={item.year}>
 				<TableCell>{item.year}</TableCell>
-				<TableCell>{item['1']}</TableCell>
-				<TableCell>{item['2']}</TableCell>
-				<TableCell>{item['3']}</TableCell>
-				<TableCell>{item['4']}</TableCell>
-				<TableCell>{item['5']}</TableCell>
-				<TableCell>{item['6']}</TableCell>
-				<TableCell>{item['7']}</TableCell>
-				<TableCell>{item['8']}</TableCell>
-				<TableCell>{item['9']}</TableCell>
-				<TableCell>{item['10']}</TableCell>
-				<TableCell>{item['11']}</TableCell>
-				<TableCell>{item['12']}</TableCell>
-				<TableCell>{item['13']}</TableCell>
-				<TableCell>{item['14']}</TableCell>
-				<TableCell>{item['15']}</TableCell>
-				<TableCell>{item['16']}</TableCell>
-				<TableCell>{item['17']}</TableCell>
+				<TableCell align='center'>{item['1']}</TableCell>
+				<TableCell align='center'>{item['2']}</TableCell>
+				<TableCell align='center'>{item['3']}</TableCell>
+				<TableCell align='center'>{item['4']}</TableCell>
+				<TableCell align='center'>{item['5']}</TableCell>
+				<TableCell align='center'>{item['6']}</TableCell>
+				<TableCell align='center'>{item['7']}</TableCell>
+				<TableCell align='center'>{item['8']}</TableCell>
+				<TableCell align='center'>{item['9']}</TableCell>
+				<TableCell align='center'>{item['10']}</TableCell>
+				<TableCell align='center'>{item['11']}</TableCell>
+				<TableCell align='center'>{item['12']}</TableCell>
+				<TableCell align='center'>{item['13']}</TableCell>
+				<TableCell align='center'>{item['14']}</TableCell>
+				<TableCell align='center'>{item['15']}</TableCell>
+				<TableCell align='center'>{item['16']}</TableCell>
+				<TableCell align='center'>{item['17']}</TableCell>
 			</TableRow>
 		)
 	})
@@ -38,24 +38,24 @@ export const TableAcoesOds = ({ tableData }) => {
 			<Table sx={{ minWidth: 300 }} aria-label='Ods Table'>
 				<TableHead>
 					<TableRow>
-						<TableCell align='right'>Ano</TableCell>
-						<TableCell align='left'>1</TableCell>
-						<TableCell align='left'>2</TableCell>
-						<TableCell align='left'>3</TableCell>
-						<TableCell align='left'>4</TableCell>
-						<TableCell align='left'>5</TableCell>
-						<TableCell align='left'>6</TableCell>
-						<TableCell align='left'>7</TableCell>
-						<TableCell align='left'>8</TableCell>
-						<TableCell align='left'>9</TableCell>
-						<TableCell align='left'>10</TableCell>
-						<TableCell align='left'>11</TableCell>
-						<TableCell align='left'>12</TableCell>
-						<TableCell align='left'>13</TableCell>
-						<TableCell align='left'>14</TableCell>
-						<TableCell align='left'>15</TableCell>
-						<TableCell align='left'>16</TableCell>
-						<TableCell align='left'>17</TableCell>
+						<TableCell align='left'>Ano/ODS</TableCell>
+						<TableCell align='center'>1</TableCell>
+						<TableCell align='center'>2</TableCell>
+						<TableCell align='center'>3</TableCell>
+						<TableCell align='center'>4</TableCell>
+						<TableCell align='center'>5</TableCell>
+						<TableCell align='center'>6</TableCell>
+						<TableCell align='center'>7</TableCell>
+						<TableCell align='center'>8</TableCell>
+						<TableCell align='center'>9</TableCell>
+						<TableCell align='center'>10</TableCell>
+						<TableCell align='center'>11</TableCell>
+						<TableCell align='center'>12</TableCell>
+						<TableCell align='center'>13</TableCell>
+						<TableCell align='center'>14</TableCell>
+						<TableCell align='center'>15</TableCell>
+						<TableCell align='center'>16</TableCell>
+						<TableCell align='center'>17</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>{rows}</TableBody>

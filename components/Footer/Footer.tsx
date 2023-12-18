@@ -12,7 +12,7 @@ export const Footer = () => {
 			}}
 		>
 			<img
-				src='./logo_unb.png'
+				src='/logo-unb.png'
 				alt='Universidade de Brasília'
 				style={{ display: 'block', margin: 'auto' }}
 			/>
