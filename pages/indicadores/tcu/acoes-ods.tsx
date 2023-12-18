@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
 	Box,
 	Button,
@@ -27,7 +28,7 @@ import { TableAcoesOds } from '../../../components/Indicadores/Tables/TableAcoes
 import { odsList } from '@/components/Indicadores/odsList'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-function transformDataTochart(inputData) {
+function transformDataTochart(inputData: any) {
 	const transformedData = Object.keys(inputData).map(year => ({
 		year: parseInt(year, 10),
 		...inputData[year],
@@ -56,7 +57,7 @@ export const AcoesAno = () => {
 		if (chartRef.current === null) {
 			return
 		}
-
+		// @ts-ignore
 		const svgComponent = chartRef.current.container.children[0]
 
 		const svgURL = new XMLSerializer().serializeToString(svgComponent)

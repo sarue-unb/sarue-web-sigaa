@@ -16,7 +16,7 @@ import { getDatabase, monthsPortuguese } from '@/components/utils/utils'
 import { TableAcoesCategoria } from '../../../components/Indicadores/Tables/TableAcoesCategoria/TableAcoesCategoria'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-function transformDataTochart(inputData) {
+function transformDataTochart(inputData: any) {
 	const transformedData = Object.keys(inputData).map(year => ({
 		year: parseInt(year, 10),
 		...inputData[year],
@@ -45,7 +45,7 @@ export const AcoesAno = () => {
 		if (chartRef.current === null) {
 			return
 		}
-
+		// @ts-ignore
 		const svgComponent = chartRef.current.container.children[0]
 
 		const svgURL = new XMLSerializer().serializeToString(svgComponent)
@@ -75,7 +75,7 @@ export const AcoesAno = () => {
 		saveAs(svgBlob, 'grafico.svg')
 	}
 
-	const calculateIndicador = data => {
+	const calculateIndicador = (data: any) => {
 		const rawData = data['quantidade_anual_tipo']
 		const graphData = transformDataTochart(rawData)
 
@@ -84,11 +84,13 @@ export const AcoesAno = () => {
 
 	useEffect(() => {
 		const result = calculateIndicador(getDatabase())
+		// @ts-ignore
 		setGraphData(result.graphData)
+		// @ts-ignore
 		setTableData(result.graphData)
 	}, [])
 
-	function formatDataForTable(inputData) {
+	function formatDataForTable(inputData: any) {
 		const actionTypes = ['PRODUTO', 'EVENTO', 'CURSO', 'PROJETO', 'PROGRAMA']
 		const years = Object.keys(inputData)
 

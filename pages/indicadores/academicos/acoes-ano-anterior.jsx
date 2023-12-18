@@ -19,29 +19,29 @@ import {
 } from '../../../components/Indicadores/Tables/TableAcoesAno/TableAcoesAnoAnterior'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-type GraphData = {
-	year: string
-	indice: null | number
-}[]
+// type GraphData = {
+// 	year: string
+// 	indice: null | number
+// }[]
 
-type Database = {
-	status_acao_anual: {
-		[year: string]: {
-			CONCLUÍDA: number
-			'NÃO APROVADA': number
-			'PENDENTE DE RELATÓRIO': number
-			'PROJETO CANCELADO': number
-		}
-	}
-}
+// type Database = {
+// 	status_acao_anual: {
+// 		[year: string]: {
+// 			CONCLUÍDA: number
+// 			'NÃO APROVADA': number
+// 			'PENDENTE DE RELATÓRIO': number
+// 			'PROJETO CANCELADO': number
+// 		}
+// 	}
+// }
 
 export const AcoesAnoAnterior = () => {
-	const chartRef = useRef<any>(null)
-	const [graphData, setGraphData] = useState<GraphData>([])
-	const [tableData, setTableData] = useState<TableData>([])
-	const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
+	const chartRef = useRef < any > null
+	const [graphData, setGraphData] = useState < GraphData > []
+	const [tableData, setTableData] = useState < TableData > []
+	const [anchorEl, setAnchorEl] = (React.useState < HTMLElement) | (null > null)
 
-	const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+	const handlePopoverOpen = event => {
 		setAnchorEl(event.currentTarget)
 	}
 
@@ -73,7 +73,7 @@ export const AcoesAnoAnterior = () => {
 		saveAs(svgBlob, 'grafico.svg')
 	}
 
-	const calculateIndicador = (data: Database) => {
+	const calculateIndicador = data => {
 		const rawData = Object.entries(data['status_acao_anual'])
 		const graphData = rawData.map(([year, data], index) => {
 			if (index === 0) {
@@ -86,13 +86,13 @@ export const AcoesAnoAnterior = () => {
 				indice: (data['CONCLUÍDA'] / previousData['CONCLUÍDA']).toFixed(2),
 			}
 		})
-		const tableData: TableData = graphData.map(({ year, indice }) => ({
+		const tableData = graphData.map(({ year, indice }) => ({
 			year,
 			indice: indice === null ? 'n/d' : indice,
 		}))
 
 		return {
-			graphData: graphData.filter(data => data.indice) as GraphData,
+			graphData: graphData.filter(data => data.indice),
 			tableData,
 		}
 	}
