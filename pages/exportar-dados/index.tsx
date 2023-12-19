@@ -59,7 +59,8 @@ const ExportarDados = () => {
 			<TextHeader text='Exportar dados para o excel' />
 			<Typography maxWidth={'50%'} textAlign='start' fontSize='1rem'>
 				Para baixar os dados brutos sobre todas as ações de extensão reunidas
-				clique no botão abaixo.
+				clique no botão abaixo para ser redirecinoado ao OneDrive. É necessário
+				acessar com sua conta institucional da UnB.
 			</Typography>
 			<Typography maxWidth={'50%'} textAlign='start' fontSize='1rem'>
 				O arquivo baixado será no formato ".xlsx", você pode importar ele em
@@ -78,8 +79,8 @@ const ExportarDados = () => {
 				}}
 			>
 				{/* Deve ser uma chamada para a API do servidor */}
-				<Link href='/dados_brutos_acoes_extensao.xlsx'>
-					Baixar dados brutos
+				<Link href='https://unbbr-my.sharepoint.com/:f:/g/personal/ckoike_unb_br/EgfRt8hZyOdGlJ0gPFlPJeEBUkvQ5VHQq1JeQrzeeJeEvw?e=b6oGcA&xsdata=MDV8MDJ8fDhlMzE5NmU0N2QyMDQxMDgxZTFjMDhkYmZhNmU2ZjJmfGVjMzU5YmExNjMwYjRkMmJiODMzYzhlNmQ0OGY4MDU5fDB8MHw2MzgzNzkxMjQ0MjE3NjI1ODh8VW5rbm93bnxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTENKQlRpSTZJazkwYUdWeUlpd2lWMVFpT2pFeGZRPT18MXxMM1JsWVcxekx6RTVPbUZsTjJOa01USXhNREF6TURSak5UazRNMkV4TmpnMVpqSXhaamM1TURVelFIUm9jbVZoWkM1MFlXTjJNaTlqYUdGdWJtVnNjeTh4T1RvMVpUTmtPRE15WkdZNFpHWTBOVEUxWWpFNFpEQmtZemcyWm1Vek16WXhaa0IwYUhKbFlXUXVkR0ZqZGpJdmJXVnpjMkZuWlhNdk1UY3dNak14TlRZME1UazBNQT09fGY4ZDY3NzFkZjk0MzRhMDExZTFjMDhkYmZhNmU2ZjJmfDRlMWE4NGY1MDNlNzQ4Mzk5ZGRiMTA5OGJhOTY4MmY2&sdata=UmZFRE5zZEdvMmhVMmFta0pTdFpDV01LRDRnWktXVkxWUmcwVzVrbWJ1TT0%3D'>
+					Baixar Dados Brutos
 				</Link>
 			</Button>
 		</Box>
