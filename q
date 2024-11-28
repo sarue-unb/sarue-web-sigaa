@@ -1,0 +1,154 @@
+[33mee9e63c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32msarueback[m[33m, [m[1;31morigin/sarueupdate[m[33m, [m[1;31morigin/sarueback[m[33m, [m[1;32msarueupdate[m[33m, [m[1;32mmain[m[33m)[m Substituicao do codigo do grafico pizza Acoes por unidade por um iframe disponibilizado na plataforma Workspace PowerBI que da acesso a um dashboard com os dados das acoes por unidade
+[33m6a3391e[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #32 from sarue-unb/feat/add-one-drive-link
+[33m4137596[m[33m ([m[1;31morigin/feat/add-one-drive-link[m[33m)[m feat: add link to sharepoint
+[33m21912a6[m Merge pull request #31 from sarue-unb/final-enmergency-fix
+[33mfb92f28[m[33m ([m[1;31morigin/final-enmergency-fix[m[33m)[m fix: supress ts errors
+[33mb6a5a86[m Merge pull request #30 from sarue-unb/feat/ajustes-entrevistas
+[33me54c293[m[33m ([m[1;31morigin/feat/ajustes-entrevistas[m[33m)[m Merge branch 'feat/ajustes-entrevistas' of github.com:sarue-unb/sarue-web-sigaa into feat/ajustes-entrevistas
+[33m7f7e070[m Merge pull request #29 from sarue-unb/feat/ajustes-entrevistas
+[33m6055b0c[m fix: unb logo
+[33m77f2858[m Merge pull request #26 from sarue-unb/feat/ajustes-entrevistas
+[33mbf97338[m fix: mainview
+[33mb0be421[m fix: button
+[33mac2b8ca[m fix: packages
+[33m618600e[m fix: pin footer to end of page
+[33mf4d5bb3[m ajustes nos indicadores acadêmicos
+[33m64d5c98[m adicionando novo botão de copiar dados
+[33m40af8e2[m Merge pull request #28 from sarue-unb/feat/add-tutorial
+[33mbb77dff[m feat: update about
+[33m2a675dc[m Merge pull request #27 from sarue-unb/feat/add-tutorial
+[33m8155ed1[m feat: update about
+[33m0a24a14[m[33m ([m[1;31morigin/feat/ajustes-indicadores-tcu[m[33m)[m ajustes nos indicadores acadêmicos
+[33m12096c9[m Merge pull request #25 from sarue-unb/feat/add-tutorial
+[33mcf29aee[m fix: button
+[33m2bdda3e[m Feat: add tutorial
+[33mdf016c7[m adicionando novo botão de copiar dados
+[33mf0df505[m Merge pull request #24 from sarue-unb/fix/bugs
+[33mc8815e6[m fix: buttons
+[33m63654e7[m fix: button color to blue
+[33med1e539[m fix: button-width
+[33me28bb99[m Merge pull request #23 from sarue-unb/final-fixes
+[33mc24a4c0[m final-fixes
+[33m5b6b2e4[m Merge pull request #22 from sarue-unb/gabuvns-patch-1
+[33m086a346[m Update README.md
+[33m13612f8[m Merge pull request #21 from sarue-unb/feat-update-download-file-text
+[33m3c35773[m Fix: text
+[33m1516c2d[m Merge pull request #20 from sarue-unb/fix-try-to-fix-gh-download
+[33m6381872[m fix: gh link
+[33md10f06b[m Merge pull request #19 from sarue-unb/feat/visual-overhaul
+[33mdd9b420[m fixes: final fixes
+[33m4cda837[m fix: padding
+[33m2bd1e85[m Fix: title
+[33md640b07[m feat: add restart data page
+[33m4c896c0[m feat: add export-function
+[33m3fa5347[m feat: create standard menu nav
+[33m1c5090b[m feat: update dashboard
+[33mbe6b5d2[m Merge pull request #18 from sarue-unb/feat/ajustes
+[33m9342f2c[m[33m ([m[1;31morigin/feat/ajustes[m[33m)[m padronização do documento
+[33md6c5ec3[m ajustes finais nos indicadores academicos
+[33mb36fd53[m Merge pull request #16 from sarue-unb/feat/add-affected-people-indicador
+[33ma9ce8c4[m Merge pull request #17 from sarue-unb/feat/add-previous-year-indicator
+[33m9bc84e3[m[33m ([m[1;31morigin/feat/add-previous-year-indicator[m[33m)[m adicionando indicador de financiamento externo
+[33m816a696[m feat: adicionando indicador academico de ações institucionalizadas em relacao ao ano anterior
+[33m23b31f1[m[33m ([m[1;31morigin/feat/add-affected-people-indicador[m[33m)[m fix: remove console log
+[33mb1da409[m fix:typo
+[33md20d4d8[m feat:add graph again
+[33m5808c92[m feat: add publico envolvido
+[33mec3920f[m feat: update database
+[33ma025527[m Merge pull request #15 from sarue-unb/feat/add-new-indicadores
+[33m810bc89[m[33m ([m[1;31morigin/feat/add-new-indicadores[m[33m)[m refactor: remove error push
+[33m71ba16f[m Merge pull request #14 from sarue-unb/feat/add-new-indicadores
+[33m4db7c6e[m fix: re-route to dashboard
+[33mf31368a[m Merge pull request #13 from sarue-unb/feat/add-new-indicadores
+[33m9e82700[m fix: import name
+[33m8ca60ce[m Merge pull request #11 from sarue-unb/feat/add-new-indicadores
+[33m22dd233[m feat: add fileUpload
+[33m56d7f26[m fix: icon margin
+[33me99448c[m refactor: comment unused indicadores
+[33m3b1adfd[m refactor: correct texts
+[33m055cf33[m feat: add ods indicador
+[33me185201[m feat: use hook to returnToHomePage
+[33m75c69ec[m refactor: routes
+[33m3ce4316[m feat: add re-route button
+[33mf648ddb[m refactor: add about page
+[33ma796181[m refactor:rename variable
+[33m326678a[m feat: add ods List
+[33md867fed[m feat: add second indicador
+[33m0ee80b1[m refactor: create dir tableIndicadores
+[33meecfd7e[m refactor: create dir tableIndicadores
+[33m1234d29[m fix: remove console log
+[33m75be356[m feat: remove accordion
+[33m7d34450[m refactor: change category name
+[33mdf0ff05[m fix: remove extra margin bottom
+[33m4a8b4da[m refactor: update to use shortTitle
+[33m7edf00c[m feat: add total por ano to data
+[33m393663d[m refactor: make code cleaner
+[33mfbb0810[m feat: add table
+[33m416a1d2[m feat: add table components
+[33m1140989[m feat: add util functions
+[33m649dbf6[m feat: add new details to indicadores
+[33m2b3710d[m fix: sideMenu contrast
+[33m252886f[m Merge pull request #10 from sarue-unb/fix/prod-width
+[33m47e0306[m feat: fix prod width
+[33m9b8b965[m Merge pull request #9 from sarue-unb/trigger-deploy
+[33m82dd530[m fix: build
+[33mf7868cc[m fix
+[33m5836421[m Merge pull request #8 from sarue-unb/fix/transform-file-into-jsx
+[33m8dfd65d[m fix
+[33mc99cf5a[m fix
+[33m45e57c4[m Merge pull request #7 from sarue-unb/fix/database-return-value
+[33mbe348db[m fix: utils type
+[33mcabbe16[m Merge pull request #6 from sarue-unb/feat/add-indicadores-graphs
+[33m4d54c40[m Merge pull request #4 from sarue-unb/feat/indicadores
+[33ma39b98e[m Merge pull request #5 from sarue-unb/feat/indicadores-refactor
+[33md697647[m feat: final fixes
+[33m8bf6ec4[m feat: final fixes
+[33mf2bed19[m feat: add first indicator
+[33macdffa9[m feat: add path to tcu indicators and academic
+[33m297b6f1[m feat: extract BotaoIndicadores component
+[33m5dff8fe[m refactor: change sidemenu size
+[33md8b8add[m feat: add IndicadoresList
+[33m7a804d6[m refactor: reduce isMobile size
+[33mb2a9769[m refactor: make phrase clickable
+[33m01c98a6[m fix: uploaded message
+[33m5eb2976[m refactor: remove unused console.log
+[33m0ea56c2[m refactor: rename useIsMobile hook file
+[33m33202ad[m refactor: make sideNavMenu responsive
+[33m5ac9b40[m refactor: make indicadores responsive
+[33mdacb669[m fix: base styling
+[33me850d1c[m refactor: apply padding to disclaimer
+[33m770b297[m fix: disclaimer background
+[33meb43ebd[m fix: disclaimer background
+[33m74f5271[m refactor: aria
+[33m508a56b[m refactor: use material ui modal
+[33ma7953e4[m Merge branch 'main' of github.com:sarue-unb/sarue-web-sigaa into feat/indicadores
+[33mda8ba78[m fix: botões de indicadores
+[33m34d916a[m Merge pull request #3 from sarue-unb/feat/side-nav-menu
+[33m4d5d783[m feat: criação da página de detalhamento de indicadores
+[33m087dea3[m fix: organizando rotas
+[33mbabd072[m estilizando menu lateral
+[33m2bd4fd2[m Merge remote-tracking branch 'upstream/main'
+[33mb9550d6[m Merge pull request #6 from jpsaderi/feat/add-disclaimer
+[33m9a6faee[m feat: estilizando componentes do disclaimer
+[33m4663de7[m Merge pull request #1 from sarue-unb/gabuvns-patch-1
+[33md42dc60[m Create sarue-deploy.yml
+[33m5089167[m fix: alterando titulo do disclaimer
+[33mc81b95a[m fix: arrumando lógica do disclaimer
+[33maca7156[m estilizando disclaimer
+[33m3723638[m adicionando página de disclaimer
+[33m8455eff[m Merge pull request #4 from jpsaderi/feat/add-routes
+[33m47c3e9b[m alterando arquitetura inicial dos componentes
+[33m9ea9a1f[m Merge pull request #1 from jpsaderi/feat/add-main-view
+[33m59500f4[m refactor: footer
+[33m35f4ad4[m feat: update readme
+[33m6e25141[m feat: initial layout complete
+[33m99a9b57[m feat: add recharts
+[33m171604d[m feat: add file load
+[33me198508[m refactor: header and footer
+[33m88f5ae1[m refactor: side menu
+[33m09a9a41[m refactor: settings
+[33mefabf3b[m refactor: rename files
+[33mbd44c6b[m fix: name
+[33m3fb170c[m feat: create mainView
+[33m9b6301a[m feat: add tailwind, prettier, node and global css
+[33mdf37108[m Initial commit from Create Next App
